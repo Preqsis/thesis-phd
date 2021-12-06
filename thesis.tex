@@ -1,0 +1,182 @@
+\documentclass[12pt,a4paper,oneside,final]{book} %% PRO OBOUSTRANNY TISK -> twoside
+
+\usepackage{mypackage} % moje definice a styly
+
+\faculty{Faculty of science}
+\department{Department of theoretical physics and astrophysics}
+\university{Masaryk University}
+\thesisType{Ph.D. Dissertation}
+\city{Brno}
+\academicYear{2021/2022}
+\yearOfMaking{2022222}
+
+% vícejazyčný název práce
+\thesisTitle{Analysis and Modeling of Nonlinear \newline Dynamical Systems in Astrophysics}
+\thesisTitleEN{Analysis and Modeling of Nonlinear \newline Dynamical Systems in Astrophysics}
+\thesisTitleCZ{Analýza a modelování nelineárních dynamických systémů v astrofyzice}
+
+\author{Mgr. Jiří Květoň}
+\supervisor{Mgr. Filip Hroch Ph.D.}
+\consultant{Mgr. Viktor Votruba Ph.D.}
+
+\coverImage{img/cover.png}
+
+% References package defs
+\usepackage[
+    backend=biber,
+    style=authoryear,
+    citestyle=authoryear,
+    sorting=ynt
+]{biblatex}
+
+% References file
+% pozn. https://tex.stackexchange.com/questions/305381/biblatex-empty-bibliography ... kvuli chybe nedefinovanych bib
+\addbibresource{./references.bib}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,allcolors=black}
+\usepackage{hypcap}
+
+\begin{document}
+    % Pro uvodni strany se vypne cislovani
+    \pagenumbering{gobble}
+
+    % --
+    % Titulní strana prace
+    % --
+    \maketitle
+
+    % --
+    % Originální zadání
+    % --
+    \includepdf{./zadani.pdf}
+
+    \pagestyle{plain}
+
+    % --
+    % Obsah
+    % --
+    \frontmatter
+    \pagenumbering{gobble}
+    \tableofcontents
+    \mainmatter
+
+    \pagenumbering{roman}
+    \setcounter{page}{1}
+
+    % --
+    % Bibliografický záznam
+    % --
+    \phantomsection
+    \bibinfoen
+
+    \phantomsection
+    \bibinfocz
+
+    % --
+    % Abstrakt (CZ+EN)
+    % --
+    \phantomsection
+    \shortchapter{abstract}{abstract-en.tex}
+
+    \phantomsection
+    \shortchapter{abstrakt}{abstract-cz.tex}
+
+    % --
+    % Poděkování
+    % --
+    \phantomsection
+    \shortchapter{acknowledgments}{acknowledgments.tex}
+
+    % --
+    % Prohlášení
+    % --
+    \phantomsection
+    \declaration{declaration.tex}
+
+    % Zapnout cislovani a vlastni styl hlavniho obsahu
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+    \pagestyle{mystyle}
+
+    % --
+    % Kapitoly
+    % --
+
+    % 1. INTRODUCTION
+    % ...
+    \input{./chapters/introduction.tex}
+
+    %%%%%%%%%%%%%%%%%%%
+    % TEORETICKÁ ČÁST %
+    %%%%%%%%%%%%%%%%%%%
+
+    % 2. ACCRETION DISCS
+    \input{./chapters/accretion_discs.tex}
+
+    % 3. FLICKERING PHENOMENON
+    \input{./chapters/flickering_phenomenon.tex}
+
+    % 4. CATACLYSMIC VARIABLES
+    \input{./chapters/cataclysmic_variables.tex}
+
+    % 5. SIMILARITY OF NON-LINEAR SYSTEMS
+    \input{./chapters/similarity_of_nonlinear_systems.tex}
+
+    % 6. DRIPPING FAUCET
+    \input{./chapters/dripping_faucet.tex}
+
+    % 7. DRIPPING HANDRAIL MODELS
+    \input{./chapters/dripping_handrail_models.tex}
+
+    % 8. MODELING TECHNIQUES
+    \input{./chapters/modeling_techniques.tex}
+
+    %%%%%%%%%%%%%%%%%%
+    % PRAKTICKÁ ČÁST %
+    %%%%%%%%%%%%%%%%%%
+
+    % 9. MDH - MODEL PROPOSAL 
+    \input{./chapters/mdh-model_proposal.tex}
+
+    % 10. MULTILAYER DRIPPING HANDRAIL - MODEL IMPLEMENTATION 
+    \input{./chapters/mdh-model_implementation.tex}
+
+    % 11. MULTILAYER DRIPPING HANDRAIL - DATA ANALYSIS
+    \input{./chapters/mdh-data_analysis.tex}
+
+    % 12. MULTILAYER DRIPPING HANDRAIL - OBSERVATIONAL DATA CONFRONTATION  
+    \input{./chapters/mdh-observational_data_confrontation.tex}
+
+    % 13. DISCUSSION
+    \input{./chapters/discussion.tex}
+
+    \pagestyle{plain}
+
+    % Seznam použitých zkratek
+    \newpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{LIST OF ABBVERBATIONS}
+    \noindent \Large \textbf{LIST OF ABBVERBATIONS}
+    \normalsize
+    \input{./chapters/abbverbations.tex}
+
+    % Seznam použitých konstant
+    \newpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{LIST OF CONSTANTS}
+    \noindent \Large \textbf{LIST OF CONSTANTS}
+    \normalsize
+    \input{./chapters/constants.tex}
+
+    % --
+    % Seznam literatury
+    % -- 
+    \newpage
+    \phantomsection
+    \addcontentsline{toc}{chapter}{REFERENCES}
+    \noindent \Large \textbf{REFERENCES}
+    \printbibliography[type=article,title={Articles},heading=subbibliography]
+    \printbibliography[type=book,title={Books},heading=subbibliography]
+    \printbibliography[type=misc,title={Miscellaneous},heading=subbibliography]
+\end{document}
