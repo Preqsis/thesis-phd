@@ -1,6 +1,9 @@
-\documentclass[12pt,a4paper,oneside,final]{book} %% PRO OBOUSTRANNY TISK -> twoside
+\documentclass[12pt,a4paper,twoside,final]{book} %% PRO OBOUSTRANNY TISK -> twoside
 
 \usepackage{mypackage} % moje definice a styly
+
+\usepackage{cool}
+\Style{DSymb={\mathrm d},DShorten=true,IntegrateDifferentialDSymb=\mathrm{d}}
 
 \faculty{Faculty of science}
 \department{Department of theoretical physics and astrophysics}
@@ -156,10 +159,10 @@
     % Seznam použitých zkratek
     \newpage
     \phantomsection
-    \addcontentsline{toc}{chapter}{LIST OF ABBVERBATIONS}
-    \noindent \Large \textbf{LIST OF ABBVERBATIONS}
+    \addcontentsline{toc}{chapter}{LIST OF ABBREVIATIONS}
+    \noindent \Large \textbf{LIST OF ABBREVIATIONS}
     \normalsize
-    \input{./chapters/abbverbations.tex}
+    \input{./chapters/list_of_abbreviations.tex}
 
     % Seznam použitých konstant
     \newpage
@@ -167,7 +170,7 @@
     \addcontentsline{toc}{chapter}{LIST OF CONSTANTS}
     \noindent \Large \textbf{LIST OF CONSTANTS}
     \normalsize
-    \input{./chapters/constants.tex}
+    \input{./chapters/list_of_constants.tex}
 
     % --
     % Seznam literatury
