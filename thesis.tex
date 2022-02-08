@@ -1,9 +1,10 @@
-\documentclass[12pt,a4paper,twoside,final]{book} %% PRO OBOUSTRANNY TISK -> twoside
+\documentclass[12pt,a4paper,oneside,final]{book} %% PRO OBOUSTRANNY TISK -> twoside
 
 \usepackage{mypackage} % moje definice a styly
 
 \usepackage{cool}
 \Style{DSymb={\mathrm d},DShorten=true,IntegrateDifferentialDSymb=\mathrm{d}}
+\usepackage{float}
 
 \faculty{Faculty of science}
 \department{Department of theoretical physics and astrophysics}
@@ -140,7 +141,7 @@
     %%%%%%%%%%%%%%%%%%
 
     % 9. MDH - MODEL PROPOSAL 
-    \input{./chapters/mdh-model_proposal.tex}
+    \input{./chapters/multilayer_dripping_handrail.tex}
 
     % 10. MULTILAYER DRIPPING HANDRAIL - MODEL IMPLEMENTATION 
     \input{./chapters/mdh-model_implementation.tex}
