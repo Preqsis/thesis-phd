@@ -2,6 +2,10 @@
 
 \usepackage{mypackage} % moje definice a styly
 
+\usepackage{cool}
+\Style{DSymb={\mathrm d},DShorten=true,IntegrateDifferentialDSymb=\mathrm{d}}
+\usepackage{float}
+
 \faculty{Faculty of science}
 \department{Department of theoretical physics and astrophysics}
 \university{Masaryk University}
@@ -137,7 +141,7 @@
     %%%%%%%%%%%%%%%%%%
 
     % 9. MDH - MODEL PROPOSAL 
-    \input{./chapters/mdh-model_proposal.tex}
+    \input{./chapters/multilayer_dripping_handrail.tex}
 
     % 10. MULTILAYER DRIPPING HANDRAIL - MODEL IMPLEMENTATION 
     \input{./chapters/mdh-model_implementation.tex}
@@ -156,10 +160,10 @@
     % Seznam použitých zkratek
     \newpage
     \phantomsection
-    \addcontentsline{toc}{chapter}{LIST OF ABBVERBATIONS}
-    \noindent \Large \textbf{LIST OF ABBVERBATIONS}
+    \addcontentsline{toc}{chapter}{LIST OF ABBREVIATIONS}
+    \noindent \Large \textbf{LIST OF ABBREVIATIONS}
     \normalsize
-    \input{./chapters/abbverbations.tex}
+    \input{./chapters/list_of_abbreviations.tex}
 
     % Seznam použitých konstant
     \newpage
@@ -167,7 +171,7 @@
     \addcontentsline{toc}{chapter}{LIST OF CONSTANTS}
     \noindent \Large \textbf{LIST OF CONSTANTS}
     \normalsize
-    \input{./chapters/constants.tex}
+    \input{./chapters/list_of_constants.tex}
 
     % --
     % Seznam literatury
