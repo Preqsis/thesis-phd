@@ -9,3 +9,5 @@
 *.blg
 *.synctex.gz
 .ipynb_checkpoints
+build/
+
