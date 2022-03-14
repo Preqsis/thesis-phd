@@ -1,4 +1,22 @@
-\documentclass[12pt,a4paper,oneside,final]{book} %% PRO OBOUSTRANNY TISK -> twoside
+\documentclass[12pt,a4paper]{book}
+
+%% Van de Graaf Canon
+%% 2:3:4:6 ratio (inner:top:outer:bottom)
+%% inner 	= (page width - binding offset) / 9
+%% top		= 1.5 * inner
+%% outer		= 2 * inner
+%% bottom	= 3 * inner
+\usepackage[
+	twoside,
+	inner=23mm,
+	top=34.5mm,
+	outer=46mm,
+	bottom=69mm,
+	bindingoffset=3mm,
+	headsep=\baselineskip,
+	includehead,
+	includefoot
+]{geometry}
 
 \usepackage{mypackage} % moje definice a styly
 
@@ -24,8 +42,8 @@
 \yearOfMaking{2022}
 
 % vícejazyčný název práce
-\thesisTitle{Analysis and Modeling of Nonlinear \newline Dynamical Systems in Astrophysics}
-\thesisTitleEN{Analysis and Modeling of Nonlinear \newline Dynamical Systems in Astrophysics}
+\thesisTitle{Analysis and Modelling of Non-linear \newline Dynamical Systems in Astrophysics}
+\thesisTitleEN{Analysis and Modeling of Non-linear \newline Dynamical Systems in Astrophysics}
 \thesisTitleCZ{Analýza a modelování nelineárních dynamických systémů v astrofyzice}
 
 \author{Mgr. Jiří Květoň}
@@ -50,6 +68,8 @@
 \hypersetup{colorlinks=true,allcolors=black}
 \usepackage{hypcap}
 
+\usepackage{afterpage}
+
 \begin{document}
     % Pro uvodni strany se vypne cislovani
     \pagenumbering{gobble}
@@ -58,59 +78,66 @@
     % Titulní strana prace
     % --
     \maketitle
-
+    \blankpage
+    
     % --
     % Originální zadání
     % --
-    \includepdf{./misc/zadani.pdf}
+    % scale a offset aby marginy vicemene sedely do rozmeru ostatnich stranek
+    \includepdf[scale=1.07,offset=0 -12mm]{./misc/zadani.pdf}
+    \blankpage
 
     \pagestyle{plain}
 
     % --
-    % Obsah
-    % --
-    \frontmatter
-    \pagenumbering{gobble}
-    \tableofcontents
-    \mainmatter
-
-    \pagenumbering{roman}
-    \setcounter{page}{1}
-
-    % --
     % Bibliografický záznam
     % --
-    \phantomsection
+    %\phantomsection
     \bibinfoen
 
-    \phantomsection
+    %\phantomsection
     \bibinfocz
 
     % --
     % Abstrakt (CZ+EN)
     % --
-    \phantomsection
+    %\phantomsection
     \shortchapter{abstract}{abstract-en.tex}
+    \blankpage
 
-    \phantomsection
+    %\phantomsection
     \shortchapter{abstrakt}{abstract-cz.tex}
+    \blankpage
 
     % --
     % Poděkování
     % --
-    \phantomsection
+    %\phantomsection
     \shortchapter{acknowledgments}{acknowledgments.tex}
+    \blankpage
 
     % --
     % Prohlášení
     % --
-    \phantomsection
+    %\phantomsection
     \declaration{declaration.tex}
+    \blankpage
+    
+    % --
+    % Copyright
+    % --
+    \copypage
+    \blankpage
 
-    % Zapnout cislovani a vlastni styl hlavniho obsahu
-    \pagenumbering{arabic}
-    \setcounter{page}{1}
+    % --
+    % Obsah
+    % --
+	\content
+
+    % Zapnout cislovani a vlastni styl hlavniho textu
     \pagestyle{mystyle}
+    \pagenumbering{arabic}
+    \setcounter{page}{1}    
 
     % --
     % Kapitoly

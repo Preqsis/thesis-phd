@@ -10,7 +10,7 @@
 \RequirePackage{amssymb}
 \RequirePackage{amsthm}
 \RequirePackage{tabularx}
-\@ifpackageloaded{geometry}{}{\RequirePackage[pass]{geometry}}
+
 \@ifpackageloaded{fancyhdr}{}{\RequirePackage{fancyhdr}}
 %\@ifpackageloaded{biblatex}{}{\RequirePackage{biblatex}}
 \@ifpackageloaded{titlesec}{}{\RequirePackage{titlesec}}
@@ -79,54 +79,53 @@
 % Titulní strana
 % --------------
 \renewcommand*{\maketitle}{%
-    \begin{titlepage}
+\begin{titlepage}
+    	\newgeometry{outer=20mm,bottom=20mm,top=20mm}
 
-        \newgeometry{left=2cm,right=2cm,bottom=2cm,top=1cm}
+    	\noindent \includegraphics[width=10cm]{logo/muni-lg-eng-black.png}
 
-        \noindent \includegraphics[width=10cm]{logo/muni-lg-eng-black.png}
-            %\includegraphics[width=6cm]{logo/SCI_(black).pdf}
+    \Large
+    \noindent \MakeUppercase{\@faculty}
 
-            \Large
-            \noindent \MakeUppercase{\@faculty}
+    \vspace{0.25cm}
 
-            \vspace{0.25cm}
+    \scriptsize
+    \noindent \MakeUppercase{\@department}
 
-            \scriptsize
-            \noindent \MakeUppercase{\@department}
+    \par\noindent\rule{\textwidth}{0.5pt}
 
-            \par\noindent\rule{\textwidth}{0.5pt}
-
-        \vspace{1cm}
+    \vspace{1cm}
         
-        \begin{center}
-        \includegraphics[height=8cm]{\@coverImage}
-        \end{center}
+    \begin{center}
+    \includegraphics[height=8cm]{\@coverImage}
+    \end{center}
 
-        \vspace{1cm}
+    \vspace{1cm}
 
-        \Large
-        \noindent \@thesisType
-        \vspace{0.5cm}
+    \Large
+    \noindent \@thesisType
+    \vspace{0.5cm}
 
-        \Huge
-        \noindent \textbf{\@thesisTitle}
-        \normalsize
+    \Huge
+    \noindent \textbf{\@thesisTitle}
+    \normalsize
 
-        \vfill
+    \vfill
 
-        \Large
-        \noindent
-        \begin{tabular}{rl}
-            Author: & \textbf{\@author} \\
-            Supervisor: & \textbf{\@supervisor} \\
-            Consultant: & \textbf{\@consultant} \\
-        \end{tabular}
+    \Large
+    \noindent
+    \begin{tabular}{rl}
+     	Author: & \textbf{\@author} \\
+        Supervisor: & \textbf{\@supervisor} \\
+        Consultant: & \textbf{\@consultant} \\
+    \end{tabular}
 
-        \vfill
+    \vfill
 
-        \noindent \@city\ \@yearOfMaking
-        
-    \end{titlepage}
+    \noindent \@city\ \@yearOfMaking
+    
+    \restoregeometry    
+\end{titlepage}
 }
 
 % --
@@ -143,7 +142,7 @@
 % Bibliografické info (EN+CZ)
 % --
 \newcommand{\bibinfoen}{%
-    \addcontentsline{toc}{chapter}{BIBLIOGRAPHIC ENTRY}
+    %\addcontentsline{toc}{chapter}{BIBLIOGRAPHIC ENTRY}
     \noindent \Large \textbf{BIBLIOGRAPHIC ENTRY}
     \normalsize
 
@@ -168,13 +167,15 @@
         \textbf{Number of Pages} & xxx \\
         \textbf{Keywords} & neco, neco, neco a jeste neco \\
     \end{tabular}
+    
+    \blankpage
 
     \newpage
 }
 
 
 \newcommand{\bibinfocz}{%
-\addcontentsline{toc}{chapter}{BIBLIOGRAFICKÝ ZÁZNAM}
+	%\addcontentsline{toc}{chapter}{BIBLIOGRAFICKÝ ZÁZNAM}
     % CZ
     \noindent \Large \textbf{BIBLIOGRAFICKÝ ZÁZNAM}
     \normalsize
@@ -200,6 +201,8 @@
         \textbf{Počet stran} & xxx \\
         \textbf{Klíčová slova} & neco, neco, neco a jeste neco \\
      \end{tabular}
+     
+     \blankpage
 
     \newpage
 }
@@ -209,7 +212,6 @@
 % - použitelné na poděkování, akstrakt atd.
 % ---
 \newcommand{\shortchapter}[2]{%
-    \addcontentsline{toc}{chapter}{\uppercase{#1}}
     \noindent \Large \textbf{\MakeUppercase{#1}}
     \normalsize
     \vspace{1.25cm}\\
@@ -221,7 +223,6 @@
 % Prohlášení s podpisem a datumem
 % ---
 \newcommand{\declaration}[1]{%
-    \addcontentsline{toc}{chapter}{DECLARATION}
     \noindent \Large \textbf{DECLARATION}
     \normalsize
     \vspace{1.25cm}\\
@@ -270,6 +271,24 @@
     \renewcommand{\footrulewidth}{0pt} %<- ADDED
 }
 
+%% Copyright page
+\newcommand{\copypage}{%
+	\newgeometry{inner=30mm,outer=30mm,bottom=50mm,top=30mm,bindingoffset=3mm}
+	\mbox{}
+	\vfill
+	\begin{center}
+	\textcopyright\ Jiří Květoň, \@university, \@yearOfMaking\\
+	\end{center}
+	\restoregeometry
+    \newpage
+}
+
+\newcommand{\content}{%
+	\frontmatter
+    \pagenumbering{gobble}
+    \tableofcontents
+    \mainmatter
+}
+
+
 \endinput
-
-
