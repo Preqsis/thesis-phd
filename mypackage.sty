@@ -56,6 +56,11 @@
 \newcommand*{\@supervisor}{Zadejte vedoucího práce}
 
 % konzultant
+\newcommand*{\authorFull}[1]{\gdef\@authorFull{#1}}
+\newcommand*{\@authroFull}{Jméno autora s tituly}
+
+
+% konzultant
 \newcommand*{\consultant}[1]{\gdef\@consultant{#1}}
 \newcommand*{\@consultant}{Zadejte konzultanta}
 
@@ -115,7 +120,7 @@
     \Large
     \noindent
     \begin{tabular}{rl}
-     	Author: & \textbf{\@author} \\
+     	Author: & \textbf{\@authorFull} \\
         Supervisor: & \textbf{\@supervisor} \\
         Consultant: & \textbf{\@consultant} \\
     \end{tabular}
@@ -150,7 +155,7 @@
 
     \noindent
     \begin{tabular}{ll}
-        \textbf{Author} & \@author \\
+        \textbf{Author} & \@authorFull \\
         \ & \@department \\
         \ & \@faculty, \@university \\
         \textbf{Dissertation Title} &  Analysis and modeling of nonlinear \\
@@ -184,7 +189,7 @@
 
     \noindent
     \begin{tabular}{ll}
-        \textbf{Autor} & \@author \\
+        \textbf{Autor} & \@authorFull \\
         \ & \@department \\
         \ & \@faculty, \@university \\
         \textbf{Název práce} & Analýza a modelování nelineárních \\
@@ -277,7 +282,7 @@
 	\mbox{}
 	\vfill
 	\begin{center}
-	\textcopyright\ Jiří Květoň, \@university, \@yearOfMaking\\
+	\textcopyright\ \@author, \@university, \@yearOfMaking\\
 	\end{center}
 	\restoregeometry
     \newpage

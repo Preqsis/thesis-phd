@@ -18,8 +18,6 @@
 	includefoot
 ]{geometry}
 
-\usepackage{mypackage} % moje definice a styly
-
 \usepackage{cool}
 \Style{DSymb={\mathrm d},DShorten=true,IntegrateDifferentialDSymb=\mathrm{d}}
 \usepackage{float}
@@ -32,6 +30,10 @@
 \colorlet{BLUE}{black}
 
 \usepackage[font=small,labelfont=bf]{caption}
+
+\usepackage{mypackage} % moje definice a styly
+
+
 
 \faculty{Faculty of science}
 \department{Department of theoretical physics and astrophysics}
@@ -46,7 +48,9 @@
 \thesisTitleEN{Analysis and Modeling of Non-linear \newline Dynamical Systems in Astrophysics}
 \thesisTitleCZ{Analýza a modelování nelineárních dynamických systémů v astrofyzice}
 
-\author{Mgr. Jiří Květoň}
+\author{Jiří Květoň}
+\authorFull{Mgr. Jiří Květoň}
+
 \supervisor{Mgr. Filip Hroch Ph.D.}
 \consultant{Mgr. Viktor Votruba Ph.D.}
 
@@ -84,7 +88,7 @@
     % Originální zadání
     % --
     % scale a offset aby marginy vicemene sedely do rozmeru ostatnich stranek
-    \includepdf[scale=1.07,offset=0 -12mm]{./misc/zadani.pdf}
+    \includepdf[scale=1.08,offset=0 -12mm]{./misc/zadani.pdf}
     \blankpage
 
     \pagestyle{plain}
