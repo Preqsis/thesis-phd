@@ -242,6 +242,7 @@
 % - vyhodí zbytečné "Chapter / Kapitola"
 % - nadpis velkymi pismeny + nastaveni spacingu
 \titleformat{\chapter}{\normalfont \Large \bfseries}{\thechapter}{20pt}{\MakeUppercase}[]
+\titlespacing*{\chapter}{0pt}{50pt}{10mm}
 
 % Změna stylu hlavního nadpisu sekce
 % - velikost pisma + nastaveni spacingu
@@ -254,9 +255,6 @@
 \titleformat{\subsection}{\normalfont \bfseries}{\thesubsection}{20pt}{}[]
 
 % Styl hlavicky stranek (krome kazde 'titulni strany' kapitoly)
-%\fancypagestyle{plain}{\fancyhf{}}
-%\pagestyle{fancy}
-
 \pagestyle{fancy}
 \fancypagestyle{mystyle}{
     \fancyhf{}
@@ -266,15 +264,15 @@
     \renewcommand{\chaptermark}[1]{\markboth{\thechapter. \MakeUppercase{##1}}{}}
 }
 
-\fancypagestyle{style3}{
-    \fancyhf{}
-    \setlength{\headwidth}{\textwidth}
-    \addtolength{\headwidth}{\marginparwidth}
-    \addtolength{\headwidth}{\marginparsep}
-    \fancyhead[LE,RO]{\bfseries\thepage}
-    \renewcommand{\headrulewidth}{0pt} %<- ADDED
-    \renewcommand{\footrulewidth}{0pt} %<- ADDED
-}
+%\fancypagestyle{style3}{
+%    \fancyhf{}
+%    \setlength{\headwidth}{\textwidth}
+%    \addtolength{\headwidth}{\marginparwidth}
+%    \addtolength{\headwidth}{\marginparsep}
+%    \fancyhead[LE,RO]{\bfseries\thepage}
+%    \renewcommand{\headrulewidth}{0pt} %<- ADDED
+%    \renewcommand{\footrulewidth}{0pt} %<- ADDED
+%}
 
 %% Copyright page
 \newcommand{\copypage}{%
@@ -288,12 +286,26 @@
     \newpage
 }
 
+%% Content page(s)
 \newcommand{\content}{%
 	\frontmatter
     \pagenumbering{gobble}
     \tableofcontents
     \mainmatter
 }
+
+%% Motivational quote
+\newcommand{\mquote}[2]{%
+	\begin{footnotesize}
+	\begin{center}
+			\textit{``#1''}\\
+			--- #2 ---
+	\end{center}
+	\end{footnotesize}
+	
+	\vspace{5mm}
+}
+
 
 
 \endinput

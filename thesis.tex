@@ -4,18 +4,19 @@
 %% 2:3:4:6 ratio (inner:top:outer:bottom)
 %% inner 	= (page width - binding offset) / 9
 %% top		= 1.5 * inner
-%% outer		= 2 * inner
-%% bottom	= 3 * inner
+%% outer		= 2 * inner:re 
+%% bottom	= 3 * inner --> modified to --> bottom == top
 \usepackage[
 	twoside,
 	inner=23mm,
 	top=34.5mm,
 	outer=46mm,
-	bottom=69mm,
+	%bottom=69mm,
+	bottom=34.5mm,
 	bindingoffset=3mm,
 	headsep=\baselineskip,
-	includehead,
-	includefoot
+	%%includehead,
+	%%includefoot
 ]{geometry}
 
 \usepackage{cool}
