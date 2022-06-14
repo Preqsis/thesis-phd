@@ -7,6 +7,7 @@
 %% outer		= 2 * inner:re 
 %% bottom	= 3 * inner --> modified to --> bottom == top
 \usepackage[
+	%showframe,
 	twoside,
 	inner=23mm,
 	top=34.5mm,
@@ -33,8 +34,6 @@
 \usepackage[font=small,labelfont=bf]{caption}
 
 \usepackage{mypackage} % moje definice a styly
-
-
 
 \faculty{Faculty of science}
 \department{Department of theoretical physics and astrophysics}
@@ -74,6 +73,28 @@
 \usepackage{hypcap}
 
 \usepackage{afterpage}
+
+\usepackage{setspace}
+
+\newcommand{\addstretchshrink}[1]{%
+  \if\relax\displayskipstretch\relax
+    % there is no factor, don't add plus and minus
+  \else
+    plus \displayskipstretch\gluestretch#1
+    minus \displayskipstretch\glueshrink#1
+  \fi
+}
+\def\fix#1\abovedisplayskip#2\displayskipstretch\belowdisplayshortskip#3\fix{%
+  \everydisplay{#1#3
+    \abovedisplayskip = \displayskipstretch\abovedisplayskip \addstretchshrink\abovedisplayskip
+    \belowdisplayskip = \displayskipstretch\belowdisplayskip \addstretchshrink\belowdisplayskip
+    \abovedisplayshortskip = \displayskipstretch\abovedisplayshortskip \addstretchshrink\abovedisplayshortskip
+    \belowdisplayshortskip = \displayskipstretch\belowdisplayshortskip \addstretchshrink\belowdisplayshortskip
+  }%
+}
+\expandafter\fix\the\everydisplay\fix
+
+\flushbottom
 
 \begin{document}
     % Pro uvodni strany se vypne cislovani
@@ -147,6 +168,10 @@
     % --
     % Kapitoly
     % --
+    %\abovedisplayskip 0.5cm plus 0cm minus 0cm
+	%\abovedisplayshortskip 0.0cm plus 0cm minus 0cm
+	%\belowdisplayskip=0.6cm plus 0cm minus 0cm
+	%\belowdisplayshortskip=0.6cm plus 0cm minus 0cm
 
     % 1. INTRODUCTION
     % ...
@@ -214,6 +239,15 @@
     \noindent \Large \textbf{LIST OF CONSTANTS}
     \normalsize
     \input{./chapters/list_of_constants.tex}
+    
+    % Seznam použitých konstant
+    \newpage
+    
+    \phantomsection
+    \addcontentsline{toc}{chapter}{LIST OF CONSTANTS}
+    \noindent \Large \textbf{LIST OF CONSTANTS}
+    \normalsize
+    \listoffigures
 
     % --
     % Seznam literatury
