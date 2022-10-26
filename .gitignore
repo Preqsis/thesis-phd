@@ -10,5 +10,6 @@
 *.synctex.gz
 .ipynb_checkpoints
 *.dvi
+*.lof
 build/
-
+.env
