@@ -1,20 +1,22 @@
-MAINFILE=thesis
+FILENAME=thesis
 
 all:
-	$(MAKE) build
-	$(MAKE) bib
-	$(MAKE) build
+	make build
+	make bib
+	make build
+	make split
 
 bib:
-	$(BIBER) ./$(MAINFILE)
+	biber ./$(FILENAME)
 
 build:
-	$(PDFLATEX) $(MAINFILE).tex
+	pdflatex $(FILENAME).tex
 
 split:
-	python ./python/split_by_chapters.py --infile ./$(MAINFILE).pdf --outdir ./splits
+	python ./python/split_by_chapters.py --infile ./$(FILENAME).pdf --outdir ./splits
 
 clean:
-	rm -r ./splits
+	find . -type f ! -path "./.git/*" ! -path "./img/*" ! -path "./.*" ! -path "./python/*" ! -path "./misc/*" ! -path "./logo/*" ! -name "Makefile" ! -name "*.tex" ! -name "*.cls" ! -name "*.bib" ! -name "*.md" ! -name "*.sty" -exec rm -vf {} +
+	
 
 
