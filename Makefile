@@ -1,5 +1,4 @@
-LATEX_FILENAME=thesis
-LATEX_EXTENSION=tex
+MAINFILE=thesis
 
 all:
 	$(MAKE) build
@@ -7,11 +6,10 @@ all:
 	$(MAKE) build
 
 bib:
-	$(BIBER) ./$(LATEX_FILENAME)
+	$(BIBER) ./$(MAINFILE)
 
 build:
-	$(PDFLATEX) $(LATEX_FILENAME).$(LATEX_EXTENSION)
+	$(PDFLATEX) $(MAINFILE).tex
 
-
-
-
+split:
+	python ./python/split_by_chapters.py --infile ./$(MAINFILE).pdf --outdir ./splits
