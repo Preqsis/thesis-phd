@@ -13,3 +13,8 @@ build:
 
 split:
 	python ./python/split_by_chapters.py --infile ./$(MAINFILE).pdf --outdir ./splits
+
+clean:
+	rm -r ./splits
+
+

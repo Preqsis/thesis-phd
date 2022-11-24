@@ -16,7 +16,7 @@
 \authorFull{Mgr. Jiří Květoň}
 \supervisor{Mgr. Filip Hroch Ph.D.}
 \consultant{Mgr. Viktor Votruba Ph.D.}
-\coverImage{img/cover.png}
+\coverImage{./img/cover.png}
 
 % References package defs
 \usepackage[
@@ -27,9 +27,74 @@
 % pozn. https://tex.stackexchange.com/questions/305381/biblatex-empty-bibliography ... kvuli chybe nedefinovanych bib
 \addbibresource{./references.bib}
 
-
 \begin{document}
-    \input{./chapters/00_preface.tex}
+    % Pro uvodni strany se vypne cislovani
+    \pagenumbering{gobble}
+
+    % --
+    % Titulní strana prace
+    % --
+    \maketitle
+    \blankpage
+
+    % --
+    % Originální zadání
+    % --
+    % scale a offset aby marginy vicemene sedely do rozmeru ostatnich stranek
+    \includepdf[scale=1.08,offset=0 -12mm]{./misc/zadani.pdf}
+    \blankpage
+
+    \pagestyle{plain}
+
+    % --
+    % Bibliografický záznam
+    % --
+    %\phantomsection
+    \bibinfoen
+
+    %\phantomsection
+    \bibinfocz
+
+    % --
+    % Abstrakt (CZ+EN)
+    % --
+    %\phantomsection
+    \shortchapter{abstract}{./misc/abstract-en.tex}
+    \blankpage
+
+    %\phantomsection
+    \shortchapter{abstrakt}{./misc/abstract-cz.tex}
+    \blankpage
+
+    % --
+    % Poděkování
+    % --
+    %\phantomsection
+    \shortchapter{acknowledgments}{./misc/acknowledgments.tex}
+    \blankpage
+
+    % --
+    % Prohlášení
+    % --
+    %\phantomsection
+    \declaration{./misc/declaration.tex}
+    \blankpage
+
+    % --
+    % Copyright
+    % --
+    \copypage
+    \blankpage
+
+    % --
+    % Obsah
+    % --
+    \content
+
+    % Zapnout cislovani a vlastni styl hlavniho textu
+    \pagestyle{mystyle}
+    \pagenumbering{arabic}
+    \setcounter{page}{1}    
 
     % 1. INTRODUCTION
     % ...
