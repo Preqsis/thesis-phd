@@ -1,6 +1,26 @@
 \NeedsTeXFormat{LaTeX2e}[1994/06/01]
 \ProvidesPackage{mypackage}[2019/01/11 v0.01 My LaTeX thesis package ]
 
+%% Van de Graaf Canon
+%% 2:3:4:6 ratio (inner:top:outer:bottom)
+%% inner 	= (page width - binding offset) / 9
+%% top		= 1.5 * inner
+%% outer		= 2 * inner:re 
+%% bottom	= 3 * inner --> modified to --> bottom == top
+\usepackage[
+	%showframe,
+	twoside,
+	inner=23mm,
+	top=34.5mm,
+	outer=46mm,
+	%bottom=69mm,
+	bottom=34.5mm,
+	bindingoffset=3mm,
+	headsep=\baselineskip,
+	%%includehead,
+	%%includefoot
+]{geometry}
+
 % baliky (vsechno mozny)
 \RequirePackage{graphicx}
 \RequirePackage[english]{babel}
@@ -10,6 +30,25 @@
 \RequirePackage{amssymb}
 \RequirePackage{amsthm}
 \RequirePackage{tabularx}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,allcolors=black}
+\usepackage{hypcap}
+\usepackage{afterpage}
+\usepackage{setspace}
+
+\usepackage{cool}
+\Style{DSymb={\mathrm d},DShorten=true,IntegrateDifferentialDSymb=\mathrm{d}}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{makecell}
+\usepackage{arydshln}
+
+\usepackage{xcolor}
+\colorlet{RED}{black}
+\colorlet{BLUE}{black}
+
+\usepackage[font=small,labelfont=bf]{caption}
 
 \@ifpackageloaded{fancyhdr}{}{\RequirePackage{fancyhdr}}
 %\@ifpackageloaded{biblatex}{}{\RequirePackage{biblatex}}
@@ -306,6 +345,24 @@
 	\vspace{5mm}
 }
 
+\newcommand{\addstretchshrink}[1]{%
+  \if\relax\displayskipstretch\relax
+    % there is no factor, don't add plus and minus
+  \else
+    plus \displayskipstretch\gluestretch#1
+    minus \displayskipstretch\glueshrink#1
+  \fi
+}
+\def\fix#1\abovedisplayskip#2\displayskipstretch\belowdisplayshortskip#3\fix{%
+  \everydisplay{#1#3
+    \abovedisplayskip = \displayskipstretch\abovedisplayskip \addstretchshrink\abovedisplayskip
+    \belowdisplayskip = \displayskipstretch\belowdisplayskip \addstretchshrink\belowdisplayskip
+    \abovedisplayshortskip = \displayskipstretch\abovedisplayshortskip \addstretchshrink\abovedisplayshortskip
+    \belowdisplayshortskip = \displayskipstretch\belowdisplayshortskip \addstretchshrink\belowdisplayshortskip
+  }%
+}
+\expandafter\fix\the\everydisplay\fix
 
+\flushbottom
 
 \endinput

@@ -1,38 +1,5 @@
 \documentclass[12pt,a4paper]{book}
 
-%% Van de Graaf Canon
-%% 2:3:4:6 ratio (inner:top:outer:bottom)
-%% inner 	= (page width - binding offset) / 9
-%% top		= 1.5 * inner
-%% outer		= 2 * inner:re 
-%% bottom	= 3 * inner --> modified to --> bottom == top
-\usepackage[
-	%showframe,
-	twoside,
-	inner=23mm,
-	top=34.5mm,
-	outer=46mm,
-	%bottom=69mm,
-	bottom=34.5mm,
-	bindingoffset=3mm,
-	headsep=\baselineskip,
-	%%includehead,
-	%%includefoot
-]{geometry}
-
-\usepackage{cool}
-\Style{DSymb={\mathrm d},DShorten=true,IntegrateDifferentialDSymb=\mathrm{d}}
-\usepackage{float}
-\usepackage{tabularx}
-\usepackage{makecell}
-\usepackage{arydshln}
-
-\usepackage{xcolor}
-\colorlet{RED}{black}
-\colorlet{BLUE}{black}
-
-\usepackage[font=small,labelfont=bf]{caption}
-
 \usepackage{mypackage} % moje definice a styly
 
 \faculty{Faculty of science}
@@ -42,167 +9,66 @@
 \city{Brno}
 \academicYear{2021/2022}
 \yearOfMaking{2022}
-
-% vícejazyčný název práce
 \thesisTitle{Analysis and Modelling of Non-linear \newline Dynamical Systems in Astrophysics}
 \thesisTitleEN{Analysis and Modeling of Non-linear \newline Dynamical Systems in Astrophysics}
 \thesisTitleCZ{Analýza a modelování nelineárních dynamických systémů v astrofyzice}
-
 \author{Jiří Květoň}
 \authorFull{Mgr. Jiří Květoň}
-
 \supervisor{Mgr. Filip Hroch Ph.D.}
 \consultant{Mgr. Viktor Votruba Ph.D.}
-
 \coverImage{img/cover.png}
 
 % References package defs
 \usepackage[
-    backend=biber,
-    style=authoryear,
-    citestyle=authoryear,
-    sorting=ynt
+    backend=biber, style=authoryear, citestyle=authoryear, sorting=ynt
 ]{biblatex}
 
 % References file
 % pozn. https://tex.stackexchange.com/questions/305381/biblatex-empty-bibliography ... kvuli chybe nedefinovanych bib
 \addbibresource{./references.bib}
 
-\usepackage{hyperref}
-\hypersetup{colorlinks=true,allcolors=black}
-\usepackage{hypcap}
-
-\usepackage{afterpage}
-
-\usepackage{setspace}
-
-\newcommand{\addstretchshrink}[1]{%
-  \if\relax\displayskipstretch\relax
-    % there is no factor, don't add plus and minus
-  \else
-    plus \displayskipstretch\gluestretch#1
-    minus \displayskipstretch\glueshrink#1
-  \fi
-}
-\def\fix#1\abovedisplayskip#2\displayskipstretch\belowdisplayshortskip#3\fix{%
-  \everydisplay{#1#3
-    \abovedisplayskip = \displayskipstretch\abovedisplayskip \addstretchshrink\abovedisplayskip
-    \belowdisplayskip = \displayskipstretch\belowdisplayskip \addstretchshrink\belowdisplayskip
-    \abovedisplayshortskip = \displayskipstretch\abovedisplayshortskip \addstretchshrink\abovedisplayshortskip
-    \belowdisplayshortskip = \displayskipstretch\belowdisplayshortskip \addstretchshrink\belowdisplayshortskip
-  }%
-}
-\expandafter\fix\the\everydisplay\fix
-
-\flushbottom
 
 \begin{document}
-    % Pro uvodni strany se vypne cislovani
-    \pagenumbering{gobble}
-
-    % --
-    % Titulní strana prace
-    % --
-    \maketitle
-    \blankpage
-    
-    % --
-    % Originální zadání
-    % --
-    % scale a offset aby marginy vicemene sedely do rozmeru ostatnich stranek
-    \includepdf[scale=1.08,offset=0 -12mm]{./misc/zadani.pdf}
-    \blankpage
-
-    \pagestyle{plain}
-
-    % --
-    % Bibliografický záznam
-    % --
-    %\phantomsection
-    \bibinfoen
-
-    %\phantomsection
-    \bibinfocz
-
-    % --
-    % Abstrakt (CZ+EN)
-    % --
-    %\phantomsection
-    \shortchapter{abstract}{abstract-en.tex}
-    \blankpage
-
-    %\phantomsection
-    \shortchapter{abstrakt}{abstract-cz.tex}
-    \blankpage
-
-    % --
-    % Poděkování
-    % --
-    %\phantomsection
-    \shortchapter{acknowledgments}{acknowledgments.tex}
-    \blankpage
-
-    % --
-    % Prohlášení
-    % --
-    %\phantomsection
-    \declaration{declaration.tex}
-    \blankpage
-    
-    % --
-    % Copyright
-    % --
-    \copypage
-    \blankpage
-
-    % --
-    % Obsah
-    % --
-	\content
-
-    % Zapnout cislovani a vlastni styl hlavniho textu
-    \pagestyle{mystyle}
-    \pagenumbering{arabic}
-    \setcounter{page}{1}    
+    \input{./chapters/00_preface.tex}
 
     % 1. INTRODUCTION
     % ...
-    \input{./chapters/introduction.tex}
+    \input{./chapters/01_introduction.tex}
 
     %%%%%%%%%%%%%%%%%%%
     % TEORETICKÁ ČÁST %
     %%%%%%%%%%%%%%%%%%%
 
     % 2. ACCRETION DISCS
-    \input{./chapters/accretion_discs.tex}
+    \input{./chapters/02_accretion_discs.tex}
 
     % 3. FLICKERING PHENOMENON
-    \input{./chapters/flickering_phenomenon.tex}
+    \input{./chapters/03_flickering_phenomenon.tex}
 
     % 4. CATACLYSMIC VARIABLES
-    \input{./chapters/cataclysmic_variables.tex}
+    \input{./chapters/04_cataclysmic_variables.tex}
 
     % 5. SIMILARITY OF NON-LINEAR SYSTEMS
-    \input{./chapters/similarity_of_nonlinear_systems.tex}
+    \input{./chapters/05_similarity_of_nonlinear_systems.tex}
 
     % 6. DRIPPING FAUCET
-    \input{./chapters/dripping_faucet.tex}
+    \input{./chapters/06_dripping_faucet.tex}
 
     % 7. DRIPPING HANDRAIL MODELS
-    \input{./chapters/dripping_handrail_models.tex}
+    \input{./chapters/07_dripping_handrail_models.tex}
 
     % 8. MODELING TECHNIQUES
-    \input{./chapters/modeling_techniques.tex}
+    \input{./chapters/08_modeling_techniques.tex}
 
     %%%%%%%%%%%%%%%%%%
     % PRAKTICKÁ ČÁST %
     %%%%%%%%%%%%%%%%%%
 
     % 9. MDH - MODEL PROPOSAL 
-    \input{./chapters/multilayer_dripping_handrail.tex}
+    \input{./chapters/09_multilayer_dripping_handrail.tex}
 
     % 10. MULTILAYER DRIPPING HANDRAIL - MODEL IMPLEMENTATION 
-    \input{./chapters/mdh-model_implementation.tex}
+    \input{./chapters/10_model_implementation.tex}
 
     % 11. MULTILAYER DRIPPING HANDRAIL - DATA ANALYSIS
     \input{./chapters/mdh-data_analysis.tex}
@@ -216,14 +82,14 @@
     \pagestyle{plain}
 
     % Seznam použitých zkratek
-    \input{./chapters/list_of_abbreviations.tex}
+    \input{./chapters/96_list_of_abbreviations.tex}
 
     % Seznam použitých konstant
-    \input{./chapters/list_of_constants.tex}
+    \input{./chapters/97_list_of_constants.tex}
 
     % Sezman figures/grafu
-    % \input{./chapters/list_of_figures.tex}
+    \input{./chapters/98_list_of_figures.tex}
 
     % Seznam literatury
-    \input{./chapters/bibliography.tex}
+    \input{./chapters/99_bibliography.tex}
 \end{document}

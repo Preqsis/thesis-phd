@@ -1,9 +1,8 @@
 LATEX_FILENAME=thesis
 LATEX_EXTENSION=tex
 
-# MAKE, BIBER and PDFLATEX defined in .env file
-
 all:
+	$(MAKE) build
 	$(MAKE) bib
 	$(MAKE) build
 
