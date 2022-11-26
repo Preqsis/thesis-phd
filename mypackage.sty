@@ -36,6 +36,8 @@
 \usepackage{hypcap}
 \usepackage{afterpage}
 \usepackage{setspace}
+\usepackage{zref-totpages}
+\usepackage{lastpage}
 
 \usepackage{cool}
 \Style{DSymb={\mathrm d},DShorten=true,IntegrateDifferentialDSymb=\mathrm{d}}
@@ -208,8 +210,9 @@
         \ & \@department \\
         \ & \@faculty, \@university \\
         \textbf{Academic Year} & \@academicYear \\
-        \textbf{Number of Pages} & xxx \\
-        \textbf{Keywords} & neco, neco, neco a jeste neco \\
+        \textbf{Number of Pages} & \pageref{LastPage} \\
+        \textbf{Keywords} & accretion disk, chaos, cataclysmic variables, \\
+        \ & dripping faucet, flickering \\
     \end{tabular}
     
     \blankpage
@@ -242,8 +245,9 @@
         \ & \@ustav \\
         \ & \@fakulta, \@univerzita \\
         \textbf{Akademický rok} & \@academicYear \\
-        \textbf{Počet stran} & xxx \\
-        \textbf{Klíčová slova} & neco, neco, neco a jeste neco \\
+        \textbf{Počet stran} & \pageref{LastPage} \\
+        \textbf{Klíčová slova} & akreční disk, chaos, kataklyzmické proměnné, \\
+        \ & kapající kohoutek, flickering
      \end{tabular}
      
      \blankpage

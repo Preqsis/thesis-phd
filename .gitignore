@@ -13,3 +13,4 @@
 *.lof
 build/
 .env
+.python-version
