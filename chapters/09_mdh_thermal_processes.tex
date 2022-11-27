@@ -1,3 +1,90 @@
 \chapter{MDH - THERMAL PROCESSES}
+\label{chap:thermal_processes}
 \thispagestyle{empty}
+
+The principal observational quantity is a light curve, which is derived from radiation properties of our model, mainly the temperature. To extract light curves out of our dynamical matter flow simulation, we need to know temperature of every cell at any given moment throughout the simulation. We apply the black-body approximation and to simplify the situation, we assume the cells to be optically thin. 
+
+Every cell's temperature is a value undergoing continuous change; it depends on the temperature in previous simulation steps, and not solely on external parameters.
+
+The important factor for any consequent thermal process is the temperature of the matter, that flows into the disk from the outside. Its value is mostly determined by given properties of the secondary star, and in the case of the late-type star according to \cite{allen1973}, we expect it to be
+
+\begin{equation}
+T_{\text{out}} \sim 10^3\, \mathrm{K}.
+\end{equation}
+
+We can establish three main mechanisms of temperature change and will discuss them more closely bellow. Summary of those will yield the final temperature. 
+
+\section{Free-Free emission heating}
+
+At the moment of \emph{dripping} the matter that falls into a lower layer cell losses some potential energy \cite{yonehara1997} 
+
+\begin{equation}
+   \Delta E_{ij} = \frac{1}{2} G M_{\text{p}} \Delta r \frac{\Delta m_{ij}}{r_i^2},
+   \label{eq:e_pot}
+\end{equation}
+
+where $\Delta m_{ij}$ represents the falling mass and $\Delta r$ the layer width, i.e. the distance travelled by the mass. 
+
+This energy is released by the process of \emph{free-free emission} (i.e. bremsstrahlung); with some efficiency $\varepsilon$ is transformed into internal energy $U$ of the receiving cell
+
+\begin{equation}
+	\Delta U_{i+1,j} = \varepsilon \Delta E_{ij},
+\end{equation}
+
+where $\Delta U_{i+1,j}$ represents the change of receiving cells internal energy, that heats up the cell. For the sake of simplicity, the heating efficiency is considered to be ${\varepsilon=1}$, then  
+
+\begin{equation}
+	\Delta U_{i+1,j} \equiv \Delta E_{ij}.
+	\label{eq:e_int_pot_equiv}
+\end{equation} 
+
+Gas internal energy change is related to the temperature change by
+
+\begin{equation}
+	\Delta U_{ij} = \frac{3}{2} n_{ij} \mathcal{R} \Delta T_{ij},
+	\label{eq:e_int_temp_relation}
+\end{equation}
+
+where $\mathcal{R}$ is the ideal gas constant, and $n_{ij}$ is number of moles of gas contained by the cell. Because is considered to be mostly hydrogen, and its molar mass is $M_{\text{H}} \approx 1$, we can use mass $m_{ij}$ and number of moles $n_{ij}$ interchangeably. By substituting \eqref{eq:e_int_temp_relation} and \eqref{eq:e_pot} into \eqref{eq:e_int_pot_equiv}, and rearranging a bit, we get the expression that relates change of cell's temperature in layer $i+1$, to the amount of mass falling from the cell above
+
+\begin{equation}
+	\Delta T_{i+1,j} = \frac{1}{3} \frac{G M_{\text{p}} \Delta m_{ij} \Delta r}{r_{i}^2 \mathcal{R} m_{i+1,j}}.
+	\label{eq:temp_ff_final}
+\end{equation}
+
+\section{Gas mixing}
+
+Another mechanism we need to take into consideration, is mixing of different temperature and amount of gases when the dripping occurs. We need to describe change in temperature for both the donor cell $T_{ij}$ and the receiving $T_{i+1,j}$. Both instances can be solved by the means of changes in cells internal energy, and on the donor side the resulting expression is simply  
+
+\begin{equation}
+T_{ij}' = T_{ij},
+\end{equation}
+
+where $T_{ij}$ and $T_{ij}'$ are the temperatures before, and after the mass outflow respectively. In case of the receiving cell, we are mixing two different amounts of gas at two different temperatures, and the expression is
+
+\begin{equation}
+T_{i+1,j}' = \frac{m_{i+1,j} T_{i+1,j} + \Delta m_{ij} T_{ij}}{m_{i+1,j} + \Delta m_{ij}}.
+\end{equation}
+
+\section{Radiative cooling}
+
+Third mechanism influencing the cell temperature is a radiative cooling. We use an approximation, that the cells of an optically thin disk radiate as black-body through their top and bottom facets, and one facet having the area
+
+\begin{equation}
+	S_{ij} = \frac{2 \pi r_i \Delta r}{J},
+	\label{eq:facet_area}
+\end{equation}
+
+where $\Delta r$ represents the layer width. Conversion of cell's internal energy in relation to its black-body radiation can be expressed as
+
+\begin{equation}
+	\frac{3}{2} m_{ij} \mathcal{R} \frac{dT_{ij}}{dt} = \sigma T_{ij}^4 S_{ij},
+	\label{eq:rad_cooling_temp_0}
+\end{equation}
+
+where $\sigma$ is the Stefan-Boltzman constant. Integrating the \eqref{eq:rad_cooling_temp_0} and rearranging a bit yields the expression for cell's temperature, which is in local thermodynamic equilibrium of the radiative cooling
+
+\begin{equation}
+T_{ij}' = \left( \frac{2 \sigma S_{ij} t}{m_{ij} \mathcal{R}} + \frac{1}{T_{ij}^3} \right)^{-1/3}.
+\end{equation}
 
