@@ -31,12 +31,12 @@ j \in [0;J-1].
 
 The direction in which we iterate over $j$ is arbitrary and is a matter of perspective. Because the layers orbit the imagined central object at differing angular velocities, the simulation grid naturally shifts over time. Figure \ref{fig:grid_states} shows possible simulation grid states. On the left is the initial simulation grid state, and on the right is the shifted state after an arbitrary number of simulation steps.
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.6\columnwidth]{img/grid_states.pdf}
-\caption{Grid states. Initial grid state (left) and shifted state after some arbitrary number of simulation steps (right).}
-\label{fig:grid_states}
-\end{figure}
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.6\columnwidth]{img/grid_states.pdf}
+% \caption{Grid states. Initial grid state (left) and shifted state after some arbitrary number of simulation steps (right).}
+% \label{fig:grid_states}
+% \end{figure}
 
 In the original model defined by \ref{eq:ode_1} and \ref{eq:ode_2} \cite{msmm1999}, gravitational acceleration is constant, but in our case, we substitute it by $f_g$, which is assigned individually to each layer of cells, and we refer to this function as \emph{gravity profile}
 
