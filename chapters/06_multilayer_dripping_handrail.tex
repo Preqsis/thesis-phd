@@ -3,56 +3,56 @@
 
 \mquote{not selectet yet}{...}
 
-The accretion disc model developed for this study is referred to as \emph{Multilayer Dripping Handrail} (MDH). The underlying hypothesis of our proposed model is that different physical systems will, in some aspects, behave very similarly (as we discussed in Chapter \ref{chap:similary_of_nonlinear_systems}). 
+As discussed in Chapter \ref{chap:similary_of_nonlinear_systems}, some models of physical systems can be very computationally demanding, so a simpler and manageable model analogy is often needed. For example, if we wanted to simulate the accretion disk system without simplification, it would be almost impossible to compute in the authors' lifetime. Such a model would be composed of individual and interacting gas particles. It would require either plasma physics equations or Navier-Stokes equations with a magnetic field; at that point, it is not a model but a perfect analogy. 
 
-In our case, the demanding one is the magneto-hydrodynamical accretion disk system, which, if taken to the extreme, is composed of individual gas particles interacting. Such a model would be a direct solution of either plasma physics equations or Navier-Stokes equations with a magnetic field. It is clearly beyond the limits of today's hardware, or at least very complex. 
-
-%%%%%%%%%%%%%
-% The model %
-%%%%%%%%%%%%%
+The model developed for this study provides a manageable and reasonably complex tool for accretion disk simulation. Based upon its apparent characteristics, we call it \emph{Multilayer Dripping Handrail} (MDH) because it is an arrangement of concentric rings (i.e., layers). Each layer consists of up to several hundred cells, and each of these cells behaves as a \emph{dripping faucet}. The dripping mechanism drives the distribution of matter through the layers until they reach the central object.
 
 \section{The model}
 
-The MDH model takes inspiration from the model created by \cite{yonehara1997}, which uses a simple mass limit condition triggering the redistribution into lower adjacent cells. To take this concept further, we are implementing the Mass-Spring model (MSM) as a means of non-linear matter redistribution. We discussed the original MSM in detail in Chapter \ref{chap:dripping_faucet}. 
+The MDH model is inspired by the model created by \cite{yonehara1997}. However, our model takes this concept much further. Instead of a simple mass limit condition, we use a slightly modified implementation of the Mass-Spring model (MSM) as a means of non-linear matter redistribution. We discussed the original MSM in detail in Chapter \ref{chap:dripping_faucet}. 
 
 \subsection{The cellular accretion disk model}
 
-Our MDH model is a cellular automaton constructed by arranging $I$ times $J$ individual cells in concentric rings (i.e., layers). The $I$ and $J$ values represent the grid dimensions. We denote the layers by 
+The concept of cellular automaton (CA) is quite an old idea in computer science that Ulam and von Neuman first discovered at Los Alamos National Laboratory. However, it gained wider popularity after the publishing of \emph{Conway's Game of Life} \cite{gardner1970} and also extensive studies done by Stephen Wolfram starting in the 1980s.
+
+CA definition provided by \cite{wolfram2002} states that: Cellular automaton is a collection of cells on a grid of specified shape that evolves through a number of discrete time steps according to a predefined set of rules based on neighboring cells. In our case, this set of rules mainly deals with distributing matter between the cells and throughout the accretion disk body.
+
+MDH is a cellular automaton that arranges $I$ times $J$ cells in a concentric ring-like grid pattern (i.e., layers). The layers a denoted by 
 
 \begin{equation}
 i \in [0;I-1].
 \end{equation}
 
-The outermost layer is $i=0$. Each layer consists of $J$ individual cells denoted by
+The layer is $i=0$ represents the outher egde layer of the disk. Each layer contains $J$ individual cells denoted by
 
 \begin{equation}
 j \in [0;J-1].
 \end{equation}
 
-The direction in which we iterate over $j$ is arbitrary and is a matter of perspective. Because the layers orbit the imagined central object at differing angular velocities, the simulation grid naturally shifts over time. Figure \ref{fig:grid_states} shows possible simulation grid states. On the left is the initial simulation grid state, and on the right is the shifted state after an arbitrary number of simulation steps.
+Because the orbital angular velocities of individual layers differ, the simulation grid naturally shifts over time. Figure \ref{fig:grid_states} demonstrates the possible simulation grid states. On the left, we see the non-shifted initial state of the simulation. On the right, the layers of cells are slightly shifted after an arbitrary number of simulation steps.
 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[width=0.6\columnwidth]{img/grid_states.pdf}
-% \caption{Grid states. Initial grid state (left) and shifted state after some arbitrary number of simulation steps (right).}
-% \label{fig:grid_states}
-% \end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[width=\columnwidth]{img/grid_states.pdf}
+\caption{Grid states. Initial grid state (left) and shifted state after some arbitrary number of simulation steps (right).}
+\label{fig:grid_states}
+\end{figure}
 
-In the original model defined by \ref{eq:ode_1} and \ref{eq:ode_2} \cite{msmm1999}, gravitational acceleration is constant, but in our case, we substitute it by $f_g$, which is assigned individually to each layer of cells, and we refer to this function as \emph{gravity profile}
+In the original MSM defined by \eqref{eq:ode_1} and \eqref{eq:ode_2}, gravitational acceleration is a constant value. In our modification, it is substituted by $f_g$, which is assigned individually to each layer of cells, and we refer to this function as a \emph{gravity profile}
 
 \begin{equation}
     f_{\text{g}}(i) = \frac{g_i}{g_{\text{out}}},
     \label{eq:gravity_profile_0}
 \end{equation}
 
-where $g_{\text{out}}$ is value of gravitational acceleration in the outermost layer $i=0$, and $g_i$ in ${i-\mathrm{layer}}$; in the edge layer its value is ${f_{\text{g}}(i=0) = 1}$, which is the same as in the original MSM. The value of $g_i$ for any layer is 
+where $g_{\text{out}}$ represents the gravitational acceleration in the outer layer $i=0$, and $g_i$ in $i$th layer, and its value is ${f_{\textrm{g}}(i=0) = 1}$ (same as the original MSM). In any layer the $g_i$ value is 
 
 \begin{equation}
     g_i = \frac{GM_{\text{p}}}{r_i^2},
     \label{eq:gravity_profile_layer}
 \end{equation}
 
-where $G$ represents the universal gravitational constant, and $M_{\mathrm{p}}$ is the mass of the primary central object (i.e., the white dwarf). By substituting \eqref{eq:gravity_profile_layer} into \eqref{eq:gravity_profile_0} the $GM_{\text{p}}$ components cancels out, and we get the \emph{gravity profile} function that depends only on layer index $i$
+where $G$ is the universal gravitational constant, and $M_{\mathrm{p}}$ is the mass of the primary central object (i.e., the white dwarf). By substituting \eqref{eq:gravity_profile_layer} into \eqref{eq:gravity_profile_0} the $GM_{\text{p}}$ components cancels out, and we get the \emph{gravity profile} function that depends only on layer index $i$
 
 \begin{equation}
 	f_{\text{g}}(i) = \left( \frac{r_{\text{out}}}{r_i} \right)^2.
