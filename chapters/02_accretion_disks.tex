@@ -79,28 +79,87 @@
         \label{eq:disk_outher_radius}
     \end{equation}
 
-    where $M_{\textrm{s}}$ represents the secondary components' mass and $d$ is the distance between the components. Equations \eqref{eq:mass_radius_ratio} and \eqref{eq:disk_outher_radius} give us the inner and outer constraints to define the geometry of the model, which we will define in the latter chapters of this study.   
+    where $M_{\textrm{s}}$ represents the secondary component's mass and $d$ is the distance between the components. Equations \eqref{eq:mass_radius_ratio} and \eqref{eq:disk_outher_radius} give us the inner and outer constraints to define the geometry of the model, which we will define in the latter chapters of this study.   
 
 \section{Accretion disks models}
-    For the accreting matter that dissipates energy and is not supported by internal pressure, the matter will form an accretion disk, which is its minimal energy configuration. The falling matter must lose angular momentum to reach the central object. This process is done through a \emph{viscous disipation} that is key in transporting the angular momentum outward and heats the disk. The nature and magnitude of the viscous processes are the actual questions of accretion disk modeling because they are the critical factor determining the disk size, shape, optical dept, and radiation properties. At the same time, viscosity is hard to model, and it still needs to be better understood in the case of accretion disk matter flow. 
+    For the accreting matter that dissipates energy and is not supported by internal pressure, the matter will form an accretion disk, which is its minimal energy configuration. The falling matter must lose angular momentum to reach the central object. This process is done through a \emph{viscous disipation} that is key in transporting the angular momentum outward and heats the disk. The nature and magnitude of the viscous processes are the questions of accretion disk modeling because they are the critical factor determining the disk size, shape, optical dept, and radiation properties. It still needs to be better understood in the case of accretion disk matter flow because the disk's body consists of a sheering, radiative, and supersonic medium with a high Reynold's number \cite{pringle1981}, and that is quite a challenging problem to model. 
 
-    The disk's body consists of a medium that is sheering, radiative, and supersonic with a high Reynold,s number \cite{pringle1981}. Therefore, when modeling such a complex and dynamic astrophysical system, we are inevitably forced to make some simplifications and approximations.  
+    Then there is a question of magnetic fields. The central object (i.e., WD or NS) may or may not be magnetized. Some objects rotate very fast. For example, NS rotation periods range from a couple of milliseconds to tens of seconds. The temperature and composition of the material inflow can widely differ depending on the characteristics of the secondary object. All those factors add up and create a complex non-linear accretion environment. Therefore, when modeling such a complex and dynamic astrophysical system, we are inevitably forced to make some simplifications, neglections, and approximations. 
 
-    %% TODO: citace
+    In many cases, the accretion disk is closely confined to an orbital plane, so in the first approximation, we may regard the disk's matter flow as two-dimensional, ad we call this the \emph{thin disc approximation}. This simple yet very effective simplification enables the creation of a very elaborate accretion model's theory, but with reduced complexity, \cite{acpow}.
     
-    In many cases, the accretion disk is closely confined to an orbital plane, so in the first approximation, we may regard the disk's matter flow as two-dimensional, ad we call this the \emph{thin disc approximation}. This simple yet very effective simplification enables the creation of a very elaborate accretion model's theory, but with reduced complexity, \cite{acpow}.  
+    %% TODO: citacd
 
-\subsection[Shakura-Sunyaev $\alpha$-Disc model]{Shakura-Sunyaev $\alpha$-Disc model}
+\subsection{Sub-Eddington accretion disks}
+    
+
+
+\subsection[Shakura-Sunyaev $\alpha$-Disc model]{Shakura-Sunyaev $\alpha$-disc}
+    In 1973, N. I. Shakura and R. Sunyaev proposed an accretion disk model whose source of increased viscosity are the turbulent flow patterns in the disk's body \cite{shakura1973}. This model applies if the modeled system is a \emph{thin disk}, and because of that, it is considered that all material in the disk's body is near its surface, allowing the thermal emission to escape freely. Therefore, self-absorption processes are insignificant. 
+
+    Utilizing equations of hydrostatic equilibrium and Kramer's opacity law on the two-dimensional disk, we can devise a set of equations that describe the local disk structure \cite{acpow}
+
     \begin{align}
     \begin{split}
-    \Sigma 	&= 5.2 \alpha^{-4/5} \dot{M}^{7/10}_{16} m^{1/4}_1 R^{-3/4}_{10} f^{14/5}\ \mathrm{g\ cm^{-2}}, \\
-    H		&= 1.7 \times 10^8 \alpha^{-1/10} \dot{M}^{3/20}_{16} m^{-3/8}_1 R^{9/8}_{10} f^{3/5}\ \mathrm{cm}, \\
-    \rho		&= 3.1 \times 10^{-8} \alpha^{-7/10} \dot{M}^{11/20}_{16} m^{5/8}_1 R^{-15/8}_{10} f^{11/5}\ \mathrm{g\ cm^{-3}}, \\
-    T_c		&= 1.4 \times 10^4 \alpha^{-1/5} \dot{M}^{3/10}_{16} m^{1/4}_1 R^{-3/4}_{10} f^{6/5}\ \mathrm{K}, \\
-    \tau		&= 190 \alpha^{-4/5} \dot{M}^{1/5}_{16} f^{4/5}, \\
-    \nu		&= 1.8 \times 10^{14} \alpha^{4/5} \dot{M}^{3/10}_{16} m^{3/4}_1 R^{3/4}_{10} f^{6/5}\ \mathrm{cm^2\ s^{-1}},  \\
-    v_R		&= 2.7 \times 10^{14} \alpha^{4/5} \dot{M}^{3/10}_{16} m^{-1/4}_1 R^{-1/4}_{10} f^{-14/15}\ \mathrm{cm\ s^{-1}},  \\
-    \mathrm{with}\ f		&= \left[ 1 - \left( \frac{R_*}{R} \right)^{1/2} \right]^{1/4}. \\
+        \rho &= \Sigma / H, \\
+        H &= c_{\mathrm{s}} R^{3/2} / (GM)^{1/2}, \\
+        c_{\mathrm{s}}^2 &= P / \rho, \\
+        P &= \frac{\rho k T_{\mathrm{c}}}{\mu m_p} + \frac{4 \sigma}{3 c}T_c^4, \\
+        \frac{a \sigma T_{\mathrm{c}}^4}{3 \tau} &= \frac{3GM\dot{M}}{8 \pi R^3}, \\
+        \tau &= \Sigma \kappa_{\mathrm{R}}(\rho, T_{\mathrm{c}}) = \tau(\Sigma, \rho, T_{\mathrm{c}}), \\
+        \nu \Sigma &= \frac{\dot{M}}{3 \pi} \left[ 1 - \left( \frac{R_*}{R} \right)^{1/2} \right], \\
+        \nu &= \nu(\rho, T_{\mathrm{c}}, \Sigma, \alpha, ...).
     \end{split}
-    \label{eq:alpha_model}
+    \label{eq:alpha_model_prescription}
     \end{align}
+
+    The set of equations \eqref{eq:alpha_model_prescription} contains eight unknowns: density $\rho$ and temperature $T_{\mathrm{c}}$ of disk's mid-plane, scale height $H$ of the disk, the speed of sound in the medium $c_s$, the sum of gas and radiation pressure $P$, area density $\Sigma$, optical depth $\tau$, and viscosity $\nu$. These unknowns are solved as functions of: accretion rate $\dot{M}$, the central object's mass $M$, the radius of a specific point in the disk $R$, and free parameter $\alpha$. Moreover, $R_*$ represents the radius where angular momentum stops being transported outwards. Assuming that the values $\rho$ and $T_{\mathrm{c}}$ enable the approximation of Rosseland mean opacity using Kramer's law
+
+    \begin{equation}
+        \kappa_{\mathrm{R}} = 5 \cdot 10^{24} \rho T_{\mathrm{c}}^{-7/2} \si{\cm^2 \gram^{-1}},
+    \end{equation}
+
+
+    the viscosity of the disk's medium is estimated
+
+    \begin{equation}
+        \nu = \alpha c_{\mathrm{s}} H,
+    \end{equation}
+
+    where $c_{\mathrm{s}}$ represents the speed of sound in the medium. $H$ represents the scale height of the disk limiting the subsonic turbulent eddies size. The free parameter $\alpha$ ranges between zero (no accretion) and approximately one. Solving the equations \eqref{eq:alpha_model_prescription} with the assumption $\mu = 0.615$ (fully ionized gases), we get a set of relations representing the Shakura-Sunyaev $\alpha$-disc solution \cite{acpow}  
+
+    \begin{align}
+    \begin{split}
+    \Sigma &= 5.2 \alpha^{-4/5} \dot{M}^{7/10}_{16} m^{1/4}_1 R^{-3/4}_{10} f^{14/5}\ \mathrm{g\ cm^{-2}}, \\
+    H &= 1.7 \times 10^8 \alpha^{-1/10} \dot{M}^{3/20}_{16} m^{-3/8}_1 R^{9/8}_{10} f^{3/5}\ \mathrm{cm}, \\
+    \rho &= 3.1 \times 10^{-8} \alpha^{-7/10} \dot{M}^{11/20}_{16} m^{5/8}_1 R^{-15/8}_{10} f^{11/5}\ \mathrm{g\ cm^{-3}}, \\
+    T_{\mathrm{c}} &= 1.4 \times 10^4 \alpha^{-1/5} \dot{M}^{3/10}_{16} m^{1/4}_1 R^{-3/4}_{10} f^{6/5}\ \mathrm{K}, \\
+    \tau &= 190 \alpha^{-4/5} \dot{M}^{1/5}_{16} f^{4/5}, \\
+    \nu	&= 1.8 \times 10^{14} \alpha^{4/5} \dot{M}^{3/10}_{16} m^{3/4}_1 R^{3/4}_{10} f^{6/5}\ \mathrm{cm^2\ s^{-1}},  \\
+    v_{\mathrm{R}}	&= 2.7 \times 10^{14} \alpha^{4/5} \dot{M}^{3/10}_{16} m^{-1/4}_1 R^{-1/4}_{10} f^{-14/15}\ \mathrm{cm\ s^{-1}},  \\
+    \mathrm{with}\ f &= \left[ 1 - \left( \frac{R_*}{R} \right)^{1/2} \right]^{1/4}, \\
+    \end{split}
+    \label{eq:alpha_model_solution}
+    \end{align}
+
+    where $f$ represents the boundary layer function. $\dot{M}_{16}$, $R_{10}$, and $m_1$ are transformed to be represented in typical sizes of disk quantities
+
+    \begin{align}
+    \begin{split}
+        \dot{M}_{16} &= \dot{M} / 10^{16} \si{\gram \second^{-1}}, \\
+        R_{10} &= R / (10^{10} \si{cm}), \\
+        m_1 &= M / M_{\odot}.
+    \end{split} 
+    \end{align}
+
+    Figure \ref{fig:plot_alpha_H_T} shows $T_{\mathrm{c}}$ and $H$ solution examples using different values of free parameter $\alpha$ for the same accretion disk system.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=1.0]{img/plot_alpha_H_T.pdf}
+        \caption{$\alpha$-disk model solution examples. Chosen central object's mass is $m_1 = 0.8$. Mid-plane temperatue $T_{\mathrm{c}}$ solution (left) and scale height $H$ (right).}
+        \label{fig:plot_alpha_H_T}
+    \end{figure}
+
+\subsection{Super-Eddington accretion disks}
+    

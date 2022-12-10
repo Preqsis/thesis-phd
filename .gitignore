@@ -1,4 +1,5 @@
 *.pdf
+!img/*.pdf
 *.aux
 *.log
 *.run.xml
