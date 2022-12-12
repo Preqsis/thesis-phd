@@ -53,6 +53,11 @@ def plot(plot_file) -> None:
 
     ax[0].set_ylabel(r"$T_\mathrm{c}\ [10^4 \mathrm{K}]$")
     ax[1].set_ylabel(r"$H\ [10^8 \mathrm{cm}]$")
+    
+    ax[0].xaxis.set_tick_params(direction="in")
+    ax[0].yaxis.set_tick_params(direction="in", which="both")
+    ax[1].xaxis.set_tick_params(direction="in")
+    ax[1].yaxis.set_tick_params(direction="in", which="both")
 
     lines, labels = ax[0].get_legend_handles_labels()
     leg = fig.legend(lines, labels, ncol=3, loc="upper left", frameon=False, bbox_to_anchor=(0.18,1.05))

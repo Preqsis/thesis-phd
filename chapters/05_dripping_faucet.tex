@@ -19,22 +19,30 @@
 
 
 
-% \begin{align}
-	% \D{}{t} \left(m \D{z}{t}\right) &= -kz - \gamma\D{z}{t} + m f_{\text{g}}, \label{eq:ode_1} \\
-	% \D{m}{t} &= Q, \label{eq:ode_2}
-% \end{align}
+\begin{align}
+\begin{split}
+    \D{}{t} \left(m \D{z}{t}\right) &= -kz - \gamma\D{z}{t} + mg, \\
+    \D{m}{t} &= Q,
+\end{split}
+\label{eq:msm_original_odes}
+\end{align}
 %
 % where $z$ represents the position of the hanging mass $m$. $Q$ is \emph{mass influx}, and it is the main determining parameter of MSM because by choosing a specific value of $Q$, we can drastically alter our model's behavior, as shown in \cite{msmm1999}. Parameter $\gamma=0.05$ is the dampening ratio, and $k$ is the stiffness of the imaginary spring defined as
 %
-% \begin{equation}
-    % \begin{aligned}
-        % & k~=
-        % \begin{cases}
-            % -11.4\ m + 52.5 \hspace{10mm} (m < 4.61) \\
-            % \hspace{12mm} 0 \hspace{20mm} (m \ge 4.61 ).
-        % \end{cases}
-    % \end{aligned}
-    % \label{eq:spring_stiffness}
-% \end{equation}
+\begin{equation}
+    \begin{aligned}
+        & k~=
+        \begin{cases}
+            -11.4\ m + 52.5 \hspace{10mm} (m < 4.61) \\
+            \hspace{12mm} 0 \hspace{20mm} (m \ge 4.61 ).
+        \end{cases}
+    \end{aligned}
+    \label{eq:spring_stiffness}
+\end{equation}
 %
 % Relations expressed by \eqref{eq:spring_stiffness} and the value of $\gamma$ were obtained experimentally by \cite{shaw1984} and provide a good description for the real-world behavior of drops and leaky faucet. Simply put, \eqref{eq:spring_stiffness} means that if the mass contained in the MSM exceeds the value of $m = 4.61$, the matter essentially goes into free fall.
+
+\begin{equation}
+    z_c = 5.5.
+    \label{eq:z_critical_model}
+\end{equation}

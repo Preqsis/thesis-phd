@@ -30,6 +30,14 @@
 
 \usepackage{siunitx}
 
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, shapes.misc, arrows}
+
+\tikzstyle{startstop} = [ellipse, minimum width=5.5cm, minimum height=1 cm, inner sep=0.2cm, text centered, draw=black, fill=red!25]
+\tikzstyle{process} = [rectangle, minimum width=5.5cm, minimum height=1 cm, inner sep=0.2cm, text centered, text width=5.5cm, draw=black, fill=blue!25]
+\tikzstyle{decision} = [chamfered rectangle, minimum width=5.5cm, minimum height=1 cm, inner sep=0.25cm, text centered, text width=5.5cm, draw=black, fill=green!25]
+\tikzstyle{arrow} = [thick, ->, >=latex]
+
 \begin{document}
     % Pro uvodni strany se vypne cislovani
     \pagenumbering{gobble}
