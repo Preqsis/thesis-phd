@@ -241,63 +241,50 @@
 
     There are always no more than two lower layer cells in contact with the source cell, as evident from Figure \ref{fig:grid_states}. Therefore, the redistribution algorithm finds the two closest cells and splits the mass $\Delta m$ between the two receiving cells. The mass split is directly proportional to the relative length of contact the adjacent cells have with the source cell.
 
-
-
-
-
-
-
-
-
-
 % -----------------
 % Thermal processes  
 % -----------------
 \section{Thermal processes}
 \label{sec:thermal_processes}
-    The principal observational quantity is a light curve, which derives from the radiation properties of our model, mainly the temperature. To extract light curves out of our dynamical matter flow simulation, we need to know the temperature of every cell at any given moment throughout the simulation. We apply the black-body approximation, and to simplify the situation, we assume the cells to be optically thin. 
+    The crucial quantity for our model's evaluation is the extracted synthetic light curve, which we derive from the disk's radiation properties, primarily the temperature. The temperature must be known for all cells at any moment of the simulation. We assume that the cells exhibit black-body radiation and are optically thin. 
 
-    Every cell's temperature is a value undergoing continuous change; it depends on the temperature in previous simulation steps and not solely on external parameters.
-
-    The essential factor for consequent thermal processes is the temperature of the matter that flows into the disk from the outside. Its value is determined mainly by the given properties of the secondary star, and in the case of the late-type star, according to \cite{allen1973}, we expect it to be
+    The cell temperature continuously changes and depends on the previous states rather than being a function of only current internal and external parameters. Because of the matter redistribution processes (i.e., the dripping and rotational mixing), the temperature changes are carried throughout the disk's body. The starting point of this chain of changes is matter inflow in the outer layer $i = 0$. The given parameters of the donor star determine the inflow temperature. For the late-type star, according to \cite{allen1973}, it is estimated
 
     \begin{equation}
     T_{\mathrm{out}} \sim 10^3\, \mathrm{K}.
     \end{equation}
 
-    We can establish three main mechanisms of temperature change and will discuss them more closely below. A summary of those will yield the final temperature. 
+    We identified three processes influencing the cell's temperature. In the following sections, we will describe those in detail and get the final cell's temperature as their summary. 
 
 \subsection{Free-Free emission heating}
-    At the moment of \emph{dripping}, the matter that falls into a lower layer cell losses some potential energy \cite{yonehara1997} 
+    The matter that beaks out by \emph{dripping} losses a part of its potential energy, which, according to \cite{yonehara1997}, is calculated by 
 
     \begin{equation}
     \Delta E_{ij} = \frac{1}{2} G M_{\mathrm{p}} \Delta r \frac{\Delta m_{ij}}{r_i^2},
     \label{eq:e_pot}
     \end{equation}
 
-    where $\Delta m_{ij}$ represents the falling mass and $\Delta r$ the layer width, i.e., the distance traveled by the mass. 
-
-    This energy is released by the process of \emph{free-free emission} (i.e. bremsstrahlung); with some efficiency $\varepsilon$ is transformed into internal energy $U$ of the receiving cell
+    where the amount of falling mass is represented by $\Delta m_{ij}$ and $\Delta r$ is the layer width (i.e., the distance traveled by the mass). This energy is released by the process of \emph{free-free emission} (i.e. bremsstrahlung); with some efficiency $\varepsilon$ is transformed into internal energy $U$ of the receiving cell
 
     \begin{equation}
         \Delta U_{i+1,j} = \varepsilon \Delta E_{ij},
     \end{equation}
 
-    where $\Delta U_{i+1,j}$ represents the change of receiving cell's internal energy that heats up the cell. For the sake of simplicity, the heating efficiency is considered to be ${\varepsilon=1}$, then  
+    where $\Delta U_{i+1,j}$ represents the change of receiving cell's internal energy that heats the cell. For the sake of simplicity, we consider the heating efficiency to be ${\varepsilon=1}$, then  
 
     \begin{equation}
         \Delta U_{i+1,j} \equiv \Delta E_{ij}.
         \label{eq:e_int_pot_equiv}
     \end{equation} 
 
-    Gas internal energy change is related to the temperature change by
+    Internal energy changes in relation to the temperature according to 
 
     \begin{equation}
         \Delta U_{ij} = \frac{3}{2} n_{ij} \mathcal{R} \Delta T_{ij},
         \label{eq:e_int_temp_relation}
     \end{equation}
 
-    where $\mathcal{R}$ is the ideal gas constant, and $n_{ij}$ is the number of moles of gas within the cell. Because it is considered to be mostly hydrogen, and its molar mass is $M_{\mathrm{H}} \approx 1$, we can use mass $m_{ij}$ and the number of moles $n_{ij}$ interchangeably. By substituting \eqref{eq:e_int_temp_relation} and \eqref{eq:e_pot} into \eqref{eq:e_int_pot_equiv}, and rearranging a bit, we get the expression that relates change of cell's temperature in layer $i+1$, to the amount of mass falling from the cell above
+    where $\mathcal{R}$ represents the ideal gas constant, and $n_{ij}$ is the number of gas moles in the cell. We assume the gas mostly consists of hydrogen, whose molar mass is $M_{\mathrm{H}} \approx 1$; therefore, the mass $m_{ij}$ and the number of moles $n_{ij}$ are interchangeable. Substitution of \eqref{eq:e_int_temp_relation} and \eqref{eq:e_pot} into \eqref{eq:e_int_pot_equiv}, and a bit of rearrangement, yields the relation of cell's temperature change in layer $i+1$, and the amount of mass falling from the donor cell
 
     \begin{equation}
         \Delta T_{i+1,j} = \frac{1}{3} \frac{G M_{\mathrm{p}} \Delta m_{ij} \Delta r}{r_{i}^2 \mathcal{R} m_{i+1,j}}.
@@ -305,34 +292,34 @@
     \end{equation}
 
 \subsection{Gas mixing}
-    Another mechanism we need to consider is mixing different temperatures and amounts of gases when the dripping occurs. We need to describe the temperature change for the donor cell $T_{ij}$ and the receiving $T_{i+1,j}$. Both instances can be solved utilizing changes in the cell's internal energy, and on the donor side, the resulting expression is simply  
+    The second mechanism concerns mixing different temperatures and amounts of gases when dripping happens. We need to describe the donor cell's temperature change $T_{ij}$ and the receiving cell's $T_{i+1,j}$. We get both by utilizing changes in the cell's internal energy. The resulting expression for the donor cells is simply  
 
     \begin{equation}
     T_{ij}' = T_{ij},
     \end{equation}
 
-    where $T_{ij}$ and $T_{ij}'$ are the temperatures before and after the mass outflow, respectively. In the case of the receiving cell, we are mixing two different amounts of gas at two different temperatures, and the expression is
+    where $T_{ij}$ and $T_{ij}'$ are the temperatures before and after the mass outflow, respectively. The mixing of two different amounts of gas at two different temperatures is happening on the receiving cell's side. The expression for the receiving cell is
 
     \begin{equation}
     T_{i+1,j}' = \frac{m_{i+1,j} T_{i+1,j} + \Delta m_{ij} T_{ij}}{m_{i+1,j} + \Delta m_{ij}}.
     \end{equation}
 
-\section{Radiative cooling}
-    The third mechanism influencing the cell temperature is radiative cooling. We use an approximation that the cells of an optically thin disk radiate as black-body through their top and bottom facets, and one facet having the area
+\subsection{Radiative cooling}
+    The last mechanism taking part in the cell's temperature changes is radiative cooling. The cell's radiation of optically thin disk is approximated as black-body radiation that emits through the top and bottom facets of each cell, and one facet having the area
 
     \begin{equation}
         S_{ij} = \frac{2 \pi r_i \Delta r}{J},
         \label{eq:facet_area}
     \end{equation}
 
-    where $\Delta r$ represents the layer width. Conversion of the cell's internal energy in relation to its black-body radiation is
+    where the layer width is represented by $\Delta r$. Therefore cell's internal energy conversion to its black-body radiation is
 
     \begin{equation}
         \frac{3}{2} m_{ij} \mathcal{R} \frac{dT_{ij}}{dt} = \sigma T_{ij}^4 S_{ij},
         \label{eq:rad_cooling_temp_0}
     \end{equation}
 
-    where $\sigma$ is the Stefan-Boltzman constant. Integrating the \eqref{eq:rad_cooling_temp_0} and rearranging a bit yields the expression for the cell's temperature, which is in the local thermodynamic equilibrium of the radiative cooling
+    where $\sigma$ is the Stefan-Boltzman constant. Integration of \eqref{eq:rad_cooling_temp_0} and yields the expression for the cell's temperature, which is in the local thermodynamic equilibrium of the radiative cooling
 
     \begin{equation}
     T_{ij}' = \left( \frac{2 \sigma S_{ij} t}{m_{ij} \mathcal{R}} + \frac{1}{T_{ij}^3} \right)^{-1/3}.
@@ -342,35 +329,24 @@
 % Synthetic light curve extraction
 % --------------------------------
 \section{Synthetic light curves}
-    Knowing the temperatures of all cells throughout the simulation, as a result of thermal processes define in Section \ref{sec:thermal_processes}, enables us to extract simulated spectra. Cell's radiation power at a specific wavelength from both top and bottom facets is given by
+    Synthetic light curve extraction starts with the full knowledge of temperatures throughout the simulation as a product of previously defined thermal processes. This information enables us to extract simulated spectra from the disk's radiation. Wavelength-specific radiation power of individual cells is given by
 
     \begin{equation}
         L_{\lambda,ij} = 4\pi \cdot S_{ij} \cdot B_{\lambda,ij}(\lambda, T_{ij}),
         \label{eq:facet_radiation}
     \end{equation}
 
-    where $B_{\lambda}(\lambda, T_{i,j})$ represents flux density in the given point by the Planck's function, $S_{ij}$ is a single radiating facet area defined by \eqref{eq:facet_area}. Because the accretion disk is considered optically thick, the single facet radiates into the solid angle of $2\pi$. 
-
-    % Figure \ref{fig:spectum_comparison} shows spectra extracted from two distinct simulation runs, one of which (red) was disturbed by a blob of mass impacting the accretion disk (see text (a) and (b) in section 5). Both spectral curves come from the same point in their respective runs (step 1050), which is shortly after the impact for the disturbed run.
-
-    % \begin{figure}[ht]
-        % \centering
-        % \includegraphics{img/spec_d1050_d1050.pdf}
-        % \caption{Comparison of two spectral curves extracted from undisturbed stabilized run (blue) and blob disturbed (red) run.}
-        % \label{fig:spectum_comparison}
-    % \end{figure}
-    %
-    % It is evident from Figure \ref{fig:spectum_comparison} that the temperature increase caused by the impacting mass shifts slightly the peak of radiation towards shorter wavelengths, and thus effectively lowers the total radiation power in the wavelength of our interest (i.e., roughly the range covered by $\mathcal{UBVRI}$ system).
+    where $B_{\lambda}(\lambda, T_{i,j})$ represents flux density in the given point by Planck's function. Single radiating facet area $S_{ij}$ is defined by \eqref{eq:facet_area}, and the accretion disk, considered optically thin, radiates through a single face into the solid angle of $2\pi$. 
 
 \subsection{Light curves in a photometric filter}
-    To simulate observational data more closely, we apply an analytic approximation of Johnson-Cousins $\mathcal{UBVRI}$ filters onto the wavelength-specific total power output of the disk, and we get the synthetic light curve for the chosen filter. The approximation is expressed by
+    To achieve a closer observational data analogy, we use analytic approximations of Johnson-Cousins $\mathcal{UBVRI}$ filters that are applied to the wavelength-specific total power output of the disk. This filtering process produces the synthetic light curve as it would be observed through the chosen filter. The approximation is expressed by
 
     \begin{equation}
     g(\lambda) \propto \mathrm{exp}\left[ - \frac{1}{2} \left( \frac{\lambda - \lambda_{\mathrm{c}}}{\lambda_{\mathrm{w}}} \right)^2 \right],
     \label{eq:filter_gauss}
     \end{equation}
 
-    where $\lambda_{\mathrm{c}}$ specifies the effective central wavelength of the specific filter, and $\lambda_{\mathrm{w}}$ is the effective filter width. Johnson-Cousins specific approximative values are shown in Table 1.
+    where filter-specifig effective central wavelength is $\lambda_{\mathrm{c}}$, and $\lambda_{\mathrm{w}}$ sets the effective filter width. Johnson-Cousins approximative values are listed in Table \ref{tab:johnson_cousins_approx}.
 
     \begin{table}[ht]
     \centering
@@ -385,12 +361,13 @@
     \hline
     \end{tabular*}
     \caption{Parameters of Johnson-Cousins $\mathcal{UBVRI}$ filters approximation. \cite{bessell2005}}
+    \label{tab:johnson_cousins_approx}
     \end{table}
 
-    The radiation power is computed for every cell step by step. Using \eqref{eq:facet_radiation} and \eqref{eq:filter_gauss} and summing up all the cells, we get filtered power output $L_{\mathrm{F}}$ from both sides of the accretion disk
+    We calculate every cell's radiation power step by step. Using \eqref{eq:facet_radiation} and \eqref{eq:filter_gauss} and summing up all the cells, we get filtered power output $L_{\mathrm{F}}$ from both accretion disk's sides
 
     \begin{equation}
     L_{\mathrm{F}} = 4 \pi S_{ij} \Delta \lambda \sum_{i=0}^{I-1} \sum_{j=0}^{J-1} \sum_{\lambda=0}^{\infty} B_{\lambda,ij}(\lambda, T_{ij})\,g(\lambda),
     \end{equation}
 
-    where $\Delta \lambda$ represents wavelength integration step.
+    where $\Delta \lambda$ is the wavelength integration step.
