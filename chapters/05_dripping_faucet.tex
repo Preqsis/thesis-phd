@@ -57,18 +57,35 @@
     \label{eq:base_units_drop}
     \end{align}
 
-    Defined by equations \ref{eq:base_units_drop} are the base units of mass, pressure, and length, that sets $\Gamma = \rho = g = 1$; assuming the medium is water at $20 \si{\celsius}$. The drop's shape is then described by a set of ODE's \eqref{eq:drop_equilibrum_odes}, that are solved numerically, with the use of the initial conditions: $z(0) = P_{\mathrm{b}}$, $\theta(0) = \pi / 2$, and $r(0) = 1 \cdot 10^{-20}$
+    Defined by equations \eqref{eq:base_units_drop} are the base units of mass, pressure, and length, that sets $\Gamma = \rho = g = 1$; assuming the medium is water at $20 \si{\celsius}$. The drop's shape is then described by a set of ODE's \eqref{eq:drop_equilibrum_odes}, that are solved numerically, with the use of the initial conditions: $z(0) = P_{\mathrm{b}}$, $\theta(0) = \pi / 2$, and $r(0) = 1 \cdot 10^{-20}$
 
     % 4.6
     \begin{align}
     \begin{split}
         \frac{\diff r}{\diff s} &= \sin \theta, \\
         \frac{\diff z}{\diff s} &= - \cos \theta, \\
-        \frac{\diff \theta}{\diff s} &= \frac{ycos \theta}{r} - z.
+        \frac{\diff \theta}{\diff s} &= \frac{\cos \theta}{r} - z.
     \end{split}
     \label{eq:drop_equilibrum_odes}
     \end{align}
 
+    Figure \ref{fig:plot_drop_equilibrium_ceiling} shows multiple equilibrum states solutions for diferrent values of pressure $P_{\mathrm{b}}$ at the bottom of the drop.
+
+    \begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1.0\columnwidth]{img/plot_drop_equilibrium_ceiling.pdf}
+    \end{center}
+    \caption{}
+    \label{fig:plot_drop_equilibrium_ceiling}
+    \end{figure}
+    
+    \begin{figure}[H]
+    \begin{center}
+        \includegraphics[width=1.0\columnwidth]{img/plot_drop_equilibrium_faucet.pdf}
+    \end{center}
+    \caption{}
+    \label{fig:plot_drop_equilibrium_faucet}
+    \end{figure}
 
 \section{Fluid dynamical model (FDM)}
 
