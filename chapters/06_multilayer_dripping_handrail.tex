@@ -11,12 +11,12 @@
 % The Model
 % ---------
 \section{The model}
-    The MDH model is inspired by the model created by \cite{yonehara1997}. However, our model takes this concept much further. Instead of a simple mass limit condition, we use a slightly modified implementation of the Mass-Spring model (MSM) as a means of non-linear matter redistribution. We discussed the original MSM in detail in Chapter \ref{chap:dripping_faucet}. 
+    The MDH model is inspired by the model created by \citep{yonehara1997}. However, our model takes this concept much further. Instead of a simple mass limit condition, we use a slightly modified implementation of the Mass-Spring model (MSM) as a means of non-linear matter redistribution. We discussed the original MSM in detail in Chapter \ref{chap:dripping_faucet}. 
 
 \subsection{The cellular accretion disk model}
-    The concept of cellular automaton (CA) is quite an old idea in computer science that Stanislaw Ulam and John von Neuman first discovered at Los Alamos National Laboratory. However, it gained wider popularity after the publishing of \emph{Conway's Game of Life} \cite{gardner1970} and also extensive studies done by Stephen Wolfram starting in the 1980s.
+    The concept of cellular automaton (CA) is quite an old idea in computer science that Stanislaw Ulam and John von Neuman first discovered at Los Alamos National Laboratory. However, it gained wider popularity after the publishing of \emph{Conway's Game of Life} \citep{gardner1970} and also extensive studies done by Stephen Wolfram starting in the 1980s.
 
-    CA definition provided by \cite{wolfram2002} states that: \emph{Cellular automaton is a collection of cells on a grid of specified shape that evolves through a number of discrete time steps according to a predefined set of rules based on neighboring cells.} In our case, this set of rules mainly deals with distributing matter between the cells and throughout the accretion disk body.
+    CA definition provided by \citep{wolfram2002} states that: \emph{Cellular automaton is a collection of cells on a grid of specified shape that evolves through a number of discrete time steps according to a predefined set of rules based on neighboring cells.} In our case, this set of rules mainly deals with distributing matter between the cells and throughout the accretion disk body.
 
     MDH is a cellular automaton that arranges $I$ times $J$ cells in a concentric ring (i.e., layers) grid pattern. The layers a denoted by 
 
@@ -118,9 +118,9 @@
     \end{align}
 
 \subsection{Modeled system geometry and grid dimensions}
-    Our primary focus is modeling an accretion disk of a typical \emph{cataclysmic variable star}, where the primary component would be a WD. Mass of the WD $M_{\mathrm{p}}$ can range from $0.15 M_{\odot}$ up to $1.44 M_{\odot}$, and the heaviest observed white dwarf has a mass of $1.35 M_{\odot}$ \cite{caiazzo2021}, therefore we are limited to this range when choosing primary component's mass $M_{\mathrm{p}}$.
+    Our primary focus is modeling an accretion disk of a typical \emph{cataclysmic variable star}, where the primary component would be a WD. Mass of the WD $M_{\mathrm{p}}$ can range from $0.15 M_{\odot}$ up to $1.44 M_{\odot}$, and the heaviest observed white dwarf has a mass of $1.35 M_{\odot}$ \citep{caiazzo2021}, therefore we are limited to this range when choosing primary component's mass $M_{\mathrm{p}}$.
 
-    The inner disk radius $r_{\mathrm{in}}$ is set equal to the white dwarf's radius, which according to \cite{shapiro1983}, can be approximated by the \emph{mass to radius ratio} previously defined by \eqref{eq:mass_radius_ratio}.
+    The inner disk radius $r_{\mathrm{in}}$ is set equal to the white dwarf's radius, which according to \citep{shapiro1983}, can be approximated by the \emph{mass to radius ratio} previously defined by \eqref{eq:mass_radius_ratio}.
 
     The Roche lobe of the primary component contains the outer edge of the accretion disk. Therefore the outer radius $r_{\mathrm{out}}$ is set to correspond with the binary system's Lagrange point $L_1$ and is calculated by \eqref{eq:disk_outher_radius}. Mass of the donor component $M_{\mathrm{s}}$, which also plays a role in determining the accretion disk's outer radius through its influence on Roche potential, ranges between $0.3M_{\odot}$ and $8M_{\odot}$ because the secondary star is considered to be a red-giant. 
 
@@ -197,13 +197,13 @@
     \label{fig:diagram_cellular_algorithm}
     \end{figure}
 
-    The discrepancy needed to be dealt with when simulation MDH is that MSM's mass scale is different from the global (i.e., real-world) mass scale of the accretion disk. However, it is not a big problem. MSM is used only as the critical condition because of its qualitative and not quantitative properties. Nevertheless, we need to know the \emph{real} amount of accreted matter. For a typical CV, the accretion rate is assumed \cite{ae_shortrev2015}
+    The discrepancy needed to be dealt with when simulation MDH is that MSM's mass scale is different from the global (i.e., real-world) mass scale of the accretion disk. However, it is not a big problem. MSM is used only as the critical condition because of its qualitative and not quantitative properties. Nevertheless, we need to know the \emph{real} amount of accreted matter. For a typical CV, the accretion rate is assumed \citep{ae_shortrev2015}
 
     \begin{equation}
         \dot{M} \sim 10^{14}\, \mathrm{g \cdot s^{-1}},
     \end{equation}
 
-    and the value of $a$ according to \cite{msmm1999} is
+    and the value of $a$ according to \citep{msmm1999} is
 
     \begin{equation}
         \label{eq:q_estimate}
@@ -248,7 +248,7 @@
 \label{sec:thermal_processes}
     The crucial quantity for our model's evaluation is the extracted synthetic light curve, which we derive from the disk's radiation properties, primarily the temperature. The temperature must be known for all cells at any moment of the simulation. We assume that the cells exhibit black-body radiation and are optically thin. 
 
-    The cell temperature continuously changes and depends on the previous states rather than being a function of only current internal and external parameters. Because of the matter redistribution processes (i.e., the dripping and rotational mixing), the temperature changes are carried throughout the disk's body. The starting point of this chain of changes is matter inflow in the outer layer $i = 0$. The given parameters of the donor star determine the inflow temperature. For the late-type star, according to \cite{allen1973}, it is estimated
+    The cell temperature continuously changes and depends on the previous states rather than being a function of only current internal and external parameters. Because of the matter redistribution processes (i.e., the dripping and rotational mixing), the temperature changes are carried throughout the disk's body. The starting point of this chain of changes is matter inflow in the outer layer $i = 0$. The given parameters of the donor star determine the inflow temperature. For the late-type star, according to \citep{allen1973}, it is estimated
 
     \begin{equation}
     T_{\mathrm{out}} \sim 10^3\, \mathrm{K}.
@@ -257,7 +257,7 @@
     We identified three processes influencing the cell's temperature. In the following sections, we will describe those in detail and get the final cell's temperature as their summary. 
 
 \subsection{Free-Free emission heating}
-    The matter that beaks out by \emph{dripping} losses a part of its potential energy, which, according to \cite{yonehara1997}, is calculated by 
+    The matter that beaks out by \emph{dripping} losses a part of its potential energy, which, according to \citep{yonehara1997}, is calculated by 
 
     \begin{equation}
     \Delta E_{ij} = \frac{1}{2} G M_{\mathrm{p}} \Delta r \frac{\Delta m_{ij}}{r_i^2},
@@ -360,7 +360,7 @@
     $\mathcal{I}$ & 7980 & 1540\\
     \hline
     \end{tabular*}
-    \caption{Parameters of Johnson-Cousins $\mathcal{UBVRI}$ filters approximation. \cite{bessell2005}}
+    \caption{Parameters of Johnson-Cousins $\mathcal{UBVRI}$ filters approximation. \citep{bessell2005}}
     \label{tab:johnson_cousins_approx}
     \end{table}
 

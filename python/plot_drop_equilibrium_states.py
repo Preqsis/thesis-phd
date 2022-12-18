@@ -108,21 +108,27 @@ def plot_pv(plot_file: str, faucet_radius: float = None) -> None:
         v = np.sum(h * data[:-1,0]**2. * np.pi)
         pv[i,0] = p
         pv[i,1] = v
+
+    pv_max = pv[pv[:,1] == pv[:,1].max()]
+    print(pv_max)
     
     fig, ax = plt.subplots(1, 1)
     plt.subplots_adjust(
-        left=0.08,
-        bottom=0.1,
-        right=0.95,
+        left=0.07,
+        bottom=0.15,
+        right=0.98,
         top=0.97,
         wspace=0.09,
         hspace=0.09
     )
-    fig.set_size_inches(5.55, 5.55)
+    fig.set_size_inches(5.55, 3.)
 
-    ax.plot(pv[:,0], pv[:,1], "black", marker="o", markersize=1, linewidth=0.)
+    ax.plot(pv[:,0], pv[:,1], "black", marker="o", markersize=0.8, linewidth=0.)
     ax.set_xlabel(r"$P_{\mathrm{b}}$")
-    ax.set_ylabel(r"$V$")
+    ax.set_ylabel(r"$V_{\mathrm{d}}$")
+    
+    ax.xaxis.set_tick_params(direction="in")
+    ax.yaxis.set_tick_params(direction="in", which="both")
 
     fig.savefig(plot_file, dpi=600, format="pdf")
     plt.close(fig)
