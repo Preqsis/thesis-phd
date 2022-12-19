@@ -185,7 +185,6 @@
         \mathcal{L} = E_{\mathrm{k}}(\dot{z}_1, ..., \dot{z}_M) - U_{\mathrm{g}}(z_1, ..., z_M) - U_{\Gamma}(z_1, ..., z_M)
     \end{equation}
 
-\subsection{FDM simulation}
     To conduct the simulation, the equations of motion for the drop system are calculated from
 
     \begin{equation}
@@ -202,7 +201,13 @@
     \label{fig:plot_fdm_simulation}
     \end{figure}
 
-\section{Mass-spring model (MSM)} \label{section:msm}
+\section{Mass-spring model (MSM)} 
+    \label{section:msm}
+
+    The less complex couterpart to the \emph{Fluid Dynamical model} is the \emph{Mass-Spring model}, which is more suitable for studying the long-term behavior of the dripping faucet system. This model was first proposed by \citep{shaw1984} and later modified by \citep{msmm1999}. The forming drop on a faucet is modelled using one dimensional system of spring with variable stiffness $k$ and a mass $m$ atached to it. As the simulation progresses, the spring elongation $z$ (i.e., position of hanging mass) is monitored and if the critical value of elongation $z_{\mathrm{c}}$ is reached, predefined part of the drop breaks out, the system parametes resets and the cycle continues.
+
+    The original verision defined by \citep{shaw1984} is described by a set of ODE's 
+
     \begin{align}
     \begin{split}
         \D{}{t} \left(m \D{z}{t}\right) &= -kz - \gamma\D{z}{t} + mg, \\
@@ -210,26 +215,81 @@
     \end{split}
     \label{eq:msm_original_odes}
     \end{align}
-    %
-    % where $z$ represents the position of the hanging mass $m$. $Q$ is \emph{mass influx}, and it is the main determining parameter of MSM because by choosing a specific value of $Q$, we can drastically alter our model's behavior, as shown in \citep{msmm1999}. Parameter $\gamma=0.05$ is the dampening ratio, and $k$ is the stiffness of the imaginary spring defined as
-    %
+
+    where $z$ represents the spring elongation, $m$ mass of the hanging drop. The constant damping ratio is $\gamma = 0.05$, $Q$ represents the constant mass inflow from the caucet, and the spring stiffness $k$ depending on the current mass of the drop is defined as
+    
     \begin{equation}
         \begin{aligned}
             & k~=
             \begin{cases}
                 -11.4\ m + 52.5 \hspace{10mm} (m < 4.61) \\
-                \hspace{12mm} 0 \hspace{20mm} (m \ge 4.61 ).
+                \hspace{14.5mm} 0 \hspace{20mm} (m \ge 4.61 ).
             \end{cases}
         \end{aligned}
         \label{eq:spring_stiffness}
     \end{equation}
-    %
-    % Relations expressed by \eqref{eq:spring_stiffness} and the value of $\gamma$ were obtained experimentally by \citep{shaw1984} and provide a good description for the real-world behavior of drops and leaky faucet. Simply put, \eqref{eq:spring_stiffness} means that if the mass contained in the MSM exceeds the value of $m = 4.61$, the matter essentially goes into free fall.
+    
+    Relations expressed by \eqref{eq:spring_stiffness} and the value of $\gamma$ were obtained experimentally by \citep{shaw1984} and provide a good description for the real-world behavior of drops and leaky faucets.
 
+    On the basis of \eqref{eq:msm_original_odes} \citep{msmm1999} proposed a improved version of MSM, that is expresed by following set of ODE's
+
+    \begin{align}
+    \begin{split}
+        \D{p}{t} &= -kz - \gamma\D{z}{t} + mg, \\
+        \D{p}{t} &= m \frac{\diff^2 z}{\diff t^2} + \left(\D{z}{t}  \right)\D{m}{t}.
+    \end{split}
+    \label{eq:msm_original_moded_odes}
+    \end{align}
+
+    Equations \eqref{eq:msm_original_moded_odes} are then converted to a form suitable for numerical solution by an appropriate method (e.g., methods from the Runge-Kutta family)
+    
+    %4.33
+    \begin{align}
+    \begin{split}
+        \dot{z} &= v \\
+        \dot{v} &= g - \frac{1}{m}[kz + \gamma v + (v - v_0)Q]
+    \end{split}
+    \end{align}
+
+    where $Q$ is the inflow to the faucet, that is defined as
+
+    %4.31
     \begin{equation}
-        z_c = 5.5.
+        \D{m}{t} = Q = \pi r_{\mathrm{a}}^2 v_0.
+    \end{equation}
+
+    The value $v_0$ represents the fluid flow velocity from the faucet, and it is a constant value. By chosing different velocity $v_0$, we can drastically alter the behavior of system, from periodic through period-doubling stages to complete aperiodicity. 
+
+    Importent aspect of the simulation is, monitoring the critical value of elongation $z_{\mathrm{c}}$, and at the moment when condition is mett the drop breakout, matter redistribution, and reset of model parameters. The precice value of $z_{\mathrm{c}}$ according to \citep{msmm1999} is
+    
+    \begin{equation}
+        z_{\mathrm{c}} = 5.5.
         \label{eq:z_critical_model}
     \end{equation}
+
+    The amount of mass $m_r$ that remains on the faucet after the breakup is
+    
+    \begin{equation}
+        m_{\mathrm{r}} = 0.2 m + 0.3,
+    \end{equation}
+
+    which is also experimentally obtained relation, that coresponds well with observaions of real dripping faucets.
+
+    \begin{figure}[H]
+    \begin{center}
+        \includegraphics[scale=1.0]{img/plot_msm_state_space.pdf}
+    \end{center}
+    \caption{}
+    \label{fig:}
+    \end{figure}
+
+    \begin{sidewaysfigure}
+        \includegraphics[width=1.0\columnwidth]{img/plot_msm_bifurcation.pdf}
+        \caption{Biffurcation diagram of MSM in the }
+    \end{sidewaysfigure}
+    
+
+
 
 \section{Dripping handrail models}
 
