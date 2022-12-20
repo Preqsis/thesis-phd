@@ -25,7 +25,7 @@ def plot(plot_file: str, data) -> None:
     ax.plot(data[:,0], data[:,1], "black", linewidth=0., marker="o", markersize=.5)
     
     ax.set_xlabel(r"$v_0$")
-    ax.set_ylabel(r"$T_{n}$")
+    ax.set_ylabel(r"$T_{n}$", rotation=0)
 
     ax.set_xlim((0.13, 0.18))
 

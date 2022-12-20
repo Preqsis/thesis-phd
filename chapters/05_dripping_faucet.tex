@@ -1,6 +1,6 @@
 \chapter{DRIPPING FAUCET}
 \label{chap:dripping_faucet}
-\mquote{not selectet yet}{...}
+\mquote{What we know is a drop, what we don't know is an ocean.}{Isaac Newton}
     In the previous chapter, we discussed the possibility of swapping a complex and often computationally demanding model for a simpler alternative that behaves similarly. Because the accretion disk is an incredibly complex system, we must also follow this approach and find a suitable and computationally manageable simplification. We chose to employ a relatively simple model of a dripping faucet, which is a reasonably well-understood system known to exhibit non-linear behavior under certain conditions. There are two types of dripping faucet models. 
 
     For a better understanding of drop formation processes and a more detailed study of fluid behavior, we can construct a model based on Navier-Stokes equations or Lagrange equations. The key roles in such a model, which is referred to as \emph{Fluid Dynamical Model} (FDM), are played by surface tension, viscosity, and gravity \parencite{faucet1999}.   
@@ -204,9 +204,9 @@
 \section{Mass-spring model (MSM)} 
     \label{section:msm}
 
-    The less complex couterpart to the \emph{Fluid Dynamical model} is the \emph{Mass-Spring model}, which is more suitable for studying the long-term behavior of the dripping faucet system. This model was first proposed by \citep{shaw1984} and later modified by \citep{msmm1999}. The forming drop on a faucet is modelled using one dimensional system of spring with variable stiffness $k$ and a mass $m$ atached to it. As the simulation progresses, the spring elongation $z$ (i.e., position of hanging mass) is monitored and if the critical value of elongation $z_{\mathrm{c}}$ is reached, predefined part of the drop breaks out, the system parametes resets and the cycle continues.
+    The less complex counterpart to the \emph{Fluid Dynamical model} is the \emph{Mass-Spring model}, which is more suitable for studying the long-term behavior of the dripping faucet system. This model was first proposed by \citep{shaw1984} and later modified by \citep{msmm1999}. The forming drop on a faucet is modeled using a one-dimensional spring system with variable stiffness $k$ and a mass $m$ attached. As the simulation progresses, the spring elongation $z$ (i.e., the position of hanging mass) is monitored. If the critical value of elongation $z_{\mathrm{c}}$ is reached, the predefined part of the drop breaks out, the system parameters reset, and the cycle continues.
 
-    The original verision defined by \citep{shaw1984} is described by a set of ODE's 
+    The original version defined by \citep{shaw1984} is described by a set of ODE's 
 
     \begin{align}
     \begin{split}
@@ -216,7 +216,7 @@
     \label{eq:msm_original_odes}
     \end{align}
 
-    where $z$ represents the spring elongation, $m$ mass of the hanging drop. The constant damping ratio is $\gamma = 0.05$, $Q$ represents the constant mass inflow from the caucet, and the spring stiffness $k$ depending on the current mass of the drop is defined as
+    where $z$ represents the spring elongation, $m$ mass of the hanging drop. The constant damping ratio is $\gamma = 0.05$, $Q$ represents the constant mass inflow from the faucet, and the spring stiffness $k$, depending on the current mass of the drop, is defined as
     
     \begin{equation}
         \begin{aligned}
@@ -231,7 +231,7 @@
     
     Relations expressed by \eqref{eq:spring_stiffness} and the value of $\gamma$ were obtained experimentally by \citep{shaw1984} and provide a good description for the real-world behavior of drops and leaky faucets.
 
-    On the basis of \eqref{eq:msm_original_odes} \citep{msmm1999} proposed a improved version of MSM, that is expresed by following set of ODE's
+    Based on \eqref{eq:msm_original_odes}, \citep{msmm1999} proposed an improved version of MSM that is expressed by following set of ODE's
 
     \begin{align}
     \begin{split}
@@ -258,9 +258,9 @@
         \D{m}{t} = Q = \pi r_{\mathrm{a}}^2 v_0.
     \end{equation}
 
-    The value $v_0$ represents the fluid flow velocity from the faucet, and it is a constant value. By chosing different velocity $v_0$, we can drastically alter the behavior of system, from periodic through period-doubling stages to complete aperiodicity. 
+    The value $v_0$ represents the fluid flow velocity from the faucet, which is a constant value. By choosing different velocities $v_0$, we can drastically alter the system's behavior, from periodic through period-doubling stages to complete aperiodicity. 
 
-    Importent aspect of the simulation is, monitoring the critical value of elongation $z_{\mathrm{c}}$, and at the moment when condition is mett the drop breakout, matter redistribution, and reset of model parameters. The precice value of $z_{\mathrm{c}}$ according to \citep{msmm1999} is
+    An important aspect of the simulation is, monitoring the critical value of elongation $z_{\mathrm{c}}$. The drop breaks out when the condition is met and model parameters are reset. The precise value of $z_{\mathrm{c}}$ according to \citep{msmm1999} is
     
     \begin{equation}
         z_{\mathrm{c}} = 5.5.
@@ -273,24 +273,25 @@
         m_{\mathrm{r}} = 0.2 m + 0.3,
     \end{equation}
 
-    which is also experimentally obtained relation, that coresponds well with observaions of real dripping faucets.
+    which is also an experimentally obtained relation that corresponds well with observations of real dripping faucets. As a demonstration, we have done many simulations for the same arbitrary faucet radius $r_{\mathrm{a}} = 0.916$, with the individual simulation with different inflow velocity in the interval $v_0 = \langle 0.13; 0.18 \rangle$, and velocity value increment $\Delta v_0 = 5.0 \cdot 10^{-5}$. One result example for $v_0 = 0.146$ plotted as projections of phase space is shown in Figure \ref{fig:plot_msm_state_space}. 
 
     \begin{figure}[H]
     \begin{center}
-        \includegraphics[scale=1.0]{img/plot_msm_state_space.pdf}
+        \includegraphics[width=1.0\columnwidth]{img/plot_msm_state_space.pdf}
     \end{center}
-    \caption{}
-    \label{fig:}
+        \caption{Phase space portrait projections of MSM, where \mbox{$r_{\mathrm{a}} = 0.916$}, $v_0 = 0.146$.}
+    \label{fig:plot_msm_state_space}
     \end{figure}
+
+    A good demonstration of the non-linear behavior of the MSM system is the bifurcation diagram, which is constructed by plotting the periods between two consecutive drop breakups $T_n$ in relation to the inflow velocity $v_0$. For example, in the bifurcation diagram shown in Figure \ref{fig:plot_msm_bifurcation}, we can see inflow velocity intervals of periodic dripping and total aperiodic behavior. 
 
     \begin{sidewaysfigure}
         \includegraphics[width=1.0\columnwidth]{img/plot_msm_bifurcation.pdf}
-        \caption{Biffurcation diagram of MSM in the }
+        \caption{Bifurcation diagram of MSM in the }
+        \label{fig:plot_msm_bifurcation}
     \end{sidewaysfigure}
-    
 
-
-
-\section{Dripping handrail models}
+% TODO: sekce o "Dripping Handrail" modelech
+% \section{Dripping handrail models}
 
 
