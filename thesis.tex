@@ -26,7 +26,7 @@
 % pozn. https://tex.stackexchange.com/questions/305381/biblatex-empty-bibliography ... kvuli chybe nedefinovanych bib
 \addbibresource{./references.bib}
 
-\usepackage{siunitx}
+\usepackage[binary-units]{siunitx}
 
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, shapes.misc, arrows}
@@ -39,7 +39,9 @@
 \usepackage{rotating}
 
 \usepackage{enumitem}
-\setlist[itemize]{leftmargin=30mm,itemsep=0mm}
+% \setlist[itemize]{leftmargin=30mm,itemsep=0mm}
+
+\def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
 
 \begin{document}
     % Pro uvodni strany se vypne cislovani

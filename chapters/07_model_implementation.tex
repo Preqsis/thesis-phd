@@ -1,10 +1,45 @@
+%&<latex>
 \chapter{MDH - MODEL IMPLEMENTATION}
 \label{chap:model_implementation}
 \thispagestyle{empty}
+
 \mquote{Computer science is no more about computers than astronomy is about telescopes.}{Edsger Dijkstra}
+    In this chapter we will focus on the technical side of our accretion disk modeling efforts. Because, to be honest, incomparably more time was spent on implementing, testing, and debuging the code, than developoing the uderlying theory; and we are talking maybe orders of magnitude more.
+
+    Threre were four consecutive versions of the code. Each improving the previus and fixing its errors, while itroducing new chalenges of course. The version presented in this study is the last iteration, so far. As any other software, whether scientific or comertial application, it is never finised. There is still room for improvment and new ideas, but we can say with confidence, that this vertion of MDH implementation is able to model accretion disc dynamics and power output, with good mix of robustness, customizeability.  
+
+    We knew from the start, that moddeling such a complex, inherently non-linear system, will be a chalenge, first and foremost hardware-wise. Because for one, as shown in the Chapter \ref{chap:multilayer_dripping_handrail}, the number of individual cells, each holding its own system of ODEs, can easilly go up to thousands. Second, each holds 13 state values (i.e, coordinates, temperature, compute flags etc.). For example, a moderate simulation run of $10^5$ steps producess over a $100 \si{\giga\byte}$ of data, and that is just the dynamical simulation part. When we startextracting radiation out of these results, we are easilly in the range of severeral $\si{\tera\byte}$ datasets, beacause for every cell we need co compute a spectral energy distrubution of few underd values (depending on the chosen range and granularity). Therefore, two chalenges were presented from the get-go:
+
+    \begin{enumerate}
+        \item[\textbf{a)}] Solving relativelly large number of ODE sets.
+        \item[\textbf{b)}] Handling relativelly large amounts of data. 
+    \end{enumerate}
+
+    While \textbf{a)} is achievable to some degree, by paralelization and good optimization, the \textbf{b)} is just a matter of having enough data storage, there is no way around it. In the end we managed to create a simulation code that is usable even on computer systems with relativelly modest hardware specification. For reference, simulation examples presented in this study were done on a personal desktop computer with Intel's Core i7-4790k CPU, 32$\si{\giga\byte}$ of memory, and of course large enough sorage to acomodate the simulation data output. With this configuration, every presented simulation took several hours, at most.  
 
 \section{Algorythmic overview}
-\subsection{MPI paralelization}
+    All the core simulation code is implemented in \CC. There are also supporting scripts for visualisation, input preparation, data sorting and extraction writen in Python 3.9+. 
+
+\subsection{Model's subtasks}
+    The model's codebase is split, based on the logic of consequent operations, into three parts, that for the sake of simplicity and ease of use are:
+
+    \begin{enumerate}[topsep=4mm]
+        \item \textbf{SIMULATION} (SIM) - performs the dynamical simulation of matter flow and temperature changes in the accretion disc.
+        \item \textbf{RADIATION} (RAD) - takes the dynamical simulation results, and computes disc's power output spectral distrubution over predefined range of wavelengts.
+        \item \textbf{OBSERVATION} (OBS) - performs a synthetic observation, with the use of analytical approximations of Johnson-Cousins $\mathrm{UBVRI}$ photometric filters, and extracts a flickering light curve.  
+    \end{enumerate}
+
+    All these subtasks employ paralelization, but each in a litle bit different fashion. SIM and RAD are paralelized spatialy, which means, that the disc's cells are split into same-sized groups and these groups are computed separately by individual processes. OBS is paralelized in the time domain, because computation of individual light curve's data point is not dependent on previous or following data poins. 
+
+    The subtasks are able to be run separately or hand over its result to the next subtask. Also, in the case of SIM, thre is a possibility to run it either as a clean simulation or as a continuation of previos results. The abilly to start the SIM from predefined point in another run is particulary important in the cases where we need to simulate multiple parameter variations with the same initial conditions. It might seem easy, but the re-initialization of such a complex and large data structure is not a trivial taks. 
+
+\subsection{Open MPI paralelization}
+    Open MPI (Message Passing Interface) is an open source high performance message library, that serves as a comunication protocot in distributed parallel computing \citep{openmpi2022}. It is widelly used, but not limited to, by many supercomputers. Its ease of use, good documetation and relativelly large comunity of developers, makes it quite straightforward to use even on smaller projects, like ours. 
+
+    We use a simple approach of running one MASTER process, and multiple SLAVE processes. The MASTER is the main handler of the distributed computation, that sends intructions to the SLAVES, and then colects, sorts and outputs the resutls. The SLAVE perform majority of the computations based on the data and instructions recieved form the MASTER, for example, a subset of MDH cells. For reference, in the resutls presented in this study, it ussually means, one MASTER plus seven SLAVES.
+
+    One downside, or rather a complication, in this type of code paralelization is, that the data types needs to be explicitly defined and precicelly alocated, because each end of MPI communication expects exactly he same predefined data type with uniform memory allocation. For MDH impletentation it means, is some cases, a four-dimensional array of pointers.
+
 \subsection{Data output}
 
 \section{Model's command line interface}
