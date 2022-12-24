@@ -42,6 +42,55 @@
 
     One downside, or rather a complication when using MPI, is that the data types need to be explicitly defined and precisely allocated because each end of MPI communication expects the same predefined data type with uniform memory allocation. For MDH implementation, it means, in some cases, a four-dimensional array of pointers.
 
+\subsection{MASTER processes}
+    The MASTER process algorithm is very similar for all three MDH subtasks, there are slight differnces but the order of operations and the basic performed operations are the same.  
+
+    \begin{figure}[H]
+    \centering
+    \begin{tikzpicture} [node distance=2cm]
+        \node (start) [startstop] {Start}; 
+        \node (stop) [startstop, right of=start, xshift=5.5cm] {Stop};
+        \node (pr1) [process, below of=start, yshift=-0.5cm] {Save initial data.};
+        \node (if1) [decision, below of=pr1, xshift=3.5cm] {End simulation?};
+        \node (pr2) [process, below of=if1, xshift=3cm] {Create computation subsets.};
+        \node (pr3) [process, below of=pr2] {Send subsets to SLAVE processes.};
+        \node (pr4) [process, left of=pr3, xshift=-4.5cm] {Receive results from SLAVES.};
+        \node (pr5) [process, left of=pr2, xshift=-4.5cm] {Save data.};
+
+        \draw[arrow] (start) -- (pr1);
+        \draw[arrow] (pr1) -- (if1);
+        \draw[arrow] (if1) -- node[anchor=west] {\ YES} (stop);
+        \draw[arrow] (if1) --  node[anchor=west] {\ NO} (pr2);
+
+        \draw[arrow] (pr2) -- (pr3);
+        \draw[arrow] (pr3) -- (pr4);
+        \draw[arrow] (pr4) -- (pr5);
+        \draw[arrow] (pr5) -- (if1);
+    \end{tikzpicture}
+    \end{figure}
+
+\subsection{SLAVE processes}
+    
+    \begin{figure}[H]
+    \centering
+    \begin{tikzpicture} [node distance=2cm]
+        \node (start) [startstop] {Start}; 
+        \node (stop) [startstop, right of=start, xshift=5.5cm] {Stop};
+
+        \node (pr1) [process, below of=start] {Receive instructions and/or data.};
+        \node (if1) [decision, right of=pr1, xshift=5.5cm] {Compute?};
+        \node (pr2) [process, below of=if1] {Perform computations.}; 
+        \node (pr3) [process, left of=pr2, xshift=-5.5cm] {Send results to MASTER.};
+
+        \draw[arrow] (start) -- (pr1);
+        \draw[arrow] (pr1) -- (if1);
+        \draw[arrow] (if1) -- node[anchor=west] {NO} (stop);
+        \draw[arrow] (if1) -- node[anchor=west] {YES} (pr2);
+        \draw[arrow] (pr2) -- (pr3);
+        \draw[arrow] (pr3) -- (pr1);
+    \end{tikzpicture}
+    \end{figure}
+
 \subsection{Data output}
     To store the large amount of data thar MDH simulation produces, we use HDF5 (\emph{Hierarchical Data Formats}), which is open-source file format that is able to store complex and heterogeneous data \citep{hdf5_2006}. HDF5 supports very fast IO (\emph{Input/Output}), so it enables us to store every simulation frame (i.e., state in time) in full without the need for data truncation or frame skiping. At the same time, the simulation perfomance, at least with our example hardware configuration, is not limited by the IO but only by the CPU. 
 
@@ -52,27 +101,24 @@
 \subsection{ODE solver}
     To solve the MSM's ODE system, we use a numerical integrator out of the Runge-Kutta familly. By default it uses the Fehlberg's 7th and 8th order method, which is implemented by the boost::numeric::odeint module \citep{boost_2007}. The selected stepper method, can be changed using dedicated CLI parameter of the MDH application. 
 
-\section{SIM - dynamical simulation subtask}
-    The SIMULTAION subtask is the starting point of the model's computational pipeline, and also the algorithmically most complex part of the code. It performs the dynamical matter redistribution simulation, that is based on predefined MDH rules and geometry (see. Chapter \ref{chap:multilayer_dripping_handrail}). Particularly important is the process of solving MSM ODE sytem, which is the crutial mechanism trigerring the matter accretion to lower layers. 
 
-\subsection{MASTER process}
+\section{SIM - dynamical simulation subtask}
+    The SIMULTAION subtask is the starting point of the model's computational pipeline, and also the algorithmically most complex part of the code. It performs the dynamical matter redistribution simulation, that is based on predefined MDH rules and geometry (see. Chapter \ref{chap:multilayer_dripping_handrail}). Particularly important is the process of solving MSM ODE sytem, which is the crutial mechanism trigerring the matter accretion to lower layers. This subtask is spatially parallelized, and uses the MASTER/SLAVE process paradigm. 
+
     The MASTER proces of SIM subtaks performs the data handling and instruction distribution role. First it splits the accretion disk into $n-1$ cell subsets, where $n$ is the total number of running MDH processes, and then the subsets are distributed into the running SLAVE processes.
 
     When the SLAVE processes are done with threir calculations, the MASTER collects and combines the results. Also, the check for MSM critical dripping conditions must be done in MASTER, beacuse the matter redistribution hapens all over the disc's body, accros and between all the subsets of cells. Lastly it saves the completed frame results into the HDF5 (*.h5) data file. 
 
-\subsection{SLAVE process}
-    The SLAVE processes of SIM are the actual \emph{simulation} part of this subtask. They receive the cell subsets, carry out the MSM's ODE system solution over this subset, and return the results to MASTER. 
+    The SLAVE processes of SIM are the actual \emph{simulation} part of this subtask. They receive the cell subsets, carry out the MSM's ODE system solution over those subsets, and return the results to MASTER. 
+
+    This back and forth communication between the processes and data saving is repeated step by step for the whole simulation run. 
 
 \section{RAD - radiation extraction subtask}
-    The RADIATION subtask takes the results of previous SIMULATION subtask, and per-cell basis computes the spectral energy distribution on predefined wavelengths interval, using \emph{black-body approximation} for disc's cells. 
+    The RADIATION subtask takes the results of SIMULATION subtask, and per-cell basis computes the spectral energy distribution on predefined wavelengths interval, using \emph{black-body approximation} for disc's cells. This subtask is also spatially parallelized, and employ the MASTER and SLAVES process model.
 
-\subsection{MASTER process}
-\subsection{SLAVE process}
+    The structure and order of operations is basically the same as for SIM. The RAD's SLAVE processes compute the spectral energy distribution for each cell, which means a lot more values per single cell than SIM; therefore the HDF5 data output is drastically biger. For reference, the RAD results from witch we extracted the light curves presented in Chapter \ref{chap:cv_models} are done for the interval of $2880$ steps (i.e., $48$ hours in real world), and the single RAD HDF5 data file is over 600 $\si{\giga\byte}$.
 
 \section{OBS - synthetic observation subtask}
-    Third and last in the MDH computation pipeline is the OBSERVATION subtask, which serves as a synthetic light curve extractor. It takes the results of RADIATION subtask and applies an analytical approximations of Johnson-Cousins $\mathcal{UBVRI}$ photometric filters. 
+    Third and last in the MDH computation pipeline is the OBSERVATION subtask, which serves as a synthetic light curve extractor. It takes the results of RAD and applies an analytical approximations of Johnson-Cousins $\mathcal{UBVRI}$ photometric filters. This subtasks is also parallelized in similar fashion as RAD and OBS, and uses the same MASTER/SLAVE approach, but in this case the data subsets are defined in the time domain. 
 
-\subsection{MASTER process}
-\subsection{SLAVE process}
-
-\section{CLI Examples}
+    It is almost ironic, that the output of OBS is only a few hunderd $\si{\kilo\byte}$ HDF5 data file, considering the input is the RAD data file, which is the multi-hunderd $\si{\giga\byte}$ behemoth. The reason is, that the outputed data are jus a few simple timesesires of several thousands steps for each Johnson-Cousins photometric filter approximation (i.e., the light curves).  
