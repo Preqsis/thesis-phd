@@ -30,7 +30,7 @@
         j \in [0;J-1].
     \end{equation}
 
-    Because the orbital angular velocities of individual layers differ, the simulation grid naturally shifts over time. Figure \ref{fig:grid_states} demonstrates the possible simulation grid states. On the left, we see the non-shifted initial state of the simulation. On the right, the layers of cells are slightly shifted after an arbitrary number of simulation steps.
+    Because the orbital angular velocities of individual layers differ, the simulation grid naturally shifts over time. Figure~\ref{fig:grid_states} demonstrates the possible simulation grid states. On the left, we see the non-shifted initial state of the simulation. On the right, the layers of cells are slightly shifted after an arbitrary number of simulation steps.
 
     \begin{figure}[H]
     \centering
@@ -96,7 +96,7 @@
         \label{eq:delta_azimuth} 
     \end{equation}
 
-    The expression \eqref{eq:delta_azimuth} fully describes the angular shift of arbitrary cells in between simulation steps. Figure \ref{fig:plot_omega_g_profiles} shows examples of both aforementioned profiles.
+    The expression \eqref{eq:delta_azimuth} fully describes the angular shift of arbitrary cells in between simulation steps. Figure~\ref{fig:plot_omega_g_profiles} shows examples of both aforementioned profiles.
     
     \begin{figure}[H]
     \centering
@@ -239,7 +239,7 @@
         \label{eq:m_cut_off}
     \end{equation}
 
-    There are always no more than two lower layer cells in contact with the source cell, as evident from Figure \ref{fig:grid_states}. Therefore, the redistribution algorithm finds the two closest cells and splits the mass $\Delta m$ between the two receiving cells. The mass split is directly proportional to the relative length of contact the adjacent cells have with the source cell.
+    There are always no more than two lower layer cells in contact with the source cell, as evident from Figure~\ref{fig:grid_states}. Therefore, the redistribution algorithm finds the two closest cells and splits the mass $\Delta m$ between the two receiving cells. The mass split is directly proportional to the relative length of contact the adjacent cells have with the source cell.
 
 % -----------------
 % Thermal processes  

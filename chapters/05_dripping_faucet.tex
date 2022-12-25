@@ -37,7 +37,7 @@
     \end{split}    
     \end{align}
 
-    Figure \ref{fig:drop_equilibrum_definition} explains in detail the variables used to calculate the shape of the hanging drop.
+    Figure~\ref{fig:drop_equilibrum_definition} explains in detail the variables used to calculate the shape of the hanging drop.
     
     \begin{figure}[H]
     \begin{center}
@@ -70,7 +70,7 @@
     \label{eq:drop_equilibrum_odes}
     \end{align}
 
-    Figure \ref{fig:plot_drop_equilibrium_ceiling} shows multiple equilibrium state solutions for different values of pressure $P_{\mathrm{b}}$ at the bottom of the drop.
+    Figure~\ref{fig:plot_drop_equilibrium_ceiling} shows multiple equilibrium state solutions for different values of pressure $P_{\mathrm{b}}$ at the bottom of the drop.
 
     \begin{figure}[H]
     \begin{center}
@@ -80,7 +80,7 @@
     \label{fig:plot_drop_equilibrium_ceiling}
     \end{figure}
     
-    Similarly to solutions shown in Figure \ref{fig:plot_drop_equilibrium_ceiling}, we can bound the equilibrium states to a faucet of chosen radius $r_{\mathrm{a}}$. This is done by using the same solutions, finding a point of the closest match with the chosen boundary (i.e., the faucet), and shifting $z$ coordinates accordingly. Figure \ref{fig:plot_drop_equilibrium_faucet} shows drop solutions bounded to a faucet. Both unbounded and bounded examples are done for the same initial conditions. 
+    Similarly to solutions shown in Figure~\ref{fig:plot_drop_equilibrium_ceiling}, we can bound the equilibrium states to a faucet of chosen radius $r_{\mathrm{a}}$. This is done by using the same solutions, finding a point of the closest match with the chosen boundary (i.e., the faucet), and shifting $z$ coordinates accordingly. Figure~\ref{fig:plot_drop_equilibrium_faucet} shows drop solutions bounded to a faucet. Both unbounded and bounded examples are done for the same initial conditions. 
 
     \begin{figure}[H]
     \begin{center}
@@ -105,13 +105,13 @@
     \end{figure}
         
 
-    As shown by \citep{padday1973}, there is only one stable solution for a given value of the drop's volume. Figure \ref{fig:plot_drop_equilibrium_faucet_pv} demonstrates that for different initial values of $P_{\mathrm{b}} \in \langle 1 \cdot 10^{-20}, 6.0 \rangle$, there are multiple solutions of the same drop's volume. Only the solutions in the interval
+    As shown by \citep{padday1973}, there is only one stable solution for a given value of the drop's volume. Figure~\ref{fig:plot_drop_equilibrium_faucet_pv} demonstrates that for different initial values of $P_{\mathrm{b}} \in \langle 1 \cdot 10^{-20}, 6.0 \rangle$, there are multiple solutions of the same drop's volume. Only the solutions in the interval
 
     \begin{equation}
         P_{\mathrm{b}} \in \langle 1 \cdot 10^{-20}, 2.67 \rangle,
     \end{equation}
 
-    are the stable ones. Solutions shown in Figure \ref{fig:plot_drop_equilibrium_faucet_pv} are all done assuming the boundary to a faucet with radius $r_{\mathrm{a}}$. This interval of stable drop shapes also provides us with the maximum stable volume of the hanging drop for a particular faucet radius. In the case of $r_{\mathrm{a}} = 0.952$ the maximum stable volume is $V_{\mathrm{d}} = 4.95$.
+    are the stable ones. Solutions shown in Figure~\ref{fig:plot_drop_equilibrium_faucet_pv} are all done assuming the boundary to a faucet with radius $r_{\mathrm{a}}$. This interval of stable drop shapes also provides us with the maximum stable volume of the hanging drop for a particular faucet radius. In the case of $r_{\mathrm{a}} = 0.952$ the maximum stable volume is $V_{\mathrm{d}} = 4.95$.
 
 \section{Fluid dynamical model (FDM)}
     The theory behind drop formation and breakup is a surprisingly recent invention, even though it concerns an everyday phenomenon. However, J. Eggers' scaling theory is universally applicable for viscous axisymmetrical drop formation \citep{eggers1993}, which was later used as a basis for dynamical drop simulations done by \citep{faucet1999}. In the following sections, we will go over the process of modeling the process of FDM. Although this more complex dripping faucet model is more suitable for studying short-term behavior and detailed shapes of forming drops, it is also a precursor for a better understanding the spring-like MSM models discussed later in this chapter.
@@ -126,7 +126,7 @@
         \mathcal{L} = E_{\mathrm{k}} - U_{\mathrm{g}} - U_{\Gamma},
     \end{equation}
 
-    where $E_{\mathrm{k}}$ represents the total kinetic energy of the drop, $U_{\mathrm{g}}$ its total potential energy and $U_{\Gamma}$ its total surface energy. Discretization of the system is done by splitting the drop into $M$ number of disks with equal length along drops surface $\Delta s$ (see. Figure \ref{fig:drop_equilibrum_definition}). The disk has a mass
+    where $E_{\mathrm{k}}$ represents the total kinetic energy of the drop, $U_{\mathrm{g}}$ its total potential energy and $U_{\Gamma}$ its total surface energy. Discretization of the system is done by splitting the drop into $M$ number of disks with equal length along drops surface $\Delta s$ (see. Figure~\ref{fig:drop_equilibrum_definition}). The disk has a mass
 
     \begin{equation}
         m_j = \rho \Delta \xi_j,
@@ -191,7 +191,7 @@
         \frac{\diff}{\diff t} \frac{\partial \mathcal{L}}{\partial \dot{z}_j} = \frac{\partial \mathcal{L}}{\partial z_j} + \frac{1}{2} \frac{\partial \dot{E}_{\mathrm{k}}}{\partial \dot{z}_j}
     \end{equation}
 
-    where $\mathcal{L}$ is the previously obtained Langrangian of the drop as a sum of its disk discretization in the interval $j \in \langle 1; M \rangle$. Examples of the simulation results done by \citep{faucet1999} are shown in Figure \ref{fig:plot_fdm_simulation}.
+    where $\mathcal{L}$ is the previously obtained Langrangian of the drop as a sum of its disk discretization in the interval $j \in \langle 1; M \rangle$. Examples of the simulation results done by \citep{faucet1999} are shown in Figure~\ref{fig:plot_fdm_simulation}.
     
     \begin{figure}[H]
     \begin{center}
@@ -273,7 +273,7 @@
         m_{\mathrm{r}} = 0.2 m + 0.3,
     \end{equation}
 
-    which is also an experimentally obtained relation that corresponds well with observations of real dripping faucets. As a demonstration, we have done many simulations for the same arbitrary faucet radius $r_{\mathrm{a}} = 0.916$, with the individual simulation with different inflow velocity in the interval $v_0 = \langle 0.13; 0.18 \rangle$, and velocity value increment $\Delta v_0 = 5.0 \cdot 10^{-5}$. One result example for $v_0 = 0.146$ plotted as projections of phase space is shown in Figure \ref{fig:plot_msm_state_space}. 
+    which is also an experimentally obtained relation that corresponds well with observations of real dripping faucets. As a demonstration, we have done many simulations for the same arbitrary faucet radius $r_{\mathrm{a}} = 0.916$, with the individual simulation with different inflow velocity in the interval $v_0 = \langle 0.13; 0.18 \rangle$, and velocity value increment $\Delta v_0 = 5.0 \cdot 10^{-5}$. One result example for $v_0 = 0.146$ plotted as projections of phase space is shown in Figure~\ref{fig:plot_msm_state_space}. 
 
     \begin{figure}[H]
     \begin{center}
@@ -283,7 +283,7 @@
     \label{fig:plot_msm_state_space}
     \end{figure}
 
-    A good demonstration of the non-linear behavior of the MSM system is the bifurcation diagram, which is constructed by plotting the periods between two consecutive drop breakups $T_n$ in relation to the inflow velocity $v_0$. For example, in the bifurcation diagram shown in Figure \ref{fig:plot_msm_bifurcation}, we can see inflow velocity intervals of periodic dripping and total aperiodic behavior. 
+    A good demonstration of the non-linear behavior of the MSM system is the bifurcation diagram, which is constructed by plotting the periods between two consecutive drop breakups $T_n$ in relation to the inflow velocity $v_0$. For example, in the bifurcation diagram shown in Figure~\ref{fig:plot_msm_bifurcation}, we can see inflow velocity intervals of periodic dripping and total aperiodic behavior. 
 
     \begin{sidewaysfigure}
         \includegraphics[width=1.0\columnwidth]{img/plot_msm_bifurcation.pdf}

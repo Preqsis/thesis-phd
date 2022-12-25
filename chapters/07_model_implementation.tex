@@ -8,7 +8,7 @@
 
     There were four consecutive versions of the code. Each is improving the previous and fixing its errors while introducing new challenges. The version presented in this study is the last iteration so far, and as with any other software, whether the scientific or commercial application, it is never finished. There is still room for improvement and new ideas. However, we can confidently say that this version of MDH implementation can model accretion disc dynamics and power output with a good mix of robustness and customizability.  
 
-    We knew from the start that modeling such a complex, inherently non-linear system would be a challenge, first and foremost hardware-wise. Because for one, as shown in Chapter \ref{chap:multilayer_dripping_handrail}, the number of individual cells, each holding its system of ODEs, can quickly go up to thousands. Second, each cell holds 13 state values (i.e., coordinates, temperature, compute flags, etc.). For example, a moderate simulation run of $10^5$ steps produces over a $100 \si{\giga\byte}$ of data, and that is just the dynamical simulation part. When we start radiation extraction out of these results, we are facing several $\si{\tera\byte}$ datasets because, for every cell, we need to compute a spectral energy distribution of a few hundred values (depending on the chosen range and granularity). Therefore, two challenges were presented from the get-go:
+    We knew from the start that modeling such a complex, inherently non-linear system would be a challenge, first and foremost hardware-wise. Because for one, as shown in Chapter \ref{chap:multilayer_dripping_handrail}, the number of individual cells, each holding its system of ODEs, can quickly go up to thousands. Second, each cell holds 13 state values (i.e., coordinates, temperature, compute flags, etc.). For example, a moderate simulation run of $10^5$ steps produces over a $100 \si{\giga\byte}$ of data, and that is just the dynamical simulation part. When we start radiation extraction out of these results, we face several $\si{\tera\byte}$ datasets because, for every cell, we need to compute a spectral energy distribution of a few hundred values (depending on the chosen range and granularity). Therefore, two challenges were presented from the get-go:
 
     \begin{enumerate}
         \item[\textbf{a)}] Solving a large number of ODE sets.
@@ -17,7 +17,7 @@
 
     While \textbf{a)} is achievable to some degree by parallelization and good optimization, the \textbf{b)} is just a matter of having enough data storage; there is no way around it. Ultimately, we created a simulation code that is usable even on computer systems with relatively modest hardware specifications. For reference, simulation examples presented in this study were done on a personal desktop computer with Intel's Core i7-4790k CPU, 32$\si{\giga\byte}$ of memory, and large enough storage to accommodate the simulation data output. With this configuration, every presented simulation took several hours at most. 
 
-    MDH is implemented as purelly CLI (\emph{Command Line Interface}) application, because there is no need for GUI (\emph{Graphical User Interface}). It runs under the Linux operating system (currently tested with kernel versions 5.0 and higher). Detailed description of command line arguments can be found in the documentation available at: \url{https://github.com/Preqsis/multilayer-dripping-handrail}
+    MDH is implemented as purely CLI (\emph{Command Line Interface}) application because there is no need for GUI (\emph{Graphical User Interface}). It runs under the Linux operating system (currently tested with kernel versions 5.0 and higher). A detailed description of command line arguments can be found in the documentation available at \url{https://github.com/Preqsis/multilayer-dripping-handrail}
 
 \section{Algorythmic overview}
     All the core simulation code is implemented in \CC. There are also supporting scripts for visualization, input preparation, data sorting, and extraction written in Python 3.9+.  
@@ -38,15 +38,15 @@
 \subsection{Open MPI paralelization}
     Open MPI (Message Passing Interface) is an open-source, high-performance message-passing library that serves as a communication protocol in distributed parallel computing \citep{openmpi2022}. It is widely used, but not limited to, by many supercomputers. In addition, its ease of use, good documentation, and large community of developers make it relatively straightforward, even on smaller projects like ours. 
 
-    We use a simple approach of running one MASTER process and multiple SLAVE processes. The MASTER is the primary handler of the distributed computation that sends instructions to the SLAVES and then collects, sorts, and outputs the results. The SLAVE performs most of the computations based on the data and instructions received from the MASTER, for example, a subset of MDH cells. For reference, for the results presented in this study, that usually means one MASTER plus seven SLAVES.
+    We use a simple approach of running one \mbox{MASTER} process and multiple SLAVE processes. The \mbox{MASTER} is the primary handler of the distributed computation that sends instructions to the SLAVES and then collects, sorts, and outputs the results. The SLAVE performs most of the computations based on the data and instructions received from the \mbox{MASTER}, for example, a subset of MDH cells. For reference, for the results presented in this study, that usually means one \mbox{MASTER} plus seven SLAVES.
 
     One downside, or rather a complication when using MPI, is that the data types need to be explicitly defined and precisely allocated because each end of MPI communication expects the same predefined data type with uniform memory allocation. For MDH implementation, it means, in some cases, a four-dimensional array of pointers.
 
-\subsection{MASTER processes}
-    The MASTER process algorithm is very similar for all three MDH subtasks, there are slight differnces but the order of operations and the basic performed operations are the same.  
+\subsection{\mbox{MASTER} processes}
+    The algorithm of the \mbox{MASTER} process is very similar for all three MDH subtasks, there are slight differences, but the set of operations and their order is the same. The generalized overview of the \mbox{MASTER} process's algorithm is shown in Figure~\ref{fig:diagram_master_process}.  
 
     \begin{figure}[H]
-    \centering
+    \begin{center}
     \begin{tikzpicture} [node distance=2cm]
         \node (start) [startstop] {Start}; 
         \node (stop) [startstop, right of=start, xshift=5.5cm] {Stop};
@@ -61,26 +61,29 @@
         \draw[arrow] (pr1) -- (if1);
         \draw[arrow] (if1) -- node[anchor=west] {\ YES} (stop);
         \draw[arrow] (if1) --  node[anchor=west] {\ NO} (pr2);
-
         \draw[arrow] (pr2) -- (pr3);
         \draw[arrow] (pr3) -- (pr4);
         \draw[arrow] (pr4) -- (pr5);
         \draw[arrow] (pr5) -- (if1);
     \end{tikzpicture}
+    \end{center}
+    \vspace{6mm}
+    \caption{Overview of the generalized \mbox{MASTER} process's algorithm.}
+    \label{fig:diagram_master_process}
     \end{figure}
 
 \subsection{SLAVE processes}
-    
+    The \mbox{SLAVE} process structure also follows the same basic order of operations for all three MDH subtasks, differing mainly in the performed computations. A generalized overview of the SLAVE process's algorithm is shown in Figure~\ref{fig:diagram_slave_process}.
+
     \begin{figure}[H]
     \centering
     \begin{tikzpicture} [node distance=2cm]
         \node (start) [startstop] {Start}; 
         \node (stop) [startstop, right of=start, xshift=5.5cm] {Stop};
-
         \node (pr1) [process, below of=start] {Receive instructions and/or data.};
         \node (if1) [decision, right of=pr1, xshift=5.5cm] {Compute?};
         \node (pr2) [process, below of=if1] {Perform computations.}; 
-        \node (pr3) [process, left of=pr2, xshift=-5.5cm] {Send results to MASTER.};
+        \node (pr3) [process, left of=pr2, xshift=-5.5cm] {Send results to \mbox{MASTER}.};
 
         \draw[arrow] (start) -- (pr1);
         \draw[arrow] (pr1) -- (if1);
@@ -89,36 +92,38 @@
         \draw[arrow] (pr2) -- (pr3);
         \draw[arrow] (pr3) -- (pr1);
     \end{tikzpicture}
+    \vspace{6mm}
+    \caption{Overview of the generalized SLAVE process's algorithm.}
+    \label{fig:diagram_slave_process}
     \end{figure}
 
 \subsection{Data output}
-    To store the large amount of data thar MDH simulation produces, we use HDF5 (\emph{Hierarchical Data Formats}), which is open-source file format that is able to store complex and heterogeneous data \citep{hdf5_2006}. HDF5 supports very fast IO (\emph{Input/Output}), so it enables us to store every simulation frame (i.e., state in time) in full without the need for data truncation or frame skiping. At the same time, the simulation perfomance, at least with our example hardware configuration, is not limited by the IO but only by the CPU. 
+    To store a large amount of data that MDH simulation produces, we use HDF5 (\emph{Hierarchical Data Formats}), which is an open-source file format that can store complex and heterogeneous data \citep{hdf5_2006}. Furthermore, HDF5 supports very fast IO (\emph{Input/Output}), so it enables us to store every simulation frame (i.e., the state in time) in full without the need for data truncation or frame skipping. At the same time, the simulation performance, at least with our example hardware configuration, is not limited by the IO but only by the CPU. 
 
-    Every data frame, whether SIM, RAD or OBS data, is stored as multidimensional array with the same structure that is used in computations; so, that makes re-initializing the simulation run a bit easier. HDF5 also has the ability to store meta-data, which means we can also store the global simulation parameters (e.g., disc's geometry, central object's mass, size of the timestep, etc.) alongside the actual data; therefore, the whole simulation is reproducible with just one file, without the need for additional meta-data or configuration files.
+    Every data frame, whether SIM, RAD, or OBS data, is stored as a multidimensional array with the same structure used in computations, making re-initializing the simulation run easier. HDF5 also can store meta-data, which means we can also store the global simulation parameters (e.g., disc's geometry, central object's mass, size of the timestep, etc.) alongside the actual data; therefore, the whole simulation is reproducible with just one file, without the need for additional meta-data or configuration files.
 
-    HDF5 turned out to be a great fit for our model's needs, because it actually solved major IO limitations in the first version of MDH.
+    HDF5 was an excellent fit for our model's needs because it solved significant IO limitations in the first version of MDH.
 
 \subsection{ODE solver}
-    To solve the MSM's ODE system, we use a numerical integrator out of the Runge-Kutta familly. By default it uses the Fehlberg's 7th and 8th order method, which is implemented by the boost::numeric::odeint module \citep{boost_2007}. The selected stepper method, can be changed using dedicated CLI parameter of the MDH application. 
-
+    We use a numerical integrator out of the Runge-Kutta family to solve the MSM's ODE system. By default, it uses Fehlberg's seventh and eighth-order method, which is implemented by the boost::numeric::odeint module \citep{boost_2007}. The selected stepper method can be changed using the dedicated CLI parameter of the MDH application. 
 
 \section{SIM - dynamical simulation subtask}
-    The SIMULTAION subtask is the starting point of the model's computational pipeline, and also the algorithmically most complex part of the code. It performs the dynamical matter redistribution simulation, that is based on predefined MDH rules and geometry (see. Chapter \ref{chap:multilayer_dripping_handrail}). Particularly important is the process of solving MSM ODE sytem, which is the crutial mechanism trigerring the matter accretion to lower layers. This subtask is spatially parallelized, and uses the MASTER/SLAVE process paradigm. 
+    The SIMULATION subtask is the starting point of the model's computational pipeline and the algorithmically most complex part of the code. It performs the dynamical matter redistribution simulation based on predefined MDH rules and geometry (see. Chapter \ref{chap:multilayer_dripping_handrail}). Solving the MSM ODE system is essential because it is the crucial mechanism triggering the matter accretion to lower layers. This subtask is spatially parallelized and uses the \mbox{MASTER/SLAVE} process paradigm.
 
-    The MASTER proces of SIM subtaks performs the data handling and instruction distribution role. First it splits the accretion disk into $n-1$ cell subsets, where $n$ is the total number of running MDH processes, and then the subsets are distributed into the running SLAVE processes.
+    The \mbox{MASTER} process of SIM subtasks performs the data handling and instruction distribution role. First, it splits the accretion disk into $n-1$ cell subsets, where $n$ is the total number of running MDH processes, and then the subsets are distributed into the running SLAVE processes.
 
-    When the SLAVE processes are done with threir calculations, the MASTER collects and combines the results. Also, the check for MSM critical dripping conditions must be done in MASTER, beacuse the matter redistribution hapens all over the disc's body, accros and between all the subsets of cells. Lastly it saves the completed frame results into the HDF5 (*.h5) data file. 
+    When the SLAVE processes are done with their calculations, the \mbox{MASTER} collects and combines the results. Also, the check for MSM critical dripping conditions must be done in \mbox{MASTER} because the matter redistribution happens all over the disc's body, across and between all the subsets of cells. Lastly, it saves the completed frame results into the HDF5 (*.h5) data file. 
 
-    The SLAVE processes of SIM are the actual \emph{simulation} part of this subtask. They receive the cell subsets, carry out the MSM's ODE system solution over those subsets, and return the results to MASTER. 
+    The SLAVE processes of SIM are the actual \emph{simulation} part of this subtask. They receive the cell subsets, carry out the MSM's ODE system solution over those subsets, and return the results to \mbox{MASTER}. 
 
-    This back and forth communication between the processes and data saving is repeated step by step for the whole simulation run. 
+    This back-and-forth communication between the processes and data saving is repeated step by step for the whole simulation run. 
 
 \section{RAD - radiation extraction subtask}
-    The RADIATION subtask takes the results of SIMULATION subtask, and per-cell basis computes the spectral energy distribution on predefined wavelengths interval, using \emph{black-body approximation} for disc's cells. This subtask is also spatially parallelized, and employ the MASTER and SLAVES process model.
+    The RADIATION subtask takes the results of the SIMULATION subtask, and per-cell basis computes the spectral energy distribution on a predefined wavelength interval, using \emph{black-body approximation} for disc's cells. This subtask is also spatially parallelized and employs the \mbox{MASTER} and SLAVES process model.
 
-    The structure and order of operations is basically the same as for SIM. The RAD's SLAVE processes compute the spectral energy distribution for each cell, which means a lot more values per single cell than SIM; therefore the HDF5 data output is drastically biger. For reference, the RAD results from witch we extracted the light curves presented in Chapter \ref{chap:cv_models} are done for the interval of $2880$ steps (i.e., $48$ hours in real world), and the single RAD HDF5 data file is over 600 $\si{\giga\byte}$.
+    The structure and order of operations are the same as for SIM. However, the RAD's SLAVE processes compute the spectral energy distribution for each cell, which means a lot more values per single cell than SIM; therefore, the HDF5 data output is drastically bigger. For reference, the RAD results from which we extracted the light curves presented in Chapter \ref{chap:cv_models} are done for the interval of $2880$ steps (i.e., $48$ hours in the real world), and the single RAD HDF5 data file is over 600 $\si{\giga\byte}$.
 
 \section{OBS - synthetic observation subtask}
-    Third and last in the MDH computation pipeline is the OBSERVATION subtask, which serves as a synthetic light curve extractor. It takes the results of RAD and applies an analytical approximations of Johnson-Cousins $\mathcal{UBVRI}$ photometric filters. This subtasks is also parallelized in similar fashion as RAD and OBS, and uses the same MASTER/SLAVE approach, but in this case the data subsets are defined in the time domain. 
+    Third and last in the MDH computation pipeline is the OBSERVATION subtask, which serves as a synthetic light curve extractor. It takes the results of RAD and applies analytical approximations of Johnson-Cousins $\mathcal{UBVRI}$ photometric filters. This subtask is also parallelized similarly to RAD and OBS and uses the same \mbox{MASTER}/SLAVE approach, but in this case, the data subsets are defined in the time domain. 
 
-    It is almost ironic, that the output of OBS is only a few hunderd $\si{\kilo\byte}$ HDF5 data file, considering the input is the RAD data file, which is the multi-hunderd $\si{\giga\byte}$ behemoth. The reason is, that the outputed data are jus a few simple timesesires of several thousands steps for each Johnson-Cousins photometric filter approximation (i.e., the light curves).  
+    It is almost ironic that the output of OBS is only a few hunderd $\si{\kilo\byte}$ HDF5 data file, considering the input is the RAD data file, which is the multi-hunderd $\si{\giga\byte}$ behemoth. The reason is that the output data are just a few simple time series of several thousand steps for each Johnson-Cousins photometric filter approximation (i.e., the light curves).  
