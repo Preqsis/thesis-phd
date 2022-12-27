@@ -29,10 +29,10 @@ mpirun -n 8 --use-hwthread-cpus --quiet $MDH -v --sim -I 42 -J 265 -n 2e5 -Q 1e1
 # mpirun -n 8 --use-hwthread-cpus --quiet $MDH -v --sim --rad --obs -I 42 -J 265 -n 2880 -Q 1e14 --T_flow 4500 --m_primary 0.63 --r_in 0.01 --r_out 1.16 -o $DATA_DIR/c1_42x265 --init_file $DATA_DIR/init_c1_42x265/sim.h5 --init_dkey d99999 -q 0.1 -psi 0.1
 
 echo "SIM: q = 0.1; psi = 0.9"
-mpirun -n 8 --use-hwthread-cpus --quiet $MDH -v --sim --rad --obs -I 42 -J 265 -n 2880 -Q 1e14 --T_flow 4500 --m_primary 0.63 --r_in 0.01 --r_out 1.16 -o $DATA_DIR/c2_42x265 --init_file $DATA_DIR/init_c2_42x265/sim.h5 --init_dkey d199999 -q 0.1 -psi 0.9
+mpirun -n 8 --use-hwthread-cpus --quiet $MDH -v --sim --rad --obs -I 42 -J 265 -n 2880 -Q 1e14 --T_flow 4500 --m_primary 0.63 --r_in 0.01 --r_out 1.16 -o $DATA_DIR/c2_42x265 --init_file $DATA_DIR/init_c2_42x265/sim.h5 --init_dkey d299999 -q 0.1 -psi 0.9 
 
-echo "SIM: q = 0.9; psi = 0.1"
-mpirun -n 8 --use-hwthread-cpus --quiet $MDH -v --sim --rad --obs -I 42 -J 265 -n 2880 -Q 1e14 --T_flow 4500 --m_primary 0.63 --r_in 0.01 --r_out 1.16 -o $DATA_DIR/c3_42x265 --init_file $DATA_DIR/init_c3_42x265/sim.h5 --init_dkey d199999 -q 0.9 -psi 0.1
-
-echo "SIM: q = 0.9; psi = 0.9"
-mpirun -n 8 --use-hwthread-cpus --quiet $MDH -v --sim --rad --obs -I 42 -J 265 -n 2880 -Q 1e14 --T_flow 4500 --m_primary 0.63 --r_in 0.01 --r_out 1.16 -o $DATA_DIR/c4_42x265 --init_file $DATA_DIR/init_c4_42x265/sim.h5 --init_dkey d99999 -q 0.9 -psi 0.9
+# echo "SIM: q = 0.9; psi = 0.1"
+# mpirun -n 8 --use-hwthread-cpus --quiet $MDH -v --sim --rad --obs -I 42 -J 265 -n 2880 -Q 1e14 --T_flow 4500 --m_primary 0.63 --r_in 0.01 --r_out 1.16 -o $DATA_DIR/c3_42x265_blob --init_file $DATA_DIR/init_c3_42x265/sim.h5 --init_dkey d199999 -q 0.9 -psi 0.1 --blob_file /home/preqsis/Plocha/blobs_42x265.json
+#
+# echo "SIM: q = 0.9; psi = 0.9"
+# mpirun -n 8 --use-hwthread-cpus --quiet $MDH -v --sim --rad --obs -I 42 -J 265 -n 2880 -Q 1e14 --T_flow 4500 --m_primary 0.63 --r_in 0.01 --r_out 1.16 -o $DATA_DIR/c4_42x265_blob --init_file $DATA_DIR/init_c4_42x265/sim.h5 --init_dkey d99999 -q 0.9 -psi 0.9 --blob_file /home/preqsis/Plocha/blobs_42x265.json
