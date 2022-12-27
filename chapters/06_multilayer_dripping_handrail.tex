@@ -172,7 +172,6 @@
         \node (pr1) [process, below of=start, yshift=-0.5cm] {Rotate all layers according to \eqref{eq:delta_azimuth}.}; 
         \node (pr2) [process, below of=pr1, yshift=-1cm, inner sep=0.25cm] {Find the cell closest to chosen value of $\theta$ (e.g., $\theta = 0$) in the outer layer $i = 0$, and add the $q$ amount of matter to it; see \eqref{eq:q_estimate}.}; 
         \node (pr3) [process, below of=pr2, yshift=-1.5cm] {Solve the ODE system \eqref{eq:msm_modified_odes} for all cells using an iterative method out of the Runge-Kutta family.}; 
-        % TODO: pridat referenci na popis RK metod v kapitole o implementaci
         \node (if1) [decision, below of=pr3, yshift=-1cm] {If particular cell reaches the critical condition \eqref{eq:z_critical_model}, the mass outflow is triggered in that cell.}; 
         \node (pr4) [process, right of=if1, xshift=5.5cm] {Calculate temperature changes for all cells according to the processes described in Section \ref{sec:thermal_processes}};
         \node (pr6) [process, right of=pr2, xshift=5.5cm] {Save all cell's states.};
@@ -226,7 +225,6 @@
     \end{equation}
 
     where the value of $\psi \in [0;1]$ is the drop breakout ratio, which serves as another free parameter of the simulation. The numerical stability of the simulation is ensured by introducing a low-value cut-off for the cell's mass $m_{ij}$. The following formula is used to compute the cell's remaining mass after the breakout    
-    % TODO: zahrnout psi mezi volne parametry v pozdejsich vypoctech!!
 
     \begin{equation}
         \begin{aligned}

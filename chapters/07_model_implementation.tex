@@ -118,12 +118,23 @@
 
     This back-and-forth communication between the processes and data saving is repeated step by step for the whole simulation run. 
 
+\subsection{Disturbing the simulation by matter outburts}
+    \label{sec:distributed_sim}
+    We implemented a possibility to disturb the MDH's SIM computation by a sudden targeted matter addition, which is supposed to model the situation when a matter outburst from the system's secondary component falls onto the accretion disc's body. 
+
+    The disturbance is done by supplying a *.json blob definition file, which defines the position, size, and timing for the matter addition to the disc. We generally use a spherical blob of predefined total mass and gradually increasing density towards its center. The blob is divided into slices that are deposited onto the disc.
+
 \section{RAD - radiation extraction subtask}
     The RADIATION subtask takes the results of the SIMULATION subtask, and per-cell basis computes the spectral energy distribution on a predefined wavelength interval, using \emph{black-body approximation} for disc's cells. This subtask is also spatially parallelized and employs the \mbox{MASTER} and SLAVES process model.
 
-    The structure and order of operations are the same as for SIM. However, the RAD's SLAVE processes compute the spectral energy distribution for each cell, which means a lot more values per single cell than SIM; therefore, the HDF5 data output is drastically bigger. For reference, the RAD results from which we extracted the light curves presented in Chapter \ref{chap:cv_models} are done for the interval of $2880$ steps (i.e., $48$ hours in the real world), and the single RAD HDF5 data file is over 600 $\si{\giga\byte}$.
+    The structure and order of operations are the same as for SIM. However, the RAD's SLAVE processes compute the spectral energy distribution for each cell, which means a lot more values per single cell than SIM; therefore, the HDF5 output is drastically bigger. For reference, the RAD results from which we extracted the light curves in Chapter \ref{chap:cv_models} are done for the interval of $2880$ steps (i.e., $48$ hours in the real world), and the single RAD HDF5 data file is over 600 $\si{\giga\byte}$.
 
 \section{OBS - synthetic observation subtask}
     Third and last in the MDH computation pipeline is the OBSERVATION subtask, which serves as a synthetic light curve extractor. It takes the results of RAD and applies analytical approximations of Johnson-Cousins $\mathcal{UBVRI}$ photometric filters. This subtask is also parallelized similarly to RAD and OBS and uses the same \mbox{MASTER}/SLAVE approach, but in this case, the data subsets are defined in the time domain. 
 
-    It is almost ironic that the output of OBS is only a few hunderd $\si{\kilo\byte}$ HDF5 data file, considering the input is the RAD data file, which is the multi-hunderd $\si{\giga\byte}$ behemoth. The reason is that the output data are just a few simple time series of several thousand steps for each Johnson-Cousins photometric filter approximation (i.e., the light curves).  
+    It is almost ironic that the output of OBS is only a few hunderd $\si{\kilo\byte}$ HDF5 data file, considering the input is the RAD data file, which is the multi-hunderd $\si{\giga\byte}$ behemoth. The reason is that the output data are just a few simple time series of several thousand steps for each Johnson-Cousins photometric filter approximation (i.e., the light curves).
+
+\section{Results visualization}
+% TODO: dopsat sekci o vizualizaci s priklady
+
+
