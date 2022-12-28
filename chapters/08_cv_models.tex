@@ -4,20 +4,32 @@
 \thispagestyle{empty}
 
 \mquote{640K ought to be enough for anybody}{Bill Gattes}
-    In this Chapter, we would like to present several examples of MDH results. The MDH has two free parameters to alter ti SIM outcome: 
+    In this Chapter, we will present several examples of MDH results. The MDH has two free parameters to alter the outcome of SIM: 
 
     \begin{enumerate}
-    \item The local MSM inflow $q \sim 10^{-1}$.
+        \item The local MSM inflow $q \sim 10^{-1}$.
         \item The drop breakout ratio $\psi \in \langle 0; 1 \rangle$.
     \end{enumerate}
 
-    The $q$ essentially controls the relationship between real-world accretion disk mass inflow $Q$ and MSM's development toward drop breakout. The lower value of $q$ means that it takes longer for the MSM ODE system to reach its critical condition and, therefore, how often the individual cells drip. The breakout ratio $\psi$ controls the amount of mass that breaks out from the cell at the moment of dripping.
+    The $q$ controls the relationship between real-world accretion disk mass inflow $Q$ and MSM's development toward drop breakout. The lower value of $q$ means that it takes longer for the MSM ODE system to reach its critical condition, therefore, how often the individual cells drip. The breakout ratio $\psi$ controls the amount of mass that breaks out from the cell at the moment of dripping. Both of these parameters control the mass flow rate in the disc's body and could be considered a viscosity model of the accreted medium. 
 
-    Both of these parameters control the mass flow rate in the disc's body and could be considered a model of the viscosity of the accreted medium. 
+    As a demonstration, we ran simulations with multiple $q$ and $\psi$ variations with relatively high and low values for both parameters. Furthermore, we conducted undisturbed and disturbed SIM for each specific combination of parameters. By disturbed, we mean a dynamical flow simulation with a sudden mass outburst from the secondary component (see Section \ref{sec:distributed_sim}).
 
-    As a demonstration, we ran simulations with multiple $q$ and $\psi$ variations for both with relatively high and low values. Furthermore, we conducted undisturbed and disturbed SIM for each specific combination of parameters. By disturbed, we mean a dynamical flow simulation with a sudden mass outburst from the secondary component (see Section \ref{sec:distributed_sim}).
+    All SIM runs used the same CV system parameters
 
-\section{Undisturbed simulations}
+    \begin{align}
+    \begin{split}
+        M_{\mathrm{p}} &= 0.63 M_{\odot}, \\
+        r_{\mathrm{in}} &= 0.01 R_{\odot}, \\
+        r_{\mathrm{out}} &= 1.16 R_{\odot}, \\
+        \dot{M} &= 10^{14} \si{\gram \cdot \second^{-1}}, \\
+        T_{\mathrm{out}} &= 4500 \si{\kelvin},
+    \end{split}
+    \end{align}
+
+    where $M_{\mathrm{p}}$ represents the mass of the CV's primary component (i.e., the white dwarf). Radii $r_{\mathrm{in}}$ and $r_{\mathrm{out}}$ correspond to the inner and outer edge of the accretion disk, respectively. The accretion rate is represented by $\dot{M}$, and the initial temperature of the accreted matter is $T_{\mathrm{out}}$.
+
+\section{Undisturbed SIM}
     We choose four combinations of $q$ and $\psi$ to conduct the SIM runs. Table \ref{tab:table_simultation_cases_undisturbed} lists the specific details of each SIM run.
 
     \begin{table}[ht]
@@ -35,9 +47,7 @@
     \label{tab:table_simultation_cases_undisturbed}
     \end{table}
 
-    We designate the individual SIM runs as C1 through C4 for easier orientation. All runs are done on the same grid with dimensions $I$ and $J$ and for the same time duration of $2880$ simulation steps. 
-
-    All SIM runs are started after the initial filling state of $2 \cdot 10^5$ steps. 
+    We designate the individual SIM runs as C1 through C4 for easier orientation. All runs are done using the same grid dimensions $I$ and $J$, for the same time duration of $2880$ simulation steps and are started after the initial filling state of $2 \cdot 10^5$ steps. 
 
 \subsection{C1 - unstable filling stage}
     In this case, when both $q$ and $\psi$ are set to be relatively low values (i.e., very viscous medium), the MDH does not produce a stable accretion disc. Instead, there is a limiting inner radius of the stable accretion flow, and unstable matter outbursts fill the inner regions through individual cells on the inner edge of the stable accretion ring. 
@@ -51,18 +61,14 @@
     This outcome could be explained by the higher value of $\psi$ moving the matter inward more quickly by breaking out larger parts of matter by dripping. At the same, the low value of $q$ means that the total amount of accreted matter is relatively low; therefore, its cooling rate is higher when it loses energy during the fall inward. 
 
 \subsection{C3 - density bump and temperature waves}
-    C3 SIM run produces a particularly interesting and stable bump in area density close to the center of the accretion disc but not at the very inner edge. Also, the temperatures throughout the disc are considerably higher than in C2, with values from $T \sim 10^3\si{\kelvin}$ to $T \sim 10^4\si{\kelvin}$. C3 results are shown in Figure~\ref{fig:plot_density_temperature_c3}. 
+    C3 SIM run produces a particularly interesting and stable bump in area density close to the center of the accretion disc but not at the very inner edge. Also, the temperatures throughout the disc are considerably higher than C2, with values ranging from $T \sim 10^3\si{\kelvin}$ to $T \sim 10^4\si{\kelvin}$. C3 results are shown in Figure~\ref{fig:plot_density_temperature_c3}. 
 
-    An interesting feature of C3 is the temperature waves visible in the temperature distribution plot. Furthermore, there are highly localized temperature spikes with values of several orders of magnitudes more than the surrounding matter.
+    An interesting feature of C3 is the temperature waves visible in the temperature distribution plot. Furthermore, there are highly localized temperature spikes several orders of magnitudes higher than the surrounding matter.
 
 \subsection{C4 - density spikes and colder inner regions}
     C4 SIM run shown in Figure~\ref{fig:plot_density_temperature_c4} produce mostly uniform area density distribution with localized increases grouped around a relatively narrow range of radii. The temperature distribution exhibits higher temperatures closer to the accretion disc's edge, while the inner regions are about one order of magnitude colder. 
 
-    The low, uniform area density and the higher temperatures in the outer edge could be explained by high values of both $q = 0.9$ and $\psi = 0.9$ (i.e., low viscosity medium) because the MSM ODE system reaches the critical condition relatively quickly. The high breakout ratio $\psi$ ensures that a large portion of cells' content is carried away by dripping. Therefore at the edge, the temperature could be a product of slow radiative cooling of the medium at the original inflow temperature carried in from the secondary star. The high matter flow enables rapid cooling and produces a temperature decrease in the inner regions.
-
-\subsection{Light curves comparision}
-    We also computed the synthetic light curves for simulation cases C2, 
-
+    The low, uniform area density and the higher temperatures on the outer edge could be explained by high values of both $q = 0.9$ and $\psi = 0.9$ (i.e., low viscosity medium) because the MSM ODE system reaches the critical condition relatively quickly. The high breakout ratio $\psi$ ensures that a large portion of cells' content is carried away by dripping. Therefore at the edge, the temperature could be a product of slow radiative cooling of the medium at the original inflow temperature carried in from the secondary star. The high matter flow enables rapid cooling and produces a temperature decrease in the inner regions.
 
 \section{Disturbed simulations}
     For the SIM runs disturbed by the blob impacts, we used the same initial conditions and parameter variations as for the undisturbed runs. Table~\ref{tab:table_simultation_cases_disturbed} lists the used parameter settings.
@@ -85,19 +91,12 @@
 
     It is most apparent from C5 and C7 that the blob impacts induce localized high-temperature spikes along the path of newly added matter. At the same time, the blob matter increases the disc's temperature due to the higher temperature carried in from the secondary star. Figures~\ref{fig:plot_density_temperature_c5}~through~\ref{fig:plot_density_temperature_c7} all depict the exact moment in their respective SIM runs.
 
-\section{Synthetic light curves comparison}
-    We also computed the synthetic light curves for all simulation cases C2 through C7. 
+\section{Synthetic light curves}
+    We also computed the synthetic light curves for all simulation cases C2 through C7. Figures~\ref{fig:plot_light_curves_undisturbed}~and~\ref{fig:plot_light_curves_disturbed} demonstrate that, depending on the chosen combination of free parameters, we get vastly different light curves. 
 
-    % \begin{figure}
-    % \begin{center}
-        % \includegraphics[width=1.0\textwidth]{img/dd}
-    % \end{center}
-    % \caption{}
-    % \label{fig:}
-    % \end{figure}
+    The undisturbed cases are shown in Figure~\ref{fig:plot_light_curves_undisturbed}. For the C2 SIM run, we see relatively low power output with very short brightness spikes. The C3 light curve exhibits active aperiodic flickering, while the C4 shows periodic longer-lasting increases in power output. 
 
-    % TODO: light curves comparison plot
-    
+    Similarly, for the disturbed cases C5, C6, and C7, we see that the high value of $\psi = 0.9$ produces a significantly shorter stage of increased brightness due to the blob impacts (see Figure~\ref{fig:plot_light_curves_disturbed} a) and c)) because the high breakout ratio speeds up the mass accretion. 
 
     \begin{sidewaysfigure}[h]
         \includegraphics[width=1.0\columnwidth]{img/plot_density_temperature_c1.pdf}
@@ -140,3 +139,19 @@
         \caption{C7 ($q = 0.9$, $\psi = 0.9$) - Snapshot shortly after the blob impact in the disturbed SIM run of 2880 steps.}
         \label{fig:plot_density_temperature_c7}
     \end{sidewaysfigure}
+    
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{img/plot_light_curves_undisturbed.pdf}
+    \end{center}
+    \caption{Synthetic light curves extracted from the undisturbed SIM runs: \mbox{a) C2 ($q = 0.1$; $\psi = 0.9$), b) C3 ($q = 0.9$; $\psi = 0.1$), c) C4 ($q = 0.9$; $\psi = 0.9$)}}
+    \label{fig:plot_light_curves_undisturbed}
+    \end{figure}
+    
+    \begin{figure}
+    \begin{center}
+        \includegraphics[width=1.0\textwidth]{img/plot_light_curves_disturbed.pdf}
+    \end{center}
+    \caption{Synthetic light curves extracted from the undisturbed SIM runs: \mbox{a) C5 ($q = 0.1$; $\psi = 0.9$), b) C6 ($q = 0.9$; $\psi = 0.1$), c) C7 ($q = 0.9$; $\psi = 0.9$)}}
+    \label{fig:plot_light_curves_disturbed}
+    \end{figure}
