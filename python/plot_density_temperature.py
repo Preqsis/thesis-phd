@@ -97,7 +97,7 @@ def plot(data: np.ndarray, plot_file: str, attrs: any) -> None:
     surfaces = {}
     cmaps = ("viridis", "inferno")
     width, height = 1500, 1500
-    limits = (0., 0.12)
+    limits = (0., 1.)
     log_limits = (1., 5.5)
 
     r_in = attrs["r_in"] * R_SUN
@@ -109,7 +109,8 @@ def plot(data: np.ndarray, plot_file: str, attrs: any) -> None:
     r   = r_in + (idim - idx - 1) * (r_out - r_in) / (idim - 1) 
     for i in idx:
         S[i,:] = r[i] * 2. * np.pi * (r[0] - r[1]) / jdim
-    data[:,:,5] = data[:,:,5] * qs / S
+    # TODO: fix qs in cpp distributor
+    data[:,:,5] = data[:,:,5] * qs * 10 / S
 
     #density distribution
     surfaces["density"] = render_disc(

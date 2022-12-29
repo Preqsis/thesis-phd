@@ -1,5 +1,5 @@
 PYTHON_DIR=../python
-DATA_FILE=../data/extract.h5
+DATA_FILE=/home/preqsis/DATA/sim-thesis/extract.h5
 
 # cases
 # c1 -> q = 0.1, psi = 0.1
