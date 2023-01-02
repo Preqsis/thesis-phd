@@ -130,11 +130,9 @@
     The structure and order of operations are the same as for SIM. However, the RAD's SLAVE processes compute the spectral energy distribution for each cell, which means a lot more values per single cell than SIM; therefore, the HDF5 output is drastically bigger. For reference, the RAD results from which we extracted the light curves in Chapter \ref{chap:cv_models} are done for the interval of $2880$ steps (i.e., $48$ hours in the real world), and the single RAD HDF5 data file is over 600 $\si{\giga\byte}$.
 
 \section{OBS - synthetic observation subtask}
+    \label{sec:obs_subtask}
     Third and last in the MDH computation pipeline is the OBSERVATION subtask, which serves as a synthetic light curve extractor. It takes the results of RAD and applies analytical approximations of Johnson-Cousins $\mathcal{UBVRI}$ photometric filters. This subtask is also parallelized similarly to RAD and OBS and uses the same \mbox{MASTER}/SLAVE approach, but in this case, the data subsets are defined in the time domain. 
 
     It is almost ironic that the output of OBS is only a few hunderd $\si{\kilo\byte}$ HDF5 data file, considering the input is the RAD data file, which is the multi-hunderd $\si{\giga\byte}$ behemoth. The reason is that the output data are just a few simple time series of several thousand steps for each Johnson-Cousins photometric filter approximation (i.e., the light curves).
-
-%\section{Visualizations}
-% TODO: dopsat sekci o vizualizaci s priklady
 
 
