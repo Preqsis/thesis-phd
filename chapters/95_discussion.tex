@@ -2,11 +2,18 @@
 \thispagestyle{empty}
 \mquote{The greatest teacher, failure is.}{Master Yoda}
 
+% TODO: v cele praci ... disc vs. disk >> kontrola
+
+% TODO: prejmenovat na "Conclusion" (protoze ... "reasons vole")
+
     Throughout this publication, we provided a detailed description of our \emph{Multilayer Accretion Disc} model (MDH) (see Chapter~\ref{chap:multilayer_dripping_handrail}), did an overview of its specific code implementation (see Chapter~\ref{chap:model_implementation}), and demonstrated its capabilities on chosen generic CV system using several model configurations (see Chapter~\ref{chap:cv_models}). We then used these results to obtain specific values of the Shakura-Sunyaev $\alpha$ parameter for each configuration (see Chapter~\ref{chap:alpha_model_fitting}). 
 
     In this last Chapter, we would like to discuss the successes and limitations regarding the specific topics of our research journey with the MDH model. Also, we want to provide some questions, ideas, or inspirations for our future research or the related research of others.
     
 \section{MDH definition and implementation}
+    % TODO: vyhodit z Conclusion
+    % - pridat do kapitoly o implementaci
+
     Our goal when composing Chapters~\ref{chap:multilayer_dripping_handrail}~and~\ref{chap:model_implementation} was to provide sort of a guide or, let us say, an operational manual. Anyone interested should be able to use, repeat or improve our research. 
     
     Also, the code of MDH is available alongside the documentation at
@@ -22,6 +29,7 @@
     We are also aware of a few limitations of our code. One of those limitations is that the model application was tested only on Linux operating system with kernel version $5.0$ and higher. Moreover, it requires an installation of a few specific libraries and packages that can be tricky to install sometimes. For example, HDF5 and MPI libraries, but we believe anyone who wants to tinker with our code knows their way around computers and programming in general.
 
 \section{Simulations results}
+    % TODO: "poskladat do conclusions"
     In Chapter~\ref{chap:cv_models}, we presented a few result examples of MDH with different free parameters $q$ (local MSM mass inflow) and $\psi$ (the drop breakout ratio). We intentionally chose the extreme combinations of high a low values to demonstrate the dependence of MDH behavior on free parameter values. 
 
     Figures~\ref{fig:plot_density_temperature_c1}~through~\ref{fig:plot_density_temperature_c7} demonstrate perfectly the possible result alterations by using different free parameters. However, one crucial feature is more or less prevalent in all results, and that is the radial mass distribution in the accretion disc's body. 
@@ -39,6 +47,7 @@
     And again, please feel free to examine, comment, and share any insight or suggestions on the video visualizations of our results. 
 
 \section{Determining the Shakura-Sunyaev $\alpha$ parameter}
+    % TODO: "poskladat do conclusions"
     One of our research's main goals was to devise a method for determining the value of the free $\alpha$ parameter in the standard Shakura-Sunyaev accretion disc model. Our MDH model gave us the tools to do exactly that because we can run a highly customizable accretion disc simulation. By iterative process of varying MDH's free parameters for specific CV systems and analyzing the results, it is possible to get to a tailored model configuration for that specific accretion system. Therefore, the results of such simulation will give us the data from which we can obtain the $\alpha$ parameter for the analyzed real-world system (see Chapter~\ref{chap:alpha_model_fitting}).
 
     We analyzed three different extreme cases of free parameter variations. A summary of the $\alpha$ parameter results, with the used free parameters and other initial conditions, is listed in Table~\ref{tab:table_alpha_summary} (see also Figure~\ref{fig:plot_mean_density_fit}).
@@ -58,6 +67,7 @@
     \end{table}
 
 \section{Blob impacts experiments}
+    % TODO: "poskladat do conclusions"
     Another feature of our MDH code is the ability to disturb the simulation mid-run by a blob impact onto the accretion disc's body. Conceptually, it is a relatively straightforward operation but a very powerful feature. We can add any size or shape of irregular mass accretion at any point during the simulation, and it opens up a whole new range of simulation cases. Starting with irregular mass ejections from the secondary component, through interfering with the steady accretion stream, to studies of different blob configurations behavior. Moreover, it offers endless possibilities for altering the accretion disc's power output and the light curve. 
 
     The part of MDH's code responsible for handling the matter blob addition is implemented so the user can define any shape and size configuration and supply it as an easily readable and editable JSON file.
