@@ -4,17 +4,17 @@
 \thispagestyle{empty}
 \mquote{I'm your density.}{George McFly}
 
-In this relatively short Chapter, we use the results of undisturbed SIM runs presented in Chapter~\ref{chap:cv_models} to obtain the free parameter $\alpha$ of Shakura-Sunyaev's $\alpha$-disc model. To do that, we utilize the area density solution in the Shakura-Sunyaev solution set \eqref{eq:alpha_model_solution}, for which we will find the best $\alpha$ parameter fit for SIM cases C2, C3, and C5.
+In this relatively short Chapter, we use the results of undisturbed SIM runs presented in Chapter~\ref{chap:cv_models} to obtain the free parameter $\alpha$ of Shakura-Sunyaev's $\alpha$-disk model. To do that, we utilize the area density solution in the Shakura-Sunyaev solution set \eqref{eq:alpha_model_solution}, for which we will find the best $\alpha$ parameter fit for SIM cases C2, C3, and C5.
 
 \section{Fitting the area density distribution}
-    The Shakura-Sunyaev $\alpha$-disc solution for the area density profile is
+    The Shakura-Sunyaev $\alpha$-disk solution for the area density profile is
 
     \begin{equation}
         \Sigma = 5.2 \alpha^{-4/5} \dot{M}^{7/10}_{16} m^{1/4}_1 R^{-3/4}_{10} f^{14/5}\ \si{\gram\ \cm^{-2}},
         \label{eq:density_analytical}
     \end{equation}
 
-    where we will threat the $\dot{M}_{16}$ and $m_1$ values as constats, and the boundary layer function $f$ will have the radius $R_*$ fixed to the value of inner radius of the disc $r_{\mathrm{in}}$
+    where we will threat the $\dot{M}_{16}$ and $m_1$ values as constats, and the boundary layer function $f$ will have the radius $R_*$ fixed to the value of inner radius of the disk $r_{\mathrm{in}}$
 
     \begin{align}
         \begin{split}
@@ -26,7 +26,7 @@ In this relatively short Chapter, we use the results of undisturbed SIM runs pre
 
     Therefore, the only remaining variable to optimize the function \eqref{eq:density_analytical} for (i.e., the response variable) is the parameter $\alpha$, while the independent variable (i.e., the predictor) is the radius $R_{10}$. Figure~\ref{fig:plot_density_analytical} shows several examples of dependencies for equation~\eqref{eq:density_analytical} using different values of $\alpha$ parameter.  
     
-    The density data used for fitting we get from the SIM runs C2, C4, and C5 by transforming the individual cell masses into densities with the use of the known surface area of the disc's cells. The second step is to calculate the mean area density $\bar{\Sigma}(R_{10})$ by averaging the cell's densities ring-wise and also over several hundred simulation steps ($200$ steps, in this case, to be precise). 
+    The density data used for fitting we get from the SIM runs C2, C4, and C5 by transforming the individual cell masses into densities with the use of the known surface area of the disk's cells. The second step is to calculate the mean area density $\bar{\Sigma}(R_{10})$ by averaging the cell's densities ring-wise and also over several hundred simulation steps ($200$ steps, in this case, to be precise). 
 
     \begin{figure}[H]
     \begin{center}
@@ -36,9 +36,9 @@ In this relatively short Chapter, we use the results of undisturbed SIM runs pre
     \label{fig:plot_density_analytical}
     \end{figure}
 
-    Figure~\ref{fig:plot_mean_density_fit} shows the Shakura-Sunyaev $\alpha$-disc area density $\Sigma$ solution~\eqref{eq:density_analytical} fited to mean area density data $\bar{\Sigma}$ extracted from C2, C3, and C4 SIM runs, respectivelly. The edge data (i.e., the inner and outer edge of the disc) were omitted from the fit because the irregular local conditions squee these data points. The outer edge's temperature and mass content are mostly a product of steady mass influx from the secondary component. To ensure numerical stability, the inner edge often triggers the low-value mass cut-off (see equation~\eqref{eq:m_cut_off}). 
+    Figure~\ref{fig:plot_mean_density_fit} shows the Shakura-Sunyaev $\alpha$-disk area density $\Sigma$ solution~\eqref{eq:density_analytical} fited to mean area density data $\bar{\Sigma}$ extracted from C2, C3, and C4 SIM runs, respectivelly. The edge data (i.e., the inner and outer edge of the disk) were omitted from the fit because the irregular local conditions squee these data points. The outer edge's temperature and mass content are mostly a product of steady mass influx from the secondary component. To ensure numerical stability, the inner edge often triggers the low-value mass cut-off (see equation~\eqref{eq:m_cut_off}). 
 
-    We can see that the MSH model produces a distribution that closely agrees with the analytical $\alpha$-disc solution. Therefore we can reliably obtain the value of the $\alpha$ parameter for specific MDH configurations. The particular value of $\alpha$ alpha could then be used to compute the distribution of other variables in the Shakura-Sunyaev solution set (see. equations~\eqref{eq:alpha_model_solution}).  
+    We can see that the MSH model produces a distribution that closely agrees with the analytical $\alpha$-disk solution. Therefore we can reliably obtain the value of the $\alpha$ parameter for specific MDH configurations. The particular value of $\alpha$ alpha could then be used to compute the distribution of other variables in the Shakura-Sunyaev solution set (see. equations~\eqref{eq:alpha_model_solution}).  
     
     \begin{figure}[H]
     \begin{center}

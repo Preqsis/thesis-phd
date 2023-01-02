@@ -1,40 +1,17 @@
-\chapter{DISCUSSION}
+\chapter{CONCLUSION}
 \thispagestyle{empty}
 \mquote{The greatest teacher, failure is.}{Master Yoda}
-
-% TODO: v cele praci ... disc vs. disk >> kontrola
-
-% TODO: prejmenovat na "Conclusion" (protoze ... "reasons vole")
 
     Throughout this publication, we provided a detailed description of our \emph{Multilayer Accretion Disc} model (MDH) (see Chapter~\ref{chap:multilayer_dripping_handrail}), did an overview of its specific code implementation (see Chapter~\ref{chap:model_implementation}), and demonstrated its capabilities on chosen generic CV system using several model configurations (see Chapter~\ref{chap:cv_models}). We then used these results to obtain specific values of the Shakura-Sunyaev $\alpha$ parameter for each configuration (see Chapter~\ref{chap:alpha_model_fitting}). 
 
     In this last Chapter, we would like to discuss the successes and limitations regarding the specific topics of our research journey with the MDH model. Also, we want to provide some questions, ideas, or inspirations for our future research or the related research of others.
     
-\section{MDH definition and implementation}
-    % TODO: vyhodit z Conclusion
-    % - pridat do kapitoly o implementaci
-
-    Our goal when composing Chapters~\ref{chap:multilayer_dripping_handrail}~and~\ref{chap:model_implementation} was to provide sort of a guide or, let us say, an operational manual. Anyone interested should be able to use, repeat or improve our research. 
-    
-    Also, the code of MDH is available alongside the documentation at
-
-    \begin{center}
-        \url{https://github.com/Preqsis/multilayer-dripping-handrail}
-    \end{center}
-
-    where you will find a more detailed description of MDH's CLI parameters and examples, please feel free to examine, comment or even contribute to our codebase. 
-
-    We implemented a simulation code with a high level of input customizability that does not need a supercomputer to run but can be scaled to run on more powerful machines. All the results presented in this study were done on, by today's standards, a modest personal desktop computer. This fact alone is proof of good optimization, even though we faced massive data outputs of several $\si{\tera\byte}$ in some cases while keeping the run time in the order of hours, at most.
-
-    We are also aware of a few limitations of our code. One of those limitations is that the model application was tested only on Linux operating system with kernel version $5.0$ and higher. Moreover, it requires an installation of a few specific libraries and packages that can be tricky to install sometimes. For example, HDF5 and MPI libraries, but we believe anyone who wants to tinker with our code knows their way around computers and programming in general.
-
 \section{Simulations results}
-    % TODO: "poskladat do conclusions"
     In Chapter~\ref{chap:cv_models}, we presented a few result examples of MDH with different free parameters $q$ (local MSM mass inflow) and $\psi$ (the drop breakout ratio). We intentionally chose the extreme combinations of high a low values to demonstrate the dependence of MDH behavior on free parameter values. 
 
-    Figures~\ref{fig:plot_density_temperature_c1}~through~\ref{fig:plot_density_temperature_c7} demonstrate perfectly the possible result alterations by using different free parameters. However, one crucial feature is more or less prevalent in all results, and that is the radial mass distribution in the accretion disc's body. 
+    Figures~\ref{fig:plot_density_temperature_c1}~through~\ref{fig:plot_density_temperature_c7} demonstrate perfectly the possible result alterations by the use of different free parameters. However, one crucial feature is more or less prevalent in all results, and that is the radial mass distribution in the accretion disk's body. 
 
-    In the extracted area density $\Sigma$ and the mean area density $\bar{\Sigma}$, we can see a gradual increase towards the center and a sudden drop in the amount of mass contained within the cells. This drop in mass density happens relatively close to the inner edge of the accretion disc but not at the very edge of it, which is in good agreement with the Shakura-Sunyaev $\alpha$-disc solutions. Also, the numeric levels of area density do agree with the analytical solutions. This could be considered a good indication that our simulation results are not far-off. Alternatively, let us say a mutual confirmation of ours and Shakura-Sunyaev's models because we arrived at a very similar result by a completely different way of pure numerical simulation.
+    In the extracted area density $\Sigma$ and the mean area density $\bar{\Sigma}$, we can see a gradual increase towards the center and a sudden drop in the amount of mass contained within the cells. This drop in mass density happens relatively close to the inner edge of the accretion disk but not at the very edge of it, which is in good agreement with the Shakura-Sunyaev $\alpha$-disk solutions. Also, the numeric levels of area density do agree with the analytical solutions. This could be considered a good indication that our simulation results are not far-off. Alternatively, let us say a mutual confirmation of ours and Shakura-Sunyaev's models because we arrived at a very similar result by a completely different way of pure numerical simulation.
 
     We also extracted synthetic light curves for all presented SIM runs (see Figures~\ref{fig:plot_light_curves_undisturbed}~and~\ref{fig:plot_light_curves_disturbed}). Each of these light curves exhibits vastly different characteristics, from the periodic brightening visible in C4 to the aperiodic C3 and C2 light curves.  
 
@@ -47,15 +24,14 @@
     And again, please feel free to examine, comment, and share any insight or suggestions on the video visualizations of our results. 
 
 \section{Determining the Shakura-Sunyaev $\alpha$ parameter}
-    % TODO: "poskladat do conclusions"
-    One of our research's main goals was to devise a method for determining the value of the free $\alpha$ parameter in the standard Shakura-Sunyaev accretion disc model. Our MDH model gave us the tools to do exactly that because we can run a highly customizable accretion disc simulation. By iterative process of varying MDH's free parameters for specific CV systems and analyzing the results, it is possible to get to a tailored model configuration for that specific accretion system. Therefore, the results of such simulation will give us the data from which we can obtain the $\alpha$ parameter for the analyzed real-world system (see Chapter~\ref{chap:alpha_model_fitting}).
+    One of our research's main goals was to devise a method for determining the value of the free $\alpha$ parameter in the standard Shakura-Sunyaev accretion disk model. Our MDH model gave us the tools to do exactly that because we can run a highly customizable accretion disk simulation. By iterative process of varying MDH's free parameters for specific CV systems and analyzing the results, it is possible to get to a tailored model configuration for that specific accretion system. Therefore, the results of such simulation will give us the data from which we can obtain the $\alpha$ parameter for the analyzed real-world system (see Chapter~\ref{chap:alpha_model_fitting}).
 
     We analyzed three different extreme cases of free parameter variations. A summary of the $\alpha$ parameter results, with the used free parameters and other initial conditions, is listed in Table~\ref{tab:table_alpha_summary} (see also Figure~\ref{fig:plot_mean_density_fit}).
     
     \begin{table}[ht]
     \centering
     \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}cccccc}
-        SIM run & $q$ & $\psi$ & $\dot{M} [\si{\gram \cdot \second^{-1}}]$ & $\alpha$ & $\alpha\ \mathrm{Std.\ dev.}$ \\ 
+        SIM run & $q$ & $\psi$ & $\dot{M} [\si{\gram \cdot \second^{-1}}]$ & $\alpha$ & $\alpha\ \mathrm{std.\ dev.}$ \\ 
     \hline\hline
         C2 & $0.1$ & $0.9$ & $10^{14}$ & $0.067$ & $0.003$ \\
         C3 & $0.9$ & $0.1$ & $10^{14}$ & $0.254$ & $0.008$ \\
@@ -67,17 +43,16 @@
     \end{table}
 
 \section{Blob impacts experiments}
-    % TODO: "poskladat do conclusions"
-    Another feature of our MDH code is the ability to disturb the simulation mid-run by a blob impact onto the accretion disc's body. Conceptually, it is a relatively straightforward operation but a very powerful feature. We can add any size or shape of irregular mass accretion at any point during the simulation, and it opens up a whole new range of simulation cases. Starting with irregular mass ejections from the secondary component, through interfering with the steady accretion stream, to studies of different blob configurations behavior. Moreover, it offers endless possibilities for altering the accretion disc's power output and the light curve. 
+    Another feature of our MDH code is the ability to disturb the simulation mid-run by a blob impact onto the accretion disk's body. Conceptually, it is a relatively straightforward operation but a very powerful feature. We can add any size or shape of irregular mass accretion at any point during the simulation, and it opens up a whole new range of simulation cases. Starting with irregular mass ejections from the secondary component, through interfering with the steady accretion stream, to studies of accretion disk reactions on different blob configurations. Moreover, it offers endless possibilities for altering the accretion disk's power output and the light curve. 
 
     The part of MDH's code responsible for handling the matter blob addition is implemented so the user can define any shape and size configuration and supply it as an easily readable and editable JSON file.
 
-    We did three SIM runs C5, C6, and C7, with the same free parameters settings as C2, C3, and C4. The results of these disturbed SIM runs to demonstrate the different effects that the variations of MDH's free parameters have on the simulation outcome (see Figure~\ref{fig:plot_light_curves_disturbed}).
+    We did three SIM runs C5, C6, and C7, with the same free parameters settings as C2, C3, and C4. The results of these disturbed SIM runs demonstrate the different effects that the variations of MDH's free parameters have on the simulation outcome (see Figure~\ref{fig:plot_light_curves_disturbed}).
 
 \section{Future research}
-    As any other research is never finished, so is ours. In our case, this is slightly exaggerated because a significant portion of work done on MDH is actually a software development project with its quirks and challenges. We, or anyone interested, can always add, improve or extend the capabilities of our model. Therefore, we want to offer suggestions and inspiration for future research. 
+    As any other research is never finished, so is ours. In our case, this is slightly exaggerated because a significant portion of work done on MDH is actually a software development project with its own quirks and challenges. We, or anyone interested, can always add, improve or extend the capabilities of our model. Therefore, we want to offer suggestions and inspiration for future research. 
 
-    The first idea that comes to mind is testing more critical dripping mechanisms other than MSM. The MSM turned out to be a good choice because MDH, in its current implementation, produces results that are in very good agreement with Shakura-Sunyaev $\alpha$-disc solutions. It would also be helpful and practical if the dripping mechanism code could be \emph{plugged-in} to the main simulation code for even higher customizability. Currently, the MSM code is part of the main codebase. 
+    The first idea that comes to mind is testing more critical dripping mechanisms other than MSM. The MSM turned out to be a good choice because MDH, in its current implementation, produces results that are in very good agreement with Shakura-Sunyaev $\alpha$-disk solutions. It would also be helpful and practical if the dripping mechanism code could be \emph{plugged-in} to the main simulation code for even higher customizability. Currently, the MSM code is part of the main codebase. 
 
     The MDH underlying theory and definitions, as described in Chapter~\ref{chap:multilayer_dripping_handrail}, could undoubtedly be extended. For example, we could introduce magnetic fields or relativistic effects into the mix. This would make the MDH code more usable for other types of accreting systems.
 

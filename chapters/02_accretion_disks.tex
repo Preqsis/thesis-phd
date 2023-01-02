@@ -2,7 +2,7 @@
     \label{chap:accretion_disks}
     \thispagestyle{empty}
 
-    % \mquote{Actually, it's called the accretion disc.}{Colonel Jack O'Neil}
+    % \mquote{Actually, it's called the accretion disk.}{Colonel Jack O'Neil}
     \mquote{Science, my lad, is made up of mistakes, but they are mistakes which it is usefull to make, because they lead little by little to the truth}{Jules Verne}
 
     The term \emph{accretion} comes from a Latin word \emph{accrescere} which literarily means \emph{become larger}, and in astrophysics, we refer exactly to that process. That is the \emph{coming together and cohesion of matter under the influence of gravity to form larger bodies} (citace). One could easily argue that it is one of the most fundamental processes in the universe. From the giant galaxies to the tiniest rocks floating around in the solar system. All the stars, planets, and all there is were smashed together by gravity at some point in the past. Atom by atom, piece by piece, to form larger and larger structures. Even the dinosaurs probably met their fate by a city-sized asteroid that accreted Earth some 65 million years ago. 
@@ -86,7 +86,7 @@
 
     Then there is a question of magnetic fields. The central object (i.e., WD or NS) may or may not be magnetized. Some objects rotate very fast. For example, NS rotation periods range from a couple of milliseconds to tens of seconds. The temperature and composition of the material inflow can widely differ depending on the characteristics of the secondary object. All those factors add up and create a complex non-linear accretion environment. Therefore, when modeling such a complex and dynamic astrophysical system, we are inevitably forced to make some simplifications, neglections, and approximations. 
 
-    In many cases, the accretion disk is closely confined to an orbital plane, so in the first approximation, we may regard the disk's matter flow as two-dimensional, ad we call this the \emph{thin disc approximation}. This simple yet very effective simplification enables the creation of a very elaborate accretion model's theory, but with reduced complexity, \citep{acpow}.
+    In many cases, the accretion disk is closely confined to an orbital plane, so in the first approximation, we may regard the disk's matter flow as two-dimensional, ad we call this the \emph{thin disk approximation}. This simple yet very effective simplification enables the creation of a very elaborate accretion model's theory, but with reduced complexity, \citep{acpow}.
 
 \subsection{Sub-Eddington accretion disks}
     The standard vertically \emph{thin} accretion disk is formed under the conditions of sub-Eddington accretion rate and very high opacity. The Eddington limit
@@ -95,9 +95,9 @@
         L_{\mathrm{E}} = 1.38 \cdot 10^{38} (M / M_{\odot}) 
     \end{equation}
 
-    is the maximum luminosity of a radiating body in hydrostatic equilibrium, which means the radiation and gravitational forces acting in opposite directions are in balance. The accreting matter follows very tight spiraling orbits that are almost Keplerian. Moreover, thin disks have a relatively high luminosity with spectral energy distribution closely resembling a \emph{black body} radiation. Thin disks theory was devised almost independently by \citep{lyndenbell1974}, \citep{pringle1981}. Under the umbrella of \emph{standard thin disks} is also the Shakura-Sunyaev $\alpha$-disc model, which is described more closely in Section \ref{sec:alpha_model_definition}. This model is particularly interesting to us because part of our simulation efforts in the latter chapters is focused on the $\alpha$ parameter modeling.
+    is the maximum luminosity of a radiating body in hydrostatic equilibrium, which means the radiation and gravitational forces acting in opposite directions are in balance. The accreting matter follows very tight spiraling orbits that are almost Keplerian. Moreover, thin disks have a relatively high luminosity with spectral energy distribution closely resembling a \emph{black body} radiation. Thin disks theory was devised almost independently by \citep{lyndenbell1974}, \citep{pringle1981}. Under the umbrella of \emph{standard thin disks} is also the Shakura-Sunyaev $\alpha$-disk model, which is described more closely in Section \ref{sec:alpha_model_definition}. This model is particularly interesting to us because part of our simulation efforts in the latter chapters is focused on the $\alpha$ parameter modeling.
 
-    In the case of the central object in the thin disc system being a black hole, the models need to deal with relativistic effects in its proximity. Researchers D. N. Page and K. S. Thorne provided such a theory in \citep{page1974}, which was later used by \citep{luminet1979} and \citep{marck1996} to generate synthetic images of Keplerian disk around a black hole distorted by intense gravitational lensing. Figure~\ref{fig:bh_warped} shows a more recent simulation example of such a synthetic image. 
+    In the case of the central object in the thin disk system being a black hole, the models need to deal with relativistic effects in its proximity. Researchers D. N. Page and K. S. Thorne provided such a theory in \citep{page1974}, which was later used by \citep{luminet1979} and \citep{marck1996} to generate synthetic images of Keplerian disk around a black hole distorted by intense gravitational lensing. Figure~\ref{fig:bh_warped} shows a more recent simulation example of such a synthetic image. 
 
     \begin{figure}[h]
         \centering
@@ -115,7 +115,7 @@
 
     As our technological capabilities progress and enables observations of these extremly distand and old objects, the details of super-Edington accretion mechanism remain uncler. This topic is important for understanding the processes behing the growt of first supermassive black holes and teir impact on their host galaxies.
 
-\subsection[Shakura-Sunyaev $\alpha$-Disc model]{Shakura-Sunyaev $\alpha$-disc}
+\subsection[Shakura-Sunyaev $\alpha$-disk model]{Shakura-Sunyaev $\alpha$-disk}
     \label{sec:alpha_model_definition}
     In 1973, N. I. Shakura and R. Sunyaev proposed an accretion disk model whose source of increased viscosity are the turbulent flow patterns in the disk's body \citep{shakura1973}. This model applies if the modeled system is a \emph{thin disk}, and because of that, it is considered that all material in the disk's body is near its surface, allowing the thermal emission to escape freely. Therefore, self-absorption processes are insignificant. 
 
@@ -148,7 +148,7 @@
         \nu = \alpha c_{\mathrm{s}} H,
     \end{equation}
 
-    where $c_{\mathrm{s}}$ represents the speed of sound in the medium. $H$ represents the scale height of the disk limiting the subsonic turbulent eddies size. The free parameter $\alpha$ ranges between zero (no accretion) and approximately one. Solving the equations \eqref{eq:alpha_model_prescription} with the assumption $\mu = 0.615$ (fully ionized gases), we get a set of relations representing the Shakura-Sunyaev $\alpha$-disc solution \citep{acpow}  
+    where $c_{\mathrm{s}}$ represents the speed of sound in the medium. $H$ represents the scale height of the disk limiting the subsonic turbulent eddies size. The free parameter $\alpha$ ranges between zero (no accretion) and approximately one. Solving the equations \eqref{eq:alpha_model_prescription} with the assumption $\mu = 0.615$ (fully ionized gases), we get a set of relations representing the Shakura-Sunyaev $\alpha$-disk solution \citep{acpow}  
 
     \begin{align}
     \begin{split}

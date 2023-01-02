@@ -6,7 +6,7 @@
 
     This chapter will focus on the technical side of our accretion disk modeling efforts. Because incomparably more time was spent on implementing, testing, and debugging the code than developing the underlying theory; we are talking orders of magnitude more.
 
-    There were four consecutive versions of the code. Each is improving the previous and fixing its errors while introducing new challenges. The version presented in this study is the last iteration so far, and as with any other software, whether the scientific or commercial application, it is never finished. There is still room for improvement and new ideas. However, we can confidently say that this version of MDH implementation can model accretion disc dynamics and power output with a good mix of robustness and customizability.  
+    There were four consecutive versions of the code. Each is improving the previous and fixing its errors while introducing new challenges. The version presented in this study is the last iteration so far, and as with any other software, whether the scientific or commercial application, it is never finished. There is still room for improvement and new ideas. However, we can confidently say that this version of MDH implementation can model accretion disk dynamics and power output with a good mix of robustness and customizability.  
 
     We knew from the start that modeling such a complex, inherently non-linear system would be a challenge, first and foremost hardware-wise. Because for one, as shown in Chapter \ref{chap:multilayer_dripping_handrail}, the number of individual cells, each holding its system of ODEs, can quickly go up to thousands. Second, each cell holds 13 state values (i.e., coordinates, temperature, compute flags, etc.). For example, a moderate simulation run of $10^5$ steps produces over a $100 \si{\giga\byte}$ of data, and that is just the dynamical simulation part. When we start radiation extraction out of these results, we face several $\si{\tera\byte}$ datasets because, for every cell, we need to compute a spectral energy distribution of a few hundred values (depending on the chosen range and granularity). Therefore, two challenges were presented from the get-go:
 
@@ -26,12 +26,12 @@
     The model's codebase is split, based on the logic of consequent operations, into three parts that, for the sake of simplicity and ease of use are:
 
     \begin{enumerate}[topsep=4mm]
-        \item \textbf{SIMULATION} (SIM) - performs the dynamical simulation of matter flow and temperature changes in the accretion disc.
-        \item \textbf{RADIATION} (RAD) - takes the dynamical simulation results and computes the disc's power output spectral distribution over the predefined range of wavelengths.
+        \item \textbf{SIMULATION} (SIM) - performs the dynamical simulation of matter flow and temperature changes in the accretion disk.
+        \item \textbf{RADIATION} (RAD) - takes the dynamical simulation results and computes the disk's power output spectral distribution over the predefined range of wavelengths.
         \item \textbf{OBSERVATION} (OBS) - performs a synthetic observation, with the use of analytical approximations of Johnson-Cousins $\mathrm{UBVRI}$ photometric filters, and extracts a flickering light curve.  
     \end{enumerate}
 
-    All these subtasks employ parallelization, but each in a slightly different fashion. SIM and RAD are parallelized spatially, which means that the disc's cells are split into same-sized groups, and these groups are computed separately by individual processes. OBS is parallelized in the time domain because the computation of an individual light curve's data point is not dependent on previous or following data points. 
+    All these subtasks employ parallelization, but each in a slightly different fashion. SIM and RAD are parallelized spatially, which means that the disk's cells are split into same-sized groups, and these groups are computed separately by individual processes. OBS is parallelized in the time domain because the computation of an individual light curve's data point is not dependent on previous or following data points. 
 
     The subtasks can be run separately or pass over its result to the next subtask. Also, in the case of SIM, it is possible to run it either as a clean simulation or as a continuation of previous results. The ability to start the SIM from a predefined point in another run is particularly important in cases where we need to simulate multiple parameter variations with the same initial conditions. It might seem easy, but re-initializing such a complex and large data structure is not trivial. 
 
@@ -100,7 +100,7 @@
 \subsection{Data output}
     To store a large amount of data that MDH simulation produces, we use HDF5 (\emph{Hierarchical Data Formats}), which is an open-source file format that can store complex and heterogeneous data \citep{hdf5_2006}. Furthermore, HDF5 supports very fast IO (\emph{Input/Output}), so it enables us to store every simulation frame (i.e., the state in time) in full without the need for data truncation or frame skipping. At the same time, the simulation performance, at least with our example hardware configuration, is not limited by the IO but only by the CPU. 
 
-    Every data frame, whether SIM, RAD, or OBS data, is stored as a multidimensional array with the same structure used in computations, making re-initializing the simulation run easier. HDF5 also can store meta-data, which means we can also store the global simulation parameters (e.g., disc's geometry, central object's mass, size of the timestep, etc.) alongside the actual data; therefore, the whole simulation is reproducible with just one file, without the need for additional meta-data or configuration files.
+    Every data frame, whether SIM, RAD, or OBS data, is stored as a multidimensional array with the same structure used in computations, making re-initializing the simulation run easier. HDF5 also can store meta-data, which means we can also store the global simulation parameters (e.g., disk's geometry, central object's mass, size of the timestep, etc.) alongside the actual data; therefore, the whole simulation is reproducible with just one file, without the need for additional meta-data or configuration files.
 
     HDF5 was an excellent fit for our model's needs because it solved significant IO limitations in the first version of MDH.
 
@@ -112,7 +112,7 @@
 
     The \mbox{MASTER} process of SIM subtasks performs the data handling and instruction distribution role. First, it splits the accretion disk into $n-1$ cell subsets, where $n$ is the total number of running MDH processes, and then the subsets are distributed into the running SLAVE processes.
 
-    When the SLAVE processes are done with their calculations, the \mbox{MASTER} collects and combines the results. Also, the check for MSM critical dripping conditions must be done in \mbox{MASTER} because the matter redistribution happens all over the disc's body, across and between all the subsets of cells. Lastly, it saves the completed frame results into the HDF5 (*.h5) data file. 
+    When the SLAVE processes are done with their calculations, the \mbox{MASTER} collects and combines the results. Also, the check for MSM critical dripping conditions must be done in \mbox{MASTER} because the matter redistribution happens all over the disk's body, across and between all the subsets of cells. Lastly, it saves the completed frame results into the HDF5 (*.h5) data file. 
 
     The SLAVE processes of SIM are the actual \emph{simulation} part of this subtask. They receive the cell subsets, carry out the MSM's ODE system solution over those subsets, and return the results to \mbox{MASTER}. 
 
@@ -120,12 +120,12 @@
 
 \subsection{Disturbing the simulation by matter outburts}
     \label{sec:distributed_sim}
-    We implemented a possibility to disturb the MDH's SIM computation by a sudden targeted matter addition, which is supposed to model the situation when a matter outburst from the system's secondary component falls onto the accretion disc's body. 
+    We implemented a possibility to disturb the MDH's SIM computation by a sudden targeted matter addition, which is supposed to model the situation when a matter outburst from the system's secondary component falls onto the accretion disk's body. 
 
-    The disturbance is done by supplying a *.json blob definition file, which defines the position, size, and timing for the matter addition to the disc. We generally use a spherical blob of predefined total mass and gradually increasing density towards its center. The blob is divided into slices that are deposited onto the disc.
+    The disturbance is done by supplying a *.json blob definition file, which defines the position, size, and timing for the matter addition to the disk. We generally use a spherical blob of predefined total mass and gradually increasing density towards its center. The blob is divided into slices that are deposited onto the disk.
 
 \section{RAD - radiation extraction subtask}
-    The RADIATION subtask takes the results of the SIMULATION subtask, and per-cell basis computes the spectral energy distribution on a predefined wavelength interval, using \emph{black-body approximation} for disc's cells. This subtask is also spatially parallelized and employs the \mbox{MASTER} and SLAVES process model.
+    The RADIATION subtask takes the results of the SIMULATION subtask, and per-cell basis computes the spectral energy distribution on a predefined wavelength interval, using \emph{black-body approximation} for disk's cells. This subtask is also spatially parallelized and employs the \mbox{MASTER} and SLAVES process model.
 
     The structure and order of operations are the same as for SIM. However, the RAD's SLAVE processes compute the spectral energy distribution for each cell, which means a lot more values per single cell than SIM; therefore, the HDF5 output is drastically bigger. For reference, the RAD results from which we extracted the light curves in Chapter \ref{chap:cv_models} are done for the interval of $2880$ steps (i.e., $48$ hours in the real world), and the single RAD HDF5 data file is over 600 $\si{\giga\byte}$.
 
@@ -136,4 +136,10 @@
     It is almost ironic that the output of OBS is only a few hunderd $\si{\kilo\byte}$ HDF5 data file, considering the input is the RAD data file, which is the multi-hunderd $\si{\giga\byte}$ behemoth. The reason is that the output data are just a few simple time series of several thousand steps for each Johnson-Cousins photometric filter approximation (i.e., the light curves).
 
 \section{Source code and documentation}
-    
+    Our goal when composing this Chapter and Chapter~\ref{chap:multilayer_dripping_handrail} was to provide sort of a guide or, let us say, an operational manual. Anyone interested should be able to use, repeat or improve our research. Also, the full source code of MDH is available alongside the documentation at
+
+    \begin{center}
+        \url{https://github.com/Preqsis/multilayer-dripping-handrail}
+    \end{center}
+
+    where you will find a more detailed description of MDH's CLI parameters and examples, please feel free to examine, comment or even contribute to our codebase. 
