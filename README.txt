@@ -1,0 +1,1 @@
+This dissertation thesis repository also contains video visualizations of some MDH simulation runs presented. These files are named according to the terminology used in the thesis (i.e., C2 - C7), and the visualizations are based on the same datasets. The raw data are available on demand from the author.

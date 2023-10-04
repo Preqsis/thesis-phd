@@ -1,0 +1,10 @@
+Publications:
+
+1)
+    J. Květoň, F. Hroch, V. Votruba,
+    Multilayer dripping handrail: Modeling accretion disk dynamics with cellular automaton leaky faucet model,
+    Astronomy and Computing,
+    Volume 43,
+    Year 2023,
+    ISSN 2213-1337,
+    https://doi.org/10.1016/j.ascom.2023.100704.
